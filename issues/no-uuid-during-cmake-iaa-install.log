@@ -1,0 +1,185 @@
+-- Generating done (0.1s)
+-- Build files have been written to: /home/n869p538/decompress-latency/qpl/build
+(base) n869p538@emerald:build$ cmake --build . --target install
+[  1%] Building C object sources/isal/CMakeFiles/isal.dir/igzip/adler32_base.c.o
+[  1%] Building C object sources/isal/CMakeFiles/isal.dir/igzip/huff_codes.c.o
+[  1%] Building C object sources/isal/CMakeFiles/isal.dir/igzip/hufftables_c.c.o
+[  1%] Building C object sources/isal/CMakeFiles/isal.dir/igzip/igzip.c.o
+[  2%] Building C object sources/isal/CMakeFiles/isal.dir/igzip/igzip_base.c.o
+[  2%] Building C object sources/isal/CMakeFiles/isal.dir/igzip/flatten_ll.c.o
+[  2%] Building C object sources/isal/CMakeFiles/isal.dir/igzip/encode_df.c.o
+[  2%] Building C object sources/isal/CMakeFiles/isal.dir/igzip/igzip_icf_base.c.o
+[  2%] Building C object sources/isal/CMakeFiles/isal.dir/igzip/igzip_inflate.c.o
+[  3%] Building C object sources/isal/CMakeFiles/isal.dir/igzip/igzip_icf_body.c.o
+[  3%] Building C object sources/isal/CMakeFiles/isal.dir/crc/crc_base.c.o
+[  3%] Building C object sources/isal/CMakeFiles/isal.dir/crc/crc64_base.c.o
+[  3%] Built target isal
+[  3%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/igzip_body.asm.o
+[  4%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/igzip_gen_icf_map_lh1_04.asm.o
+[  4%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/igzip_gen_icf_map_lh1_06.asm.o
+[  4%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/igzip_decode_block_stateless_04.asm.o
+[  4%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/igzip_finish.asm.o
+[  4%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/encode_df_04.asm.o
+[  5%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/encode_df_06.asm.o
+[  5%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/igzip_decode_block_stateless_01.asm.o
+[  5%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/proc_heap.asm.o
+[  5%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/igzip_icf_body_h1_gr_bt.asm.o
+[  5%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/igzip_icf_finish.asm.o
+[  6%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/igzip_inflate_multibinary.asm.o
+[  6%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/igzip_update_histogram_01.asm.o
+[  6%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/igzip_update_histogram_04.asm.o
+[  6%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/rfc1951_lookup.asm.o
+[  7%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/adler32_sse.asm.o
+[  7%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/adler32_avx2_4.asm.o
+[  7%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/igzip_deflate_hash.asm.o
+[  7%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/igzip_set_long_icf_fg_04.asm.o
+[  7%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/igzip_set_long_icf_fg_06.asm.o
+[  8%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/igzip_multibinary.asm.o
+[  8%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/igzip/stdmac.asm.o
+[  8%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/crc/crc_multibinary.asm.o
+[  8%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/crc/crc32_gzip_refl_by8.asm.o
+[  9%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/crc/crc32_gzip_refl_by8_02.asm.o
+[  9%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/crc/crc32_gzip_refl_by16_10.asm.o
+[  9%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/crc/crc32_ieee_01.asm.o
+[  9%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/crc/crc32_ieee_02.asm.o
+[  9%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/crc/crc32_ieee_by4.asm.o
+[ 10%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/crc/crc32_ieee_by16_10.asm.o
+[ 10%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/crc/crc32_iscsi_00.asm.o
+[ 10%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/crc/crc32_iscsi_01.asm.o
+[ 10%] Building ASM_NASM object sources/isal/CMakeFiles/isal_asm.dir/crc/crc32_iscsi_by16_10.asm.o
+[ 10%] Built target isal_asm
+[ 10%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/checksums/qplc_checksum.c.o
+[ 11%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/compression/deflate_hash_table.c.o
+[ 11%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/compression/deflate_histogram.c.o
+[ 11%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/compression/deflate_slow.c.o
+[ 11%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/compression/deflate_slow_icf.c.o
+[ 11%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/compression/deflate_slow_matcher.c.o
+[ 12%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/compression/deflate_slow_utils.c.o
+[ 12%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/filtering/qplc_aggregates.c.o
+[ 12%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/filtering/qplc_expand.c.o
+[ 12%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/filtering/qplc_extract.c.o
+[ 13%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/filtering/qplc_pack_16u.c.o
+[ 13%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/filtering/qplc_pack_32u.c.o
+[ 13%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/filtering/qplc_pack_8u.c.o
+[ 13%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/filtering/qplc_pack_be_16u.c.o
+[ 13%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/filtering/qplc_pack_be_32u.c.o
+[ 14%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/filtering/qplc_pack_be_8u.c.o
+[ 14%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/filtering/qplc_pack_be_idx.c.o
+[ 14%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/filtering/qplc_pack_idx.c.o
+[ 14%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/filtering/qplc_scan.c.o
+[ 15%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/filtering/qplc_select.c.o
+[ 15%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/filtering/qplc_unpack_16u.c.o
+[ 15%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/filtering/qplc_unpack_32u.c.o
+[ 15%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/filtering/qplc_unpack_8u.c.o
+[ 15%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/filtering/qplc_unpack_be_16u.c.o
+[ 16%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/filtering/qplc_unpack_be_32u.c.o
+[ 16%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/filtering/qplc_unpack_be_8u.c.o
+[ 16%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/filtering/qplc_unpack_prle.c.o
+[ 16%] Building C object sources/core-sw/CMakeFiles/qplcore_px.dir/src/other/qplc_memop.c.o
+[ 16%] Built target qplcore_px
+[ 16%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/checksums/qplc_checksum.c.o
+[ 17%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/compression/deflate_hash_table.c.o
+[ 17%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/compression/deflate_histogram.c.o
+[ 17%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/compression/deflate_slow.c.o
+[ 17%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/compression/deflate_slow_icf.c.o
+[ 17%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/compression/deflate_slow_matcher.c.o
+[ 18%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/compression/deflate_slow_utils.c.o
+[ 18%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/filtering/qplc_aggregates.c.o
+[ 18%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/filtering/qplc_expand.c.o
+[ 18%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/filtering/qplc_extract.c.o
+[ 19%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/filtering/qplc_pack_16u.c.o
+[ 19%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/filtering/qplc_pack_32u.c.o
+[ 19%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/filtering/qplc_pack_8u.c.o
+[ 19%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/filtering/qplc_pack_be_16u.c.o
+[ 19%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/filtering/qplc_pack_be_32u.c.o
+[ 20%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/filtering/qplc_pack_be_8u.c.o
+[ 20%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/filtering/qplc_pack_be_idx.c.o
+[ 20%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/filtering/qplc_pack_idx.c.o
+[ 20%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/filtering/qplc_scan.c.o
+[ 20%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/filtering/qplc_select.c.o
+[ 21%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/filtering/qplc_unpack_16u.c.o
+[ 21%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/filtering/qplc_unpack_32u.c.o
+[ 21%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/filtering/qplc_unpack_8u.c.o
+[ 21%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/filtering/qplc_unpack_be_16u.c.o
+[ 22%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/filtering/qplc_unpack_be_32u.c.o
+[ 22%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/filtering/qplc_unpack_be_8u.c.o
+[ 22%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/filtering/qplc_unpack_prle.c.o
+[ 22%] Building C object sources/core-sw/CMakeFiles/qplcore_avx512.dir/src/other/qplc_memop.c.o
+[ 22%] Built target qplcore_avx512
+[ 22%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/dispatcher/dispatcher.cpp.o
+[ 23%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/dispatcher/simple_memory_ops_c_bind.cpp.o
+[ 23%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_aggregates.cpp.o
+[ 23%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_crc64.cpp.o
+[ 23%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_deflate.cpp.o
+[ 24%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_deflate_fix.cpp.o
+[ 24%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_expand.cpp.o
+[ 24%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_extract.cpp.o
+[ 24%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_extract_i.cpp.o
+[ 24%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_memory_copy.cpp.o
+[ 25%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_move.cpp.o
+[ 25%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_pack.cpp.o
+[ 25%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_pack_index.cpp.o
+[ 25%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_scan.cpp.o
+[ 25%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_scan_i.cpp.o
+[ 26%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_select.cpp.o
+[ 26%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_select_i.cpp.o
+[ 26%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_setup_dictionary.cpp.o
+[ 26%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_unpack.cpp.o
+[ 27%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_unpack_prle.cpp.o
+[ 27%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_xor_checksum.cpp.o
+[ 27%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_zero.cpp.o
+[ 27%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_aggregates.cpp.o
+[ 27%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_crc64.cpp.o
+[ 28%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_deflate.cpp.o
+[ 28%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_deflate_fix.cpp.o
+[ 28%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_expand.cpp.o
+[ 28%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_extract.cpp.o
+[ 29%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_extract_i.cpp.o
+[ 29%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_memory_copy.cpp.o
+[ 29%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_move.cpp.o
+[ 29%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_pack.cpp.o
+[ 29%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_pack_index.cpp.o
+[ 30%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_scan.cpp.o
+[ 30%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_scan_i.cpp.o
+[ 30%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_select.cpp.o
+[ 30%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_select_i.cpp.o
+[ 30%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_setup_dictionary.cpp.o
+[ 31%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_unpack.cpp.o
+[ 31%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_unpack_prle.cpp.o
+[ 31%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_xor_checksum.cpp.o
+[ 31%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_zero.cpp.o
+[ 31%] Built target qplcore_sw_dispatcher
+[ 31%] Building C object sources/core-iaa/CMakeFiles/core_iaa.dir/sources/aecs/datatables.c.o
+[ 32%] Building C object sources/core-iaa/CMakeFiles/core_iaa.dir/sources/aecs/hw_aecs_compress.c.o
+[ 32%] Building C object sources/core-iaa/CMakeFiles/core_iaa.dir/sources/aecs/hw_aecs_decompress.c.o
+[ 32%] Building C object sources/core-iaa/CMakeFiles/core_iaa.dir/sources/aecs/hw_huffman_table.c.o
+[ 32%] Building C object sources/core-iaa/CMakeFiles/core_iaa.dir/sources/bit_rev.c.o
+[ 33%] Building C object sources/core-iaa/CMakeFiles/core_iaa.dir/sources/descriptors/hw_analytic_descriptor_base.c.o
+[ 33%] Building C object sources/core-iaa/CMakeFiles/core_iaa.dir/sources/descriptors/hw_analytic_descriptor_operations.c.o
+[ 33%] Building C object sources/core-iaa/CMakeFiles/core_iaa.dir/sources/descriptors/hw_analytic_descriptor_suboperations.c.o
+[ 33%] Building C object sources/core-iaa/CMakeFiles/core_iaa.dir/sources/descriptors/hw_compress_descriptor.c.o
+[ 33%] Building C object sources/core-iaa/CMakeFiles/core_iaa.dir/sources/descriptors/hw_crc64_descriptor.c.o
+[ 34%] Building C object sources/core-iaa/CMakeFiles/core_iaa.dir/sources/descriptors/hw_decompress_descriptor.c.o
+[ 34%] Building C object sources/core-iaa/CMakeFiles/core_iaa.dir/sources/descriptors/hw_descriptor.c.o
+[ 34%] Building C object sources/core-iaa/CMakeFiles/core_iaa.dir/sources/driver_loader/hw_configuration_driver.c.o
+In file included from /home/n869p538/decompress-latency/qpl/sources/core-iaa/include/hw_configuration_driver.h:17,
+                 from /home/n869p538/decompress-latency/qpl/sources/core-iaa/sources/driver_loader/hw_configuration_driver.c:9:
+/home/n869p538/decompress-latency/qpl/sources/core-iaa/include/libaccel_config.h:15:10: fatal error: uuid/uuid.h: No such file or directory
+   15 | #include <uuid/uuid.h>
+      |          ^~~~~~~~~~~~~
+compilation terminated.
+gmake[2]: *** [sources/core-iaa/CMakeFiles/core_iaa.dir/build.make:244: sources/core-iaa/CMakeFiles/core_iaa.dir/sources/driver_loader/hw_configuration_driver.c.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:778: sources/core-iaa/CMakeFiles/core_iaa.dir/all] Error 2
+gmake: *** [Makefile:136: all] Error 2
+(base) n869p538@emerald:build$ touch ../../ISSUES.md
+(base) n869p538@emerald:build$ realpath ../../ISSUES.md
+/home/n869p538/decompress-latency/ISSUES.md
+(base) n869p538@emerald:build$ ls
+bin  CMakeCache.txt  CMakeFiles  cmake_install.cmake  examples  lib  Makefile  QPLConfig.cmake  QPLConfigVersion.cmake  sources  tools
+(base) n869p538@emerald:build$ ls ~/
+AMX-TMUL-Code-Samples  anaconda3  Anaconda3-2023.09-0-Linux-x86_64.sh  ANN-Profiling  decompress-latency  hbm-kind-posix  mlnx_l2fwd_testing  simd_experiment  vscode-cpptools  zeros.npy
+(base) n869p538@emerald:build$ ls ..
+build  cmake  CMakeLists.txt  CONTRIBUTING.md  doc  Doxyfile  examples  include  install  LICENSE  README.md  SECURITY.md  sources  third-party-programs.txt  tools
+(base) n869p538@emerald:build$ ls ~/.
+AMX-TMUL-Code-Samples  anaconda3  Anaconda3-2023.09-0-Linux-x86_64.sh  ANN-Profiling  decompress-latency  hbm-kind-posix  mlnx_l2fwd_testing  simd_experiment  vscode-cpptools  zeros.npy
+(base) n869p538@emerald:build$

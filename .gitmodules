@@ -1,3 +1,6 @@
 [submodule "qpl"]
 	path = qpl
 	url = https://github.com/intel/qpl.git
+[submodule "idxd-config"]
+	path = idxd-config
+	url = https://github.com/intel/idxd-config.git

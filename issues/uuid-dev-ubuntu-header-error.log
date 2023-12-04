@@ -1,0 +1,278 @@
+(base) n869p538@emerald:build$ ls
+bin  CMakeCache.txt  CMakeFiles  cmake_install.cmake  examples  lib  Makefile  QPLConfig.cmake  QPLConfigVersion.cmake  sources  tools
+(base) n869p538@emerald:build$ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(pwd)/../install ..
+-- Intel QPL version: 1.3.1
+-- Build type: Release
+-- Memory sanitizing build: OFF
+-- Threads sanitizing build: OFF
+-- Hardware initialization logging: OFF
+-- Efficient wait instructions: OFF
+-- Fuzz testing build: OFF
+-- Load libaccel-config dynamically with dlopen: ON
+-- Build with examples: ON
+-- Build with tests and benchmarks framework: ON
+-- Failed to find LLVM FileCheck
+-- git version: v1.8.3 normalized to 1.8.3
+-- Google Benchmark version: 1.8.3
+-- Performing Test HAVE_STD_REGEX -- success
+-- Performing Test HAVE_GNU_POSIX_REGEX -- failed to compile
+-- Performing Test HAVE_POSIX_REGEX -- success
+-- Performing Test HAVE_STEADY_CLOCK -- success
+-- Performing Test HAVE_PTHREAD_AFFINITY -- success
+-- Configuring done (0.5s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/n869p538/decompress-latency/qpl/build
+(reverse-i-search)`cmake': mv ../../no-uuid-during-^Cake-iaa-install.log ../issues/
+(base) n869p538@emerald:build$ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(pwd)/../install ..
+-- Intel QPL version: 1.3.1
+-- Build type: Release
+-- Memory sanitizing build: OFF
+-- Threads sanitizing build: OFF
+-- Hardware initialization logging: OFF
+-- Efficient wait instructions: OFF
+-- Fuzz testing build: OFF
+-- Load libaccel-config dynamically with dlopen: ON
+-- Build with examples: ON
+-- Build with tests and benchmarks framework: ON
+-- Failed to find LLVM FileCheck
+-- git version: v1.8.3 normalized to 1.8.3
+-- Google Benchmark version: 1.8.3
+-- Performing Test HAVE_STD_REGEX -- success
+-- Performing Test HAVE_GNU_POSIX_REGEX -- failed to compile
+-- Performing Test HAVE_POSIX_REGEX -- success
+-- Performing Test HAVE_STEADY_CLOCK -- success
+-- Performing Test HAVE_PTHREAD_AFFINITY -- success
+-- Configuring done (0.4s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/n869p538/decompress-latency/qpl/build
+(base) n869p538@emerald:build$ cmake --build . --target install
+[  3%] Built target isal
+[ 10%] Built target isal_asm
+[ 16%] Built target qplcore_px
+[ 22%] Built target qplcore_avx512
+[ 22%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_aggregates.cpp.o
+[ 22%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_crc64.cpp.o
+[ 22%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_deflate.cpp.o
+[ 23%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_deflate_fix.cpp.o
+[ 23%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_expand.cpp.o
+[ 23%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_extract.cpp.o
+[ 23%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_extract_i.cpp.o
+[ 23%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_memory_copy.cpp.o
+[ 24%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_move.cpp.o
+[ 24%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_pack.cpp.o
+[ 24%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_pack_index.cpp.o
+[ 24%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_scan.cpp.o
+[ 24%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_scan_i.cpp.o
+[ 25%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_select.cpp.o
+[ 25%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_select_i.cpp.o
+[ 25%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_setup_dictionary.cpp.o
+[ 25%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_unpack.cpp.o
+[ 26%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_unpack_prle.cpp.o
+[ 26%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_xor_checksum.cpp.o
+[ 26%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/px_zero.cpp.o
+[ 26%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_aggregates.cpp.o
+[ 26%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_crc64.cpp.o
+[ 27%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_deflate.cpp.o
+[ 27%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_deflate_fix.cpp.o
+[ 27%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_expand.cpp.o
+[ 27%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_extract.cpp.o
+[ 28%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_extract_i.cpp.o
+[ 28%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_memory_copy.cpp.o
+[ 28%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_move.cpp.o
+[ 28%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_pack.cpp.o
+[ 28%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_pack_index.cpp.o
+[ 29%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_scan.cpp.o
+[ 29%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_scan_i.cpp.o
+[ 29%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_select.cpp.o
+[ 29%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_select_i.cpp.o
+[ 29%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_setup_dictionary.cpp.o
+[ 30%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_unpack.cpp.o
+[ 30%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_unpack_prle.cpp.o
+[ 30%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_xor_checksum.cpp.o
+[ 30%] Building CXX object sources/core-sw/CMakeFiles/qplcore_sw_dispatcher.dir/generated/avx512_zero.cpp.o
+[ 31%] Built target qplcore_sw_dispatcher
+[ 31%] Building C object sources/core-iaa/CMakeFiles/core_iaa.dir/sources/driver_loader/hw_configuration_driver.c.o
+In file included from /home/n869p538/decompress-latency/qpl/sources/core-iaa/include/hw_configuration_driver.h:17,
+                 from /home/n869p538/decompress-latency/qpl/sources/core-iaa/sources/driver_loader/hw_configuration_driver.c:9:
+/home/n869p538/decompress-latency/qpl/sources/core-iaa/include/libaccel_config.h:15:10: fatal error: uuid/uuid.h: No such file or directory
+   15 | #include <uuid/uuid.h>
+      |          ^~~~~~~~~~~~~
+compilation terminated.
+gmake[2]: *** [sources/core-iaa/CMakeFiles/core_iaa.dir/build.make:244: sources/core-iaa/CMakeFiles/core_iaa.dir/sources/driver_loader/hw_configuration_driver.c.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:778: sources/core-iaa/CMakeFiles/core_iaa.dir/all] Error 2
+gmake: *** [Makefile:136: all] Error 2
+(base) n869p538@emerald:build$ locate uuid.h
+Command 'locate' not found, but can be installed with:
+apt install plocate
+Please ask your administrator.
+(base) n869p538@emerald:build$ sudo apt install plocate
+[sudo] password for n869p538:
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  liburing2
+The following NEW packages will be installed:
+  liburing2 plocate
+0 upgraded, 2 newly installed, 0 to remove and 54 not upgraded.
+Need to get 140 kB of archives.
+After this operation, 555 kB of additional disk space will be used.
+Do you want to continue? [Y/n] Y
+Get:1 http://us.archive.ubuntu.com/ubuntu jammy/main amd64 liburing2 amd64 2.1-2build1 [10.3 kB]
+Get:2 http://us.archive.ubuntu.com/ubuntu jammy/main amd64 plocate amd64 1.1.15-1ubuntu2 [129 kB]
+Fetched 140 kB in 1s (202 kB/s)
+debconf: unable to initialize frontend: Dialog
+debconf: (Dialog frontend requires a screen at least 13 lines tall and 31 columns wide.)
+debconf: falling back to frontend: Readline
+Selecting previously unselected package liburing2:amd64.
+(Reading database ... 354176 files and directories currently installed.)
+Preparing to unpack .../liburing2_2.1-2build1_amd64.deb ...
+Unpacking liburing2:amd64 (2.1-2build1) ...
+Selecting previously unselected package plocate.
+Preparing to unpack .../plocate_1.1.15-1ubuntu2_amd64.deb ...
+Unpacking plocate (1.1.15-1ubuntu2) ...
+Setting up liburing2:amd64 (2.1-2build1) ...
+Setting up plocate (1.1.15-1ubuntu2) ...
+update-alternatives: using /usr/bin/plocate to provide /usr/bin/locate (locate) in auto mode
+Adding group `plocate' (GID 157) ...
+Done.
+Initializing plocate database; this may take some time... done
+Created symlink /etc/systemd/system/timers.target.wants/plocate-updatedb.timer → /lib/systemd/system/plocate-updatedb.timer.
+Processing triggers for man-db (2.10.2-1) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.4) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (Dialog frontend requires a screen at least 13 lines tall and 31 columns wide.)
+debconf: falling back to frontend: Readline
+Scanning processes...
+Scanning processor microcode...
+Scanning linux images...
+
+Running kernel seems to be up-to-date.
+
+The processor microcode seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+(base) n869p538@emerald:build$  <uuid/uuid.h>^C
+(base) n869p538@emerald:build$ locate uuid.h
+/home/a972m888/cacheCleaner/buildroot/package/dpdk/dpdk-source/lib/librte_eal/include/rte_uuid.h
+/home/c834u979/CAL-DPDK-GEM5/buildroot/package/dpdk/dpdk-source/lib/librte_eal/include/rte_uuid.h
+/home/j152s822/Documents/dpdk-stable-22.11.3/lib/eal/include/rte_uuid.h
+/home/j152s822/Documents/l2fwd-hbm/lib/eal/include/rte_uuid.h
+/home/j152s822/anaconda3/envs/reml/include/glib-2.0/glib/guuid.h
+/home/j152s822/anaconda3/envs/reml/include/qt/QtBluetooth/qbluetoothuuid.h
+/home/j152s822/anaconda3/envs/reml/include/qt/QtCore/quuid.h
+/home/j152s822/anaconda3/envs/reml/include/server/utils/uuid.h
+/home/j152s822/anaconda3/envs/reml/include/uuid/uuid.h
+/home/j152s822/anaconda3/include/aws/common/uuid.h
+/home/j152s822/anaconda3/include/boost/uuid/uuid.hpp
+/home/j152s822/anaconda3/include/glib-2.0/glib/guuid.h
+/home/j152s822/anaconda3/include/qt/QtBluetooth/qbluetoothuuid.h
+/home/j152s822/anaconda3/include/qt/QtCore/quuid.h
+/home/j152s822/anaconda3/include/server/utils/uuid.h
+/home/j152s822/anaconda3/include/uuid/uuid.h
+/home/j152s822/anaconda3/pkgs/aws-c-common-0.6.8-h5eee18b_1/include/aws/common/uuid.h
+/home/j152s822/anaconda3/pkgs/glib-2.69.1-he621ea3_2/include/glib-2.0/glib/guuid.h
+/home/j152s822/anaconda3/pkgs/libboost-1.73.0-h28710b8_12/include/boost/uuid/uuid.hpp
+/home/j152s822/anaconda3/pkgs/libpq-12.15-hdbd6064_1/include/server/utils/uuid.h
+/home/j152s822/anaconda3/pkgs/libuuid-1.41.5-h5eee18b_0/include/uuid/uuid.h
+/home/j152s822/anaconda3/pkgs/qt-main-5.15.2-h53bd1ea_10/include/qt/QtBluetooth/qbluetoothuuid.h
+/home/j152s822/anaconda3/pkgs/qt-main-5.15.2-h53bd1ea_10/include/qt/QtCore/quuid.h
+/home/j152s822/anaconda3/pkgs/qt-main-5.15.2-h7358343_9/include/qt/QtBluetooth/qbluetoothuuid.h
+/home/j152s822/anaconda3/pkgs/qt-main-5.15.2-h7358343_9/include/qt/QtCore/quuid.h
+/home/n869p538/.conda_pkgs/libuuid-1.41.5-h5eee18b_0/include/uuid/uuid.h
+/home/n869p538/ANN-Profiling/faiss_cpu_1.7.4/include/uuid/uuid.h
+/home/n869p538/anaconda3/include/aws/common/uuid.h
+/home/n869p538/anaconda3/include/boost/uuid/uuid.hpp
+/home/n869p538/anaconda3/include/glib-2.0/glib/guuid.h
+/home/n869p538/anaconda3/include/qt/QtBluetooth/qbluetoothuuid.h
+/home/n869p538/anaconda3/include/qt/QtCore/quuid.h
+/home/n869p538/anaconda3/include/server/utils/uuid.h
+/home/n869p538/anaconda3/include/uuid/uuid.h
+/home/n869p538/anaconda3/pkgs/aws-c-common-0.6.8-h5eee18b_1/include/aws/common/uuid.h
+/home/n869p538/anaconda3/pkgs/glib-2.69.1-he621ea3_2/include/glib-2.0/glib/guuid.h
+/home/n869p538/anaconda3/pkgs/libboost-1.73.0-h28710b8_12/include/boost/uuid/uuid.hpp
+/home/n869p538/anaconda3/pkgs/libpq-12.15-hdbd6064_1/include/server/utils/uuid.h
+/home/n869p538/anaconda3/pkgs/libuuid-1.41.5-h5eee18b_0/include/uuid/uuid.h
+/home/n869p538/anaconda3/pkgs/qt-main-5.15.2-h7358343_9/include/qt/QtBluetooth/qbluetoothuuid.h
+/home/n869p538/anaconda3/pkgs/qt-main-5.15.2-h7358343_9/include/qt/QtCore/quuid.h
+/home/n869p538/mlnx_l2fwd_testing/dpdk/lib/eal/include/rte_uuid.h
+/usr/include/linux/uuid.h
+/usr/local/include/rte_uuid.h
+/usr/src/linux-headers-5.15.0-88/include/acpi/acuuid.h
+/usr/src/linux-headers-5.15.0-88/include/linux/uuid.h
+/usr/src/linux-headers-5.15.0-88/include/uapi/linux/uuid.h
+/usr/src/linux-headers-5.15.0-89/include/acpi/acuuid.h
+/usr/src/linux-headers-5.15.0-89/include/linux/uuid.h
+/usr/src/linux-headers-5.15.0-89/include/uapi/linux/uuid.h
+(base) n869p538@emerald:build$ sudo apt install uuid
+uuid          uuidcdef      uuid-dev      uuid-runtime
+(base) n869p538@emerald:build$ sudo apt install uuid-dev
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following NEW packages will be installed:
+  uuid-dev
+0 upgraded, 1 newly installed, 0 to remove and 54 not upgraded.
+Need to get 33.1 kB of archives.
+After this operation, 176 kB of additional disk space will be used.
+Get:1 http://us.archive.ubuntu.com/ubuntu jammy/main amd64 uuid-dev amd64 2.37.2-4ubuntu3 [33.1 kB]
+Fetched 33.1 kB in 0s (81.3 kB/s)
+debconf: unable to initialize frontend: Dialog
+debconf: (Dialog frontend requires a screen at least 13 lines tall and 31 columns wide.)
+debconf: falling back to frontend: Readline
+Selecting previously unselected package uuid-dev:amd64.
+(Reading database ... 354197 files and directories currently installed.)
+Preparing to unpack .../uuid-dev_2.37.2-4ubuntu3_amd64.deb ...
+Unpacking uuid-dev:amd64 (2.37.2-4ubuntu3) ...
+Setting up uuid-dev:amd64 (2.37.2-4ubuntu3) ...
+Processing triggers for man-db (2.10.2-1) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (Dialog frontend requires a screen at least 13 lines tall and 31 columns wide.)
+debconf: falling back to frontend: Readline
+Scanning processes...
+Scanning processor microcode...
+Scanning linux images...
+
+Running kernel seems to be up-to-date.
+
+The processor microcode seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+(base) n869p538@emerald:build$ cmake --build . --target install
+[  3%] Built target isal
+[ 10%] Built target isal_asm
+[ 16%] Built target qplcore_px
+[ 22%] Built target qplcore_avx512
+[ 31%] Built target qplcore_sw_dispatcher
+[ 31%] Building C object sources/core-iaa/CMakeFiles/core_iaa.dir/sources/driver_loader/hw_configuration_driver.c.o
+[ 34%] Built target core_iaa
+[ 34%] Building CXX object sources/middle-layer/CMakeFiles/middle_layer_lib.dir/__/core-iaa/sources/accelerator/context.cpp.o
+[ 34%] Building CXX object sources/middle-layer/CMakeFiles/middle_layer_lib.dir/__/core-iaa/sources/accelerator/enqueue.cpp.o
+[ 34%] Building CXX object sources/middle-layer/CMakeFiles/middle_layer_lib.dir/analytics/expand.cpp.o
+[ 35%] Building CXX object sources/middle-layer/CMakeFiles/middle_layer_lib.dir/analytics/extract.cpp.o
+[ 35%] Building CXX object sources/middle-layer/CMakeFiles/middle_layer_lib.dir/analytics/input_stream.cpp.o
+[ 35%] Building CXX object sources/middle-layer/CMakeFiles/middle_layer_lib.dir/analytics/output_stream.cpp.o
+[ 35%] Building CXX object sources/middle-layer/CMakeFiles/middle_layer_lib.dir/analytics/select.cpp.o
+[ 35%] Building CXX object sources/middle-layer/CMakeFiles/middle_layer_lib.dir/common/bit_buffer.cpp.o
+[ 36%] Building CXX object sources/middle-layer/CMakeFiles/middle_layer_lib.dir/common/buffer.cpp.o
+[ 36%] Building CXX object sources/middle-layer/CMakeFiles/middle_layer_lib.dir/common/limited_buffer.cpp.o
+[ 36%] Building CXX object sources/middle-layer/CMakeFiles/middle_layer_lib.dir/compression/deflate/compression_units/auxiliary_units.cpp.o
+[ 36%] Building CXX object sources/middle-layer/CMakeFiles/middle_layer_lib.dir/compression/deflate/compression_units/compression_units.cpp.o
+^Bq[ 37%] Building CXX object sources/middle-layer/CMakeFiles/middle_layer_lib.dir/compression/deflate/compression_units/icf_units.cpp.o
+[ 37%] Building CXX object sources/middle-layer/CMakeFiles/middle_layer_lib.dir/compression/deflate/compression_units/stored_block_units.cpp.o
+[ 37%] Building CXX object sources/middle-layer/CMakeFiles/middle_layer_lib.dir/compression/deflate/containers/huffman_table.cpp.o
+[ 37%] Building CXX object sources/middle-layer/CMakeFiles/middle_layer_lib.dir/compression/deflate/containers/index_table.cpp.o
+[ 37%] Building CXX object sources/middle-layer/CMakeFiles/middle_layer_lib.dir/compression/deflate/deflate.cpp.o
+

@@ -1,0 +1,6 @@
+(base) n869p538@emerald:IAA_Decomp$ ./run.sh
+[sudo] password for n869p538:
+Intel(R) Query Processing Library version is 1.3.1.
+The example will be run on the hardware path.
+An error 501 acquired during compression job initializing.
+(base) n869p538@emerald:IAA_Decomp$
