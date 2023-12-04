@@ -4,7 +4,7 @@
 # mode: 0 - shared, 1 - dedicated
 # devices: 0 - all devices or start and end device number.
 # For example, 1, 7 will configure all the Socket0 devices in host or 0, 3
-will configure all the Socket0 devices in guest
+# will configure all the Socket0 devices in guest
 # 9, 15 will configure all the Socket1 devices and son on
 # 1 will configure only device 1
 # wq_size: 1-128
@@ -12,7 +12,7 @@ will configure all the Socket0 devices in guest
 # select iax config
 #
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-#echo ${dir}
+echo ${dir}
 #
 # count iax instances
 #
@@ -35,10 +35,11 @@ first=1 && step=2
 echo "Disable IAX"
 for ((i = ${first}; i < ${step} * ${num_iax}; i += ${step})); do
     echo disable wq iax${i}/wq${i}.0 >& /dev/null
-    accel-config disable-wq iax${i}/wq${i}.0 >& /dev/null
+    sudo accel-config disable-wq iax${i}/wq${i}.0 >& /dev/null
     echo disable iax iax${i} >& /dev/null
-    accel-config disable-device iax${i} >& /dev/null
+    sudo accel-config disable-device iax${i} >& /dev/null
 done
+
 echo "Configuring devices: ${device_num}"
 if [ ${device_num} == $num_iax ]; then
     echo "Configuring all devices"
@@ -60,20 +61,21 @@ fi
 echo "Enable IAX ${start} to ${end}"
 for ((i = ${start}; i < ${end}; i += ${step})); do
     # Config Engines and groups
-    accel-config config-engine iax${i}/engine${i}.0 --group-id=0
-    accel-config config-engine iax${i}/engine${i}.1 --group-id=0
-    accel-config config-engine iax${i}/engine${i}.2 --group-id=0
-    accel-config config-engine iax${i}/engine${i}.3 --group-id=0
-    accel-config config-engine iax${i}/engine${i}.4 --group-id=0
-    accel-config config-engine iax${i}/engine${i}.5 --group-id=0
-    accel-config config-engine iax${i}/engine${i}.6 --group-id=0
-    accel-config config-engine iax${i}/engine${i}.7 --group-id=0
+    sudo accel-config config-engine iax${i}/engine${i}.0 --group-id=0
+    sudo accel-config config-engine iax${i}/engine${i}.1 --group-id=0
+    sudo accel-config config-engine iax${i}/engine${i}.2 --group-id=0
+    sudo accel-config config-engine iax${i}/engine${i}.3 --group-id=0
+    sudo accel-config config-engine iax${i}/engine${i}.4 --group-id=0
+    sudo accel-config config-engine iax${i}/engine${i}.5 --group-id=0
+    sudo accel-config config-engine iax${i}/engine${i}.6 --group-id=0
+    sudo accel-config config-engine iax${i}/engine${i}.7 --group-id=0
     # Config WQ: group 0, size = 128, priority=10, mode=shared, type = user,
-    name=iax_crypto, threashold=128, block_on_fault=1, driver_name=user
-    accel-config config-wq iax${i}/wq${i}.0 -g 0 -s $wq_size -p 10 -m
-    ${mode} -y user -n user${i} -t $wq_size -b 1 -d user
+    # name=iax_crypto, threashold=128, block_on_fault=1, driver_name=user
+    echo "sudo accel-config config-wq iax${i}/wq${i}.0 -g 0 -s $wq_size -p 10 -m ${mode} -y user -n user${i} -t $wq_size -b 1 -d user"
+
+    sudo accel-config config-wq iax${i}/wq${i}.0 -g 0 -s $wq_size -p 10 -m ${mode} -y user -n user${i} -t $wq_size -b 1 -d user
     echo enable device iax${i}
-    accel-config enable-device iax${i}
+    sudo accel-config enable-device iax${i}
     echo enable wq iax${i}/wq${i}.0
-    accel-config enable-wq iax${i}/wq${i}.0
+    sudo accel-config enable-wq iax${i}/wq${i}.0
 done
