@@ -4,3 +4,9 @@
 [submodule "idxd-config"]
 	path = idxd-config
 	url = https://github.com/intel/idxd-config.git
+[submodule "intel-onchip-accel-tutorial"]
+	path = intel-onchip-accel-tutorial
+	url = https://github.com/rkuper/intel-onchip-accel-tutorial.git
+[submodule "cpu_decomp_perf/zlib"]
+	path = cpu_decomp_perf/zlib
+	url = https://github.com/madler/zlib.git
