@@ -1,4 +1,5 @@
 #include <zlib.h>
+#include <chrono>
 
 /**************************************
 *  Constants
@@ -8,6 +9,11 @@
 #define PROBATABLESIZE 4096
 #define PRIME1   2654435761U
 #define PRIME2   2246822519U
+#define PAGE_SIZE 4096
+
+#define GET_LOWER_32BITS(v)  ((v) & 0xFFFFFFFF)
+#define GET_LOWER_16BITS(v)  ((v) & 0xFFFF)
+#define GET_LOWER_8BITS(v)   ((v) & 0xFF)
 
 #define DISPLAY(...)         fprintf(stderr, __VA_ARGS__)
 
@@ -18,7 +24,7 @@ static int   displayLevel = 2;   /* 0 : no display;   1: errors;   2 : + result 
     do { perror(msg); exit(EXIT_FAILURE); } while (0)
 
 #define assert(stmt,msg) \
-    if(!stmt) { perror(msg); exit(EXIT_FAILURE); }
+    if(!stmt) { fprintf(1,msg); exit(EXIT_FAILURE); }
 
 /* Return Pointer to len-size decompressed buffer */
 static inline void * index_into_cbuf(Byte *cbuf, size_t offset, size_t len){
@@ -40,29 +46,56 @@ static inline void * index_into_cbuf(Byte *cbuf, size_t offset, size_t len){
 
 }
 
+static int alloc_buf(void * &vbuf, size_t size){
+    int ret;
+    ret = posix_memalign(&vbuf, PAGE_SIZE, sizeof(char) * size);
+    if(ret != 0){
+        assert(ret==0,"Failed alloc\n");
+    }
+    return ret;
+}
+
+static inline uint64_t CurrentTime_nanoseconds()
+{
+    return std::chrono::duration_cast<std::chrono::nanoseconds>
+              (std::chrono::high_resolution_clock::now().time_since_epoch()).count();
+}
+
+
 static void generate_cbuf(Byte *cbuf, Byte *inbuf, uLong size, uLong *totalOut){
     int ret;
-    z_stream cstrm;
-    cstrm.zalloc = Z_NULL;
-    cstrm.zfree = Z_NULL;
-    cstrm.opaque = Z_NULL; // USE MAlloc
+    z_stream strm;
+    strm.zalloc = Z_NULL;
+    strm.zfree = Z_NULL;
+    strm.opaque = Z_NULL; // USE MAlloc
 
-    ret = deflateInit2(
-        &cstrm,
-        9,
-        Z_DEFLATED,
-        -12, /* 4KB Window -- match IAA */
-        9,
-        Z_DEFAULT_STRATEGY
-    );
+    // ret = deflateInit2(
+    //     &strm,
+    //     9,
+    //     Z_DEFLATED,
+    //     -12, /* 4KB Window -- match IAA */
+    //     9,
+    //     Z_DEFAULT_STRATEGY
+    // );
+    ret = deflateInit(&strm, Z_DEFAULT_COMPRESSION);
+    assert(ret == Z_OK, "generate_cbuf initStream fail\n");
 
-    assert(ret == Z_OK)
+    strm.next_in=inbuf;
+    strm.avail_in=size;
+    strm.avail_out = size;
+    strm.next_out=cbuf;
+    int flush=Z_NO_FLUSH;
+    while(strm.avail_in != 0){
+        printf("avail_in:%ld,avail_out:%ld\n",strm.avail_in,strm.avail_out);
+        ret = deflate(&strm, Z_NO_FLUSH);
+        
+        assert(ret == Z_OK && strm.avail_out != 0, "deflate error\n");
+    }
+    deflate(&strm, Z_SYNC_FLUSH);
+    
+    assert( ret == Z_STREAM_END, "generate_cbuf: destination buffer too small\n");
 
-    // do{
-
-    // }
-
-    *totalOut=cstrm.total_out;
+    *totalOut=strm.total_out;
 }
 
 
@@ -70,6 +103,25 @@ static unsigned int GEN_rand (unsigned int* seed)
 {
     *seed =  ((*seed) * PRIME1) + PRIME2;
     return (*seed) >> 11;
+}
+
+static void genRandomData(char *data, size_t size)
+{
+    size_t i, j;
+    char c;
+    char *ptr = data;
+
+    while (ptr < (data + size)) {
+        j = rand() % 100;
+        c = GET_LOWER_8BITS((rand() % 65 + 90));
+        for (i = (size_t)0; i < j; i++) {
+            *ptr = c;
+            ptr++;
+            if (ptr >= (data + size)) {
+                break;
+            }
+        }
+    }
 }
 
 static void generate(void* buffer, size_t buffSize, double p)
