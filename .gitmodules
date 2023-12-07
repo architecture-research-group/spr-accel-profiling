@@ -10,3 +10,6 @@
 [submodule "cpu_decomp_perf/zlib"]
 	path = cpu_decomp_perf/zlib
 	url = https://github.com/madler/zlib.git
+[submodule "cpu_decomp_perf/isa-l"]
+	path = cpu_decomp_perf/isa-l
+	url = https://github.com/intel/isa-l.git

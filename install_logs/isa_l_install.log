@@ -1,0 +1,2010 @@
+(base) n869p538@sapphire:configs$ cd ../../../
+(base) n869p538@sapphire:spr-accel-profiling$ ls
+dev-info-logs  iaa_cfg.txt  IAA_Decomp  idxd-config  issues  pane.log  qpl  README.md  scripts  spr-4416-devices.log
+(base) n869p538@sapphire:spr-accel-profiling$ git add spr-4416-devices.log
+(base) n869p538@sapphire:spr-accel-profiling$ git commit -m "simple configuration example for dsa and iaa device"
+[main d7cd546] simple configuration example for dsa and iaa device
+ Committer: Neel Patel <n869p538@sapphire.ittc.ku.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 327 insertions(+)
+ create mode 100644 spr-4416-devices.log
+(base) n869p538@sapphire:spr-accel-profiling$ git push
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 80 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 1.69 KiB | 1.69 MiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To github.com:architecture-research-group/spr-accel-profiling.git
+   18ba33f..d7cd546  main -> main
+(base) n869p538@sapphire:spr-accel-profiling$ ls
+dev-info-logs  iaa_cfg.txt  IAA_Decomp  idxd-config  issues  pane.log  qpl  README.md  scripts  spr-4416-devices.log
+(base) n869p538@sapphire:spr-accel-profiling$ cd IAA_Decomp/
+(base) n869p538@sapphire:IAA_Decomp$ ls
+compression.cpp  decompression  decompression.cpp  iaa_decomp.log  issues  Makefile  run_decomp.sh
+(base) n869p538@sapphire:IAA_Decomp$ ./run_decomp.sh
+sudo ./decompression hardware_path
+Intel(R) Query Processing Library version is 1.3.1.
+The example will be run on the hardware path.
+An error 501 acquired during compression job initializing.
+sudo ./decompression software_path
+Intel(R) Query Processing Library version is 1.3.1.
+The example will be run on the software path.
+Content was successfully compressed and decompressed.
+Compressed size: 20
+(base) n869p538@sapphire:IAA_Decomp$ ls /dev/char/
+Display all 602 possibilities? (y or n)
+(base) n869p538@sapphire:IAA_Decomp$ ls /dev/char/*
+ls: cannot access '/dev/char/501:0': Permission denied
+ls: cannot access '/dev/char/501:1': Permission denied
+ls: cannot access '/dev/char/502:0': Permission denied
+ls: cannot access '/dev/char/502:1': Permission denied
+ls: cannot access '/dev/char/502:10': Permission denied
+ls: cannot access '/dev/char/502:11': Permission denied
+ls: cannot access '/dev/char/502:12': Permission denied
+ls: cannot access '/dev/char/502:13': Permission denied
+ls: cannot access '/dev/char/502:14': Permission denied
+ls: cannot access '/dev/char/502:15': Permission denied
+ls: cannot access '/dev/char/502:16': Permission denied
+ls: cannot access '/dev/char/502:17': Permission denied
+ls: cannot access '/dev/char/502:18': Permission denied
+ls: cannot access '/dev/char/502:19': Permission denied
+ls: cannot access '/dev/char/502:2': Permission denied
+ls: cannot access '/dev/char/502:20': Permission denied
+ls: cannot access '/dev/char/502:21': Permission denied
+ls: cannot access '/dev/char/502:22': Permission denied
+ls: cannot access '/dev/char/502:23': Permission denied
+ls: cannot access '/dev/char/502:24': Permission denied
+ls: cannot access '/dev/char/502:25': Permission denied
+ls: cannot access '/dev/char/502:26': Permission denied
+ls: cannot access '/dev/char/502:27': Permission denied
+ls: cannot access '/dev/char/502:28': Permission denied
+ls: cannot access '/dev/char/502:29': Permission denied
+ls: cannot access '/dev/char/502:3': Permission denied
+ls: cannot access '/dev/char/502:30': Permission denied
+ls: cannot access '/dev/char/502:31': Permission denied
+ls: cannot access '/dev/char/502:32': Permission denied
+ls: cannot access '/dev/char/502:33': Permission denied
+ls: cannot access '/dev/char/502:34': Permission denied
+ls: cannot access '/dev/char/502:35': Permission denied
+ls: cannot access '/dev/char/502:36': Permission denied
+ls: cannot access '/dev/char/502:37': Permission denied
+ls: cannot access '/dev/char/502:38': Permission denied
+ls: cannot access '/dev/char/502:39': Permission denied
+ls: cannot access '/dev/char/502:4': Permission denied
+ls: cannot access '/dev/char/502:40': Permission denied
+ls: cannot access '/dev/char/502:41': Permission denied
+ls: cannot access '/dev/char/502:42': Permission denied
+ls: cannot access '/dev/char/502:43': Permission denied
+ls: cannot access '/dev/char/502:44': Permission denied
+ls: cannot access '/dev/char/502:45': Permission denied
+ls: cannot access '/dev/char/502:46': Permission denied
+ls: cannot access '/dev/char/502:47': Permission denied
+ls: cannot access '/dev/char/502:48': Permission denied
+ls: cannot access '/dev/char/502:49': Permission denied
+ls: cannot access '/dev/char/502:5': Permission denied
+ls: cannot access '/dev/char/502:50': Permission denied
+ls: cannot access '/dev/char/502:51': Permission denied
+ls: cannot access '/dev/char/502:52': Permission denied
+ls: cannot access '/dev/char/502:53': Permission denied
+ls: cannot access '/dev/char/502:54': Permission denied
+ls: cannot access '/dev/char/502:55': Permission denied
+ls: cannot access '/dev/char/502:56': Permission denied
+ls: cannot access '/dev/char/502:57': Permission denied
+ls: cannot access '/dev/char/502:58': Permission denied
+ls: cannot access '/dev/char/502:59': Permission denied
+ls: cannot access '/dev/char/502:6': Permission denied
+ls: cannot access '/dev/char/502:60': Permission denied
+ls: cannot access '/dev/char/502:61': Permission denied
+ls: cannot access '/dev/char/502:62': Permission denied
+ls: cannot access '/dev/char/502:63': Permission denied
+ls: cannot access '/dev/char/502:64': Permission denied
+ls: cannot access '/dev/char/502:65': Permission denied
+ls: cannot access '/dev/char/502:66': Permission denied
+ls: cannot access '/dev/char/502:67': Permission denied
+ls: cannot access '/dev/char/502:68': Permission denied
+ls: cannot access '/dev/char/502:69': Permission denied
+ls: cannot access '/dev/char/502:7': Permission denied
+ls: cannot access '/dev/char/502:70': Permission denied
+ls: cannot access '/dev/char/502:71': Permission denied
+ls: cannot access '/dev/char/502:72': Permission denied
+ls: cannot access '/dev/char/502:73': Permission denied
+ls: cannot access '/dev/char/502:74': Permission denied
+ls: cannot access '/dev/char/502:75': Permission denied
+ls: cannot access '/dev/char/502:76': Permission denied
+ls: cannot access '/dev/char/502:77': Permission denied
+ls: cannot access '/dev/char/502:78': Permission denied
+ls: cannot access '/dev/char/502:79': Permission denied
+ls: cannot access '/dev/char/502:8': Permission denied
+ls: cannot access '/dev/char/502:9': Permission denied
+ls: cannot access '/dev/char/503:0': Permission denied
+ls: cannot access '/dev/char/503:1': Permission denied
+ls: cannot access '/dev/char/503:10': Permission denied
+ls: cannot access '/dev/char/503:11': Permission denied
+ls: cannot access '/dev/char/503:12': Permission denied
+ls: cannot access '/dev/char/503:13': Permission denied
+ls: cannot access '/dev/char/503:14': Permission denied
+ls: cannot access '/dev/char/503:15': Permission denied
+ls: cannot access '/dev/char/503:16': Permission denied
+ls: cannot access '/dev/char/503:17': Permission denied
+ls: cannot access '/dev/char/503:18': Permission denied
+ls: cannot access '/dev/char/503:19': Permission denied
+ls: cannot access '/dev/char/503:2': Permission denied
+ls: cannot access '/dev/char/503:20': Permission denied
+ls: cannot access '/dev/char/503:21': Permission denied
+ls: cannot access '/dev/char/503:22': Permission denied
+ls: cannot access '/dev/char/503:23': Permission denied
+ls: cannot access '/dev/char/503:24': Permission denied
+ls: cannot access '/dev/char/503:25': Permission denied
+ls: cannot access '/dev/char/503:26': Permission denied
+ls: cannot access '/dev/char/503:27': Permission denied
+ls: cannot access '/dev/char/503:28': Permission denied
+ls: cannot access '/dev/char/503:29': Permission denied
+ls: cannot access '/dev/char/503:3': Permission denied
+ls: cannot access '/dev/char/503:30': Permission denied
+ls: cannot access '/dev/char/503:31': Permission denied
+ls: cannot access '/dev/char/503:32': Permission denied
+ls: cannot access '/dev/char/503:33': Permission denied
+ls: cannot access '/dev/char/503:34': Permission denied
+ls: cannot access '/dev/char/503:35': Permission denied
+ls: cannot access '/dev/char/503:36': Permission denied
+ls: cannot access '/dev/char/503:37': Permission denied
+ls: cannot access '/dev/char/503:38': Permission denied
+ls: cannot access '/dev/char/503:39': Permission denied
+ls: cannot access '/dev/char/503:4': Permission denied
+ls: cannot access '/dev/char/503:40': Permission denied
+ls: cannot access '/dev/char/503:41': Permission denied
+ls: cannot access '/dev/char/503:42': Permission denied
+ls: cannot access '/dev/char/503:43': Permission denied
+ls: cannot access '/dev/char/503:44': Permission denied
+ls: cannot access '/dev/char/503:45': Permission denied
+ls: cannot access '/dev/char/503:46': Permission denied
+ls: cannot access '/dev/char/503:47': Permission denied
+ls: cannot access '/dev/char/503:48': Permission denied
+ls: cannot access '/dev/char/503:49': Permission denied
+ls: cannot access '/dev/char/503:5': Permission denied
+ls: cannot access '/dev/char/503:50': Permission denied
+ls: cannot access '/dev/char/503:51': Permission denied
+ls: cannot access '/dev/char/503:52': Permission denied
+ls: cannot access '/dev/char/503:53': Permission denied
+ls: cannot access '/dev/char/503:54': Permission denied
+ls: cannot access '/dev/char/503:55': Permission denied
+ls: cannot access '/dev/char/503:56': Permission denied
+ls: cannot access '/dev/char/503:57': Permission denied
+ls: cannot access '/dev/char/503:58': Permission denied
+ls: cannot access '/dev/char/503:59': Permission denied
+ls: cannot access '/dev/char/503:6': Permission denied
+ls: cannot access '/dev/char/503:60': Permission denied
+ls: cannot access '/dev/char/503:61': Permission denied
+ls: cannot access '/dev/char/503:62': Permission denied
+ls: cannot access '/dev/char/503:63': Permission denied
+ls: cannot access '/dev/char/503:64': Permission denied
+ls: cannot access '/dev/char/503:65': Permission denied
+ls: cannot access '/dev/char/503:66': Permission denied
+ls: cannot access '/dev/char/503:67': Permission denied
+ls: cannot access '/dev/char/503:68': Permission denied
+ls: cannot access '/dev/char/503:69': Permission denied
+ls: cannot access '/dev/char/503:7': Permission denied
+ls: cannot access '/dev/char/503:70': Permission denied
+ls: cannot access '/dev/char/503:71': Permission denied
+ls: cannot access '/dev/char/503:72': Permission denied
+ls: cannot access '/dev/char/503:73': Permission denied
+ls: cannot access '/dev/char/503:74': Permission denied
+ls: cannot access '/dev/char/503:75': Permission denied
+ls: cannot access '/dev/char/503:76': Permission denied
+ls: cannot access '/dev/char/503:77': Permission denied
+ls: cannot access '/dev/char/503:78': Permission denied
+ls: cannot access '/dev/char/503:79': Permission denied
+ls: cannot access '/dev/char/503:8': Permission denied
+ls: cannot access '/dev/char/503:9': Permission denied
+ls: cannot access '/dev/char/504:0': Permission denied
+ls: cannot access '/dev/char/504:1': Permission denied
+ls: cannot access '/dev/char/504:10': Permission denied
+ls: cannot access '/dev/char/504:11': Permission denied
+ls: cannot access '/dev/char/504:12': Permission denied
+ls: cannot access '/dev/char/504:13': Permission denied
+ls: cannot access '/dev/char/504:14': Permission denied
+ls: cannot access '/dev/char/504:15': Permission denied
+ls: cannot access '/dev/char/504:16': Permission denied
+ls: cannot access '/dev/char/504:17': Permission denied
+ls: cannot access '/dev/char/504:18': Permission denied
+ls: cannot access '/dev/char/504:19': Permission denied
+ls: cannot access '/dev/char/504:2': Permission denied
+ls: cannot access '/dev/char/504:20': Permission denied
+ls: cannot access '/dev/char/504:21': Permission denied
+ls: cannot access '/dev/char/504:22': Permission denied
+ls: cannot access '/dev/char/504:23': Permission denied
+ls: cannot access '/dev/char/504:24': Permission denied
+ls: cannot access '/dev/char/504:25': Permission denied
+ls: cannot access '/dev/char/504:26': Permission denied
+ls: cannot access '/dev/char/504:27': Permission denied
+ls: cannot access '/dev/char/504:28': Permission denied
+ls: cannot access '/dev/char/504:29': Permission denied
+ls: cannot access '/dev/char/504:3': Permission denied
+ls: cannot access '/dev/char/504:30': Permission denied
+ls: cannot access '/dev/char/504:31': Permission denied
+ls: cannot access '/dev/char/504:32': Permission denied
+ls: cannot access '/dev/char/504:33': Permission denied
+ls: cannot access '/dev/char/504:34': Permission denied
+ls: cannot access '/dev/char/504:35': Permission denied
+ls: cannot access '/dev/char/504:36': Permission denied
+ls: cannot access '/dev/char/504:37': Permission denied
+ls: cannot access '/dev/char/504:38': Permission denied
+ls: cannot access '/dev/char/504:39': Permission denied
+ls: cannot access '/dev/char/504:4': Permission denied
+ls: cannot access '/dev/char/504:40': Permission denied
+ls: cannot access '/dev/char/504:41': Permission denied
+ls: cannot access '/dev/char/504:42': Permission denied
+ls: cannot access '/dev/char/504:43': Permission denied
+ls: cannot access '/dev/char/504:44': Permission denied
+ls: cannot access '/dev/char/504:45': Permission denied
+ls: cannot access '/dev/char/504:46': Permission denied
+ls: cannot access '/dev/char/504:47': Permission denied
+ls: cannot access '/dev/char/504:48': Permission denied
+ls: cannot access '/dev/char/504:49': Permission denied
+ls: cannot access '/dev/char/504:5': Permission denied
+ls: cannot access '/dev/char/504:50': Permission denied
+ls: cannot access '/dev/char/504:51': Permission denied
+ls: cannot access '/dev/char/504:52': Permission denied
+ls: cannot access '/dev/char/504:53': Permission denied
+ls: cannot access '/dev/char/504:54': Permission denied
+ls: cannot access '/dev/char/504:55': Permission denied
+ls: cannot access '/dev/char/504:56': Permission denied
+ls: cannot access '/dev/char/504:57': Permission denied
+ls: cannot access '/dev/char/504:58': Permission denied
+ls: cannot access '/dev/char/504:59': Permission denied
+ls: cannot access '/dev/char/504:6': Permission denied
+ls: cannot access '/dev/char/504:60': Permission denied
+ls: cannot access '/dev/char/504:61': Permission denied
+ls: cannot access '/dev/char/504:62': Permission denied
+ls: cannot access '/dev/char/504:63': Permission denied
+ls: cannot access '/dev/char/504:64': Permission denied
+ls: cannot access '/dev/char/504:65': Permission denied
+ls: cannot access '/dev/char/504:66': Permission denied
+ls: cannot access '/dev/char/504:67': Permission denied
+ls: cannot access '/dev/char/504:68': Permission denied
+ls: cannot access '/dev/char/504:69': Permission denied
+ls: cannot access '/dev/char/504:7': Permission denied
+ls: cannot access '/dev/char/504:70': Permission denied
+ls: cannot access '/dev/char/504:71': Permission denied
+ls: cannot access '/dev/char/504:72': Permission denied
+ls: cannot access '/dev/char/504:73': Permission denied
+ls: cannot access '/dev/char/504:74': Permission denied
+ls: cannot access '/dev/char/504:75': Permission denied
+ls: cannot access '/dev/char/504:76': Permission denied
+ls: cannot access '/dev/char/504:77': Permission denied
+ls: cannot access '/dev/char/504:78': Permission denied
+ls: cannot access '/dev/char/504:79': Permission denied
+ls: cannot access '/dev/char/504:8': Permission denied
+ls: cannot access '/dev/char/504:9': Permission denied
+ls: cannot access '/dev/char/505:0': Permission denied
+ls: cannot access '/dev/char/505:1': Permission denied
+ls: cannot access '/dev/char/505:10': Permission denied
+ls: cannot access '/dev/char/505:11': Permission denied
+ls: cannot access '/dev/char/505:12': Permission denied
+ls: cannot access '/dev/char/505:13': Permission denied
+ls: cannot access '/dev/char/505:14': Permission denied
+ls: cannot access '/dev/char/505:15': Permission denied
+ls: cannot access '/dev/char/505:16': Permission denied
+ls: cannot access '/dev/char/505:17': Permission denied
+ls: cannot access '/dev/char/505:18': Permission denied
+ls: cannot access '/dev/char/505:19': Permission denied
+ls: cannot access '/dev/char/505:2': Permission denied
+ls: cannot access '/dev/char/505:20': Permission denied
+ls: cannot access '/dev/char/505:21': Permission denied
+ls: cannot access '/dev/char/505:22': Permission denied
+ls: cannot access '/dev/char/505:23': Permission denied
+ls: cannot access '/dev/char/505:24': Permission denied
+ls: cannot access '/dev/char/505:25': Permission denied
+ls: cannot access '/dev/char/505:26': Permission denied
+ls: cannot access '/dev/char/505:27': Permission denied
+ls: cannot access '/dev/char/505:28': Permission denied
+ls: cannot access '/dev/char/505:29': Permission denied
+ls: cannot access '/dev/char/505:3': Permission denied
+ls: cannot access '/dev/char/505:30': Permission denied
+ls: cannot access '/dev/char/505:31': Permission denied
+ls: cannot access '/dev/char/505:32': Permission denied
+ls: cannot access '/dev/char/505:33': Permission denied
+ls: cannot access '/dev/char/505:34': Permission denied
+ls: cannot access '/dev/char/505:35': Permission denied
+ls: cannot access '/dev/char/505:36': Permission denied
+ls: cannot access '/dev/char/505:37': Permission denied
+ls: cannot access '/dev/char/505:38': Permission denied
+ls: cannot access '/dev/char/505:39': Permission denied
+ls: cannot access '/dev/char/505:4': Permission denied
+ls: cannot access '/dev/char/505:40': Permission denied
+ls: cannot access '/dev/char/505:41': Permission denied
+ls: cannot access '/dev/char/505:42': Permission denied
+ls: cannot access '/dev/char/505:43': Permission denied
+ls: cannot access '/dev/char/505:44': Permission denied
+ls: cannot access '/dev/char/505:45': Permission denied
+ls: cannot access '/dev/char/505:46': Permission denied
+ls: cannot access '/dev/char/505:47': Permission denied
+ls: cannot access '/dev/char/505:48': Permission denied
+ls: cannot access '/dev/char/505:49': Permission denied
+ls: cannot access '/dev/char/505:5': Permission denied
+ls: cannot access '/dev/char/505:50': Permission denied
+ls: cannot access '/dev/char/505:51': Permission denied
+ls: cannot access '/dev/char/505:52': Permission denied
+ls: cannot access '/dev/char/505:53': Permission denied
+ls: cannot access '/dev/char/505:54': Permission denied
+ls: cannot access '/dev/char/505:55': Permission denied
+ls: cannot access '/dev/char/505:56': Permission denied
+ls: cannot access '/dev/char/505:57': Permission denied
+ls: cannot access '/dev/char/505:58': Permission denied
+ls: cannot access '/dev/char/505:59': Permission denied
+ls: cannot access '/dev/char/505:6': Permission denied
+ls: cannot access '/dev/char/505:60': Permission denied
+ls: cannot access '/dev/char/505:61': Permission denied
+ls: cannot access '/dev/char/505:62': Permission denied
+ls: cannot access '/dev/char/505:63': Permission denied
+ls: cannot access '/dev/char/505:64': Permission denied
+ls: cannot access '/dev/char/505:65': Permission denied
+ls: cannot access '/dev/char/505:66': Permission denied
+ls: cannot access '/dev/char/505:67': Permission denied
+ls: cannot access '/dev/char/505:68': Permission denied
+ls: cannot access '/dev/char/505:69': Permission denied
+ls: cannot access '/dev/char/505:7': Permission denied
+ls: cannot access '/dev/char/505:70': Permission denied
+ls: cannot access '/dev/char/505:71': Permission denied
+ls: cannot access '/dev/char/505:72': Permission denied
+ls: cannot access '/dev/char/505:73': Permission denied
+ls: cannot access '/dev/char/505:74': Permission denied
+ls: cannot access '/dev/char/505:75': Permission denied
+ls: cannot access '/dev/char/505:76': Permission denied
+ls: cannot access '/dev/char/505:77': Permission denied
+ls: cannot access '/dev/char/505:78': Permission denied
+ls: cannot access '/dev/char/505:79': Permission denied
+ls: cannot access '/dev/char/505:8': Permission denied
+ls: cannot access '/dev/char/505:9': Permission denied
+ls: cannot access '/dev/char/506:0': Permission denied
+ls: cannot access '/dev/char/507:0': Permission denied
+ls: cannot access '/dev/char/507:1': Permission denied
+ls: cannot access '/dev/char/508:0': Permission denied
+/dev/char/10:1    /dev/char/13:65    /dev/char/202:20  /dev/char/202:49  /dev/char/202:77  /dev/char/4:16  /dev/char/4:44  /dev/char/4:72   /dev/char/510
+:0
+/dev/char/10:120  /dev/char/13:66    /dev/char/202:21  /dev/char/202:5   /dev/char/202:78  /dev/char/4:17  /dev/char/4:45  /dev/char/4:73   /dev/char/511
+:0
+/dev/char/10:121  /dev/char/13:67    /dev/char/202:22  /dev/char/202:50  /dev/char/202:79  /dev/char/4:18  /dev/char/4:46  /dev/char/4:74   /dev/char/5:2
+/dev/char/10:122  /dev/char/13:68    /dev/char/202:23  /dev/char/202:51  /dev/char/202:8   /dev/char/4:19  /dev/char/4:47  /dev/char/4:75   /dev/char/5:3
+/dev/char/10:123  /dev/char/13:69    /dev/char/202:24  /dev/char/202:52  /dev/char/202:9   /dev/char/4:2   /dev/char/4:48  /dev/char/4:76   /dev/char/7:0
+/dev/char/10:124  /dev/char/13:70    /dev/char/202:25  /dev/char/202:53  /dev/char/21:0    /dev/char/4:20  /dev/char/4:49  /dev/char/4:77   /dev/char/7:1
+/dev/char/10:125  /dev/char/13:71    /dev/char/202:26  /dev/char/202:54  /dev/char/21:1    /dev/char/4:21  /dev/char/4:5   /dev/char/4:78   /dev/char/7:1
+28
+/dev/char/10:126  /dev/char/1:4      /dev/char/202:27  /dev/char/202:55  /dev/char/226:0   /dev/char/4:22  /dev/char/4:50  /dev/char/4:79   /dev/char/7:1
+29
+/dev/char/10:127  /dev/char/1:5      /dev/char/202:28  /dev/char/202:56  /dev/char/235:0   /dev/char/4:23  /dev/char/4:51  /dev/char/4:8    /dev/char/7:1
+30
+/dev/char/10:183  /dev/char/1:7      /dev/char/202:29  /dev/char/202:57  /dev/char/236:0   /dev/char/4:24  /dev/char/4:52  /dev/char/4:80   /dev/char/7:1
+31
+/dev/char/10:196  /dev/char/1:8      /dev/char/202:3   /dev/char/202:58  /dev/char/236:1   /dev/char/4:25  /dev/char/4:53  /dev/char/4:81   /dev/char/7:1
+32
+/dev/char/10:200  /dev/char/189:0    /dev/char/202:30  /dev/char/202:59  /dev/char/236:2   /dev/char/4:26  /dev/char/4:54  /dev/char/4:82   /dev/char/7:1
+33
+/dev/char/10:223  /dev/char/189:1    /dev/char/202:31  /dev/char/202:6   /dev/char/236:3   /dev/char/4:27  /dev/char/4:55  /dev/char/4:83   /dev/char/7:1
+34
+/dev/char/10:227  /dev/char/189:128  /dev/char/202:32  /dev/char/202:60  /dev/char/243:0   /dev/char/4:28  /dev/char/4:56  /dev/char/4:84   /dev/char/7:2
+/dev/char/10:228  /dev/char/189:2    /dev/char/202:33  /dev/char/202:61  /dev/char/243:1   /dev/char/4:29  /dev/char/4:57  /dev/char/4:85   /dev/char/7:3
+/dev/char/10:229  /dev/char/189:3    /dev/char/202:34  /dev/char/202:62  /dev/char/246:0   /dev/char/4:3   /dev/char/4:58  /dev/char/4:86   /dev/char/7:4
+/dev/char/10:231  /dev/char/189:4    /dev/char/202:35  /dev/char/202:63  /dev/char/246:1   /dev/char/4:30  /dev/char/4:59  /dev/char/4:87   /dev/char/7:5
+/dev/char/10:232  /dev/char/1:9      /dev/char/202:36  /dev/char/202:64  /dev/char/247:0   /dev/char/4:31  /dev/char/4:6   /dev/char/4:88   /dev/char/7:6
+/dev/char/10:234  /dev/char/202:0    /dev/char/202:37  /dev/char/202:65  /dev/char/247:1   /dev/char/4:32  /dev/char/4:60  /dev/char/4:89   /dev/char/7:6
+4
+/dev/char/10:235  /dev/char/202:1    /dev/char/202:38  /dev/char/202:66  /dev/char/248:0   /dev/char/4:33  /dev/char/4:61  /dev/char/4:9    /dev/char/7:6
+5
+/dev/char/10:236  /dev/char/202:10   /dev/char/202:39  /dev/char/202:67  /dev/char/249:0   /dev/char/4:34  /dev/char/4:62  /dev/char/4:90   /dev/char/7:6
+6
+/dev/char/10:237  /dev/char/202:11   /dev/char/202:4   /dev/char/202:68  /dev/char/254:0   /dev/char/4:35  /dev/char/4:63  /dev/char/4:91   /dev/char/7:6
+7
+/dev/char/10:242  /dev/char/202:12   /dev/char/202:40  /dev/char/202:69  /dev/char/29:0    /dev/char/4:36  /dev/char/4:64  /dev/char/4:92   /dev/char/7:6
+8
+/dev/char/108:0   /dev/char/202:13   /dev/char/202:41  /dev/char/202:7   /dev/char/4:0     /dev/char/4:37  /dev/char/4:65  /dev/char/4:93   /dev/char/7:6
+9
+/dev/char/1:1     /dev/char/202:14   /dev/char/202:42  /dev/char/202:70  /dev/char/4:1     /dev/char/4:38  /dev/char/4:66  /dev/char/4:94   /dev/char/7:7
+0
+/dev/char/1:11    /dev/char/202:15   /dev/char/202:43  /dev/char/202:71  /dev/char/4:10    /dev/char/4:39  /dev/char/4:67  /dev/char/4:95   /dev/char/89:
+0
+/dev/char/1:3     /dev/char/202:16   /dev/char/202:44  /dev/char/202:72  /dev/char/4:11    /dev/char/4:4   /dev/char/4:68  /dev/char/499:0  /dev/char/89:
+1
+/dev/char/13:32   /dev/char/202:17   /dev/char/202:45  /dev/char/202:73  /dev/char/4:12    /dev/char/4:40  /dev/char/4:69  /dev/char/5:0    /dev/char/89:
+2
+/dev/char/13:33   /dev/char/202:18   /dev/char/202:46  /dev/char/202:74  /dev/char/4:13    /dev/char/4:41  /dev/char/4:7   /dev/char/500:0
+/dev/char/13:63   /dev/char/202:19   /dev/char/202:47  /dev/char/202:75  /dev/char/4:14    /dev/char/4:42  /dev/char/4:70  /dev/char/509:0
+/dev/char/13:64   /dev/char/202:2    /dev/char/202:48  /dev/char/202:76  /dev/char/4:15    /dev/char/4:43  /dev/char/4:71  /dev/char/5:1
+(base) n869p538@sapphire:IAA_Decomp$ ls /dev
+apwr_driver_char_dev  fb0        ipmi0           loop20        nvram        sda2      tty11  tty28  tty44  tty60      ttyS18  ttyS6       vcs4   vga_arbi
+ter
+autofs                fd         isst_interface  loop21        pax          sda3      tty12  tty29  tty45  tty61      ttyS19  ttyS7       vcs5   vhci
+block                 full       kmsg            loop22        port         sdb       tty13  tty3   tty46  tty62      ttyS2   ttyS8       vcs6   vhost-ne
+t
+bsg                   fuse       kvm             loop23        ppp          sdb1      tty14  tty30  tty47  tty63      ttyS20  ttyS9       vcsa   vhost-vs
+ock
+btrfs-control         gpiochip0  log             loop3         pps0         sep5      tty15  tty31  tty48  tty7       ttyS21  ubuntu-vg   vcsa1  zero
+bus                   hidraw0    loop0           loop4         pps1         sg0       tty16  tty32  tty49  tty8       ttyS22  udmabuf     vcsa2  zfs
+char                  hidraw1    loop1           loop5         psaux        sg1       tty17  tty33  tty5   tty9       ttyS23  uhid        vcsa3
+console               hidraw2    loop10          loop6         ptmx         shm       tty18  tty34  tty50  ttyprintk  ttyS24  uinput      vcsa4
+core                  hidraw3    loop11          loop7         ptp0         snapshot  tty19  tty35  tty51  ttyS0      ttyS25  urandom     vcsa5
+cpu                   hpet       loop12          loop8         ptp1         snd       tty2   tty36  tty52  ttyS1      ttyS26  userio      vcsa6
+cpu_dma_latency       hugepages  loop13          loop9         pts          socperf3  tty20  tty37  tty53  ttyS10     ttyS27  vboxdrv     vcsu
+cuse                  hwrng      loop14          loop-control  qat_adf_ctl  stderr    tty21  tty38  tty54  ttyS11     ttyS28  vboxdrvu    vcsu1
+disk                  i2c-0      loop15          mapper        random       stdin     tty22  tty39  tty55  ttyS12     ttyS29  vboxnetctl  vcsu2
+dm-0                  i2c-1      loop16          mcelog        rfkill       stdout    tty23  tty4   tty56  ttyS13     ttyS3   vboxusb     vcsu3
+dma_heap              i2c-2      loop17          mem           rtc          tty       tty24  tty40  tty57  ttyS14     ttyS30  vcs         vcsu4
+dri                   iax        loop18          mqueue        rtc0         tty0      tty25  tty41  tty58  ttyS15     ttyS31  vcs1        vcsu5
+dsa                   initctl    loop19          net           sda          tty1      tty26  tty42  tty59  ttyS16     ttyS4   vcs2        vcsu6
+ecryptfs              input      loop2           null          sda1         tty10     tty27  tty43  tty6   ttyS17     ttyS5   vcs3        vfio
+(base) n869p538@sapphire:IAA_Decomp$ ls /dev/iax/
+wq1.0
+(base) n869p538@sapphire:IAA_Decomp$ ls /dev/dsa/
+wq0.0
+(base) n869p538@sapphire:IAA_Decomp$ cd ../cpu_decomp_perf/
+(base) n869p538@sapphire:cpu_decomp_perf$ ls
+decomp_latency  decomp_latency.cpp  zlib
+(base) n869p538@sapphire:cpu_decomp_perf$ cd zlib/
+(base) n869p538@sapphire:zlib$ ls
+adler32.c       configure  deflate.h  gzguts.h   infback.c   inflate.h   Makefile.in   os400          trees.c    zconf.h          zlib.h           zutil.
+h
+amiga           contrib    doc        gzlib.c    inffast.c   inftrees.c  make_vms.com  qnx            trees.h    zconf.h.cmakein  zlib.map
+ChangeLog       crc32.c    examples   gzread.c   inffast.h   inftrees.h  msdos         README         uncompr.c  zconf.h.in       zlib.pc.cmakein
+CMakeLists.txt  crc32.h    FAQ        gzwrite.c  inffixed.h  LICENSE     nintendods    test           watcom     zlib.3           zlib.pc.in
+compress.c      deflate.c  gzclose.c  INDEX      inflate.c   Makefile    old           treebuild.xml  win32      zlib.3.pdf       zutil.c
+(base) n869p538@sapphire:zlib$ realpath examples/
+enough.c         gun.c            gzjoin.c         gzlog.h          README.examples  zpipe.c          zran.h
+fitblk.c         gzappend.c       gzlog.c          gznorm.c         zlib_how.html    zran.c
+(base) n869p538@sapphire:zlib$ realpath examples/
+enough.c         gun.c            gzjoin.c         gzlog.h          README.examples  zpipe.c          zran.h
+fitblk.c         gzappend.c       gzlog.c          gznorm.c         zlib_how.html    zran.c
+(base) n869p538@sapphire:zlib$ realpath
+adler32.c        crc32.c          .git             gzwrite.c        inflate.h        msdos/           treebuild.xml    zconf.h.cmakein  zlib.pc.in
+amiga/           crc32.h          .github/         INDEX            inftrees.c       nintendods/      trees.c          zconf.h.in       zutil.c
+ChangeLog        deflate.c        .gitignore       infback.c        inftrees.h       old/             trees.h          zlib.3           zutil.h
+CMakeLists.txt   deflate.h        gzclose.c        inffast.c        LICENSE          os400/           uncompr.c        zlib.3.pdf
+compress.c       doc/             gzguts.h         inffast.h        Makefile         qnx/             watcom/          zlib.h
+configure        examples/        gzlib.c          inffixed.h       Makefile.in      README           win32/           zlib.map
+contrib/         FAQ              gzread.c         inflate.c        make_vms.com     test/            zconf.h          zlib.pc.cmakein
+(base) n869p538@sapphire:zlib$ ls ~/
+16core-batch32.csv                     configure                              LICENSE.BSD                            QATzip/
+16core-batch32_summary.csv             config_vqat.sh                         LICENSE.GPL                            QATZipOG/
+8core-batch32.csv                      cpa_sample_code_main.c                 LICENSE.OPENSSL                        quickassist/
+8core-batch32_summary.csv              cpu_latency.csv                        llm-compress/                          r002ue/
+Accelerated-MMUL-Sensitivity-Analysis/ CXLMemSim/                             .local/                                r003ue/
+AICFM/                                 dc_figures_of_merit/                   log_backups/                           reml/
+AMX-TMUL-Code-Samples/                 .debug/                                ltmain.sh                              reml-bw.csv
+anaconda3/                             depcomp                                lzbench_cpu_bandwidths_ratios.csv      reml-project/
+Anaconda3-2023.09-0-Linux-x86_64.sh    dpdk-22.11.3.tar.xz                    lzbench-ezstd,1_bandwidths_ratios.csv  reml-project.bak/
+ar-lib                                 dpdk_install_artifacts/                Makefile                               similarity_search_profiling/
+.bash_aliases                          dpdk-stable-22.11.3/                   Makefile.in                            spr-accel-profiling/
+.bash_history                          faiss/                                 missing                                .ssh/
+(base) n869p538@sapphire:zlib$ ls ~/AMX-TMUL-Code-Samples/
+CODE_OF_CONDUCT.md  CONTRIBUTING.md  Makefile  README.md  src
+(base) n869p538@sapphire:zlib$ ls ~/AMX-TMUL-Code-Samples/src/
+License.txt  Makefile  test-amxtile  test-amxtile.c
+(base) n869p538@sapphire:zlib$ ls ~/AMX-TMUL-Code-Samples/
+CODE_OF_CONDUCT.md  CONTRIBUTING.md     .git/               Makefile            README.md           src/
+(base) n869p538@sapphire:zlib$ ls ~/AMX-TMUL-Code-Samples/
+CODE_OF_CONDUCT.md  CONTRIBUTING.md     .git/               Makefile            README.md           src/
+(base) n869p538@sapphire:zlib$ ls ~/
+16core-batch32.csv                     config.sub              generate_conf_files.sh                 mlnx_l2fwd_testing         reml
+16core-batch32_summary.csv             configure               install-sh                             pane.log                   reml-bw.csv
+8core-batch32.csv                      config_vqat.sh          intel                                  perf.data                  reml-project
+8core-batch32_summary.csv              cpa_sample_code_main.c  LICENSE.BSD                            QAT                        reml-project.bak
+Accelerated-MMUL-Sensitivity-Analysis  cpu_latency.csv         LICENSE.GPL                            QAT_bak                    similarity_search_profil
+ing
+AICFM                                  CXLMemSim               LICENSE.OPENSSL                        QATDev.code-workspace      spr-accel-profiling
+AMX-TMUL-Code-Samples                  dc_figures_of_merit     llm-compress                           qat_latency.csv            STREAM
+anaconda3                              depcomp                 log_backups                            qat_page_compression_time  userspace-sfm
+Anaconda3-2023.09-0-Linux-x86_64.sh    dpdk-22.11.3.tar.xz     ltmain.sh                              QAT.tgz                    versionfile
+ar-lib                                 dpdk_install_artifacts  lzbench_cpu_bandwidths_ratios.csv      QATzip                     weaver_sensitivity
+compile                                dpdk-stable-22.11.3     lzbench-ezstd,1_bandwidths_ratios.csv  QATZipOG                   wrk
+config.guess                           faiss                   Makefile                               quickassist                zstd
+config.h.in                            faiss_1.7.4             Makefile.in                            r002ue
+config.sh                              filelist                missing                                r003ue
+(base) n869p538@sapphire:zlib$ ls ~/Accelerated-MMUL-Sensitivity-Analysis/
+amx_gemm.h  amx_utils.h  blas_gemm.h  main.cpp  Makefile  README.md  test  utils.h
+(base) n869p538@sapphire:zlib$ realpath ~/Accelerated-MMUL-Sensitivity-Analysis/utils.h
+
+/home/n869p538/Accelerated-MMUL-Sensitivity-Analysis/utils.h
+(base) n869p538@sapphire:zlib$ cd ../
+(base) n869p538@sapphire:cpu_decomp_perf$ ls
+decomp_latency  decomp_latency.cpp  zlib
+(base) n869p538@sapphire:cpu_decomp_perf$ gcc -O3 -o decomp_latency decomp_latency.cpp
+decomp_latency.cpp:34:1: error: expected initializer before ‘int’
+   34 | int main(){
+      | ^~~
+(base) n869p538@sapphire:cpu_decomp_perf$ gcc -O3 -o decomp_latency decomp_latency.cpp
+decomp_latency.cpp: In function ‘void* gen_cbuf(Bytef*)’:
+decomp_latency.cpp:36:1: warning: no return statement in function returning non-void [-Wreturn-type]
+   36 | }
+      | ^
+decomp_latency.cpp: In function ‘int main()’:
+decomp_latency.cpp:52:25: warning: pointer of type ‘void *’ used in arithmetic [-Wpointer-arith]
+   52 |         _mm_clflush(buf + i);
+      |                     ~~~~^~~
+(base) n869p538@sapphire:cpu_decomp_perf$ touch utils.h
+(base) n869p538@sapphire:cpu_decomp_perf$ realpath utils.h
+/home/n869p538/spr-accel-profiling/cpu_decomp_perf/utils.h
+(base) n869p538@sapphire:cpu_decomp_perf$ gcc -O3 -o decomp_latency decomp_latency.cpp
+
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void* gen_cbuf(Bytef*)’:
+utils.h:29:1: warning: no return statement in function returning non-void [-Wreturn-type]
+   29 | }
+      | ^
+decomp_latency.cpp: In function ‘int main()’:
+decomp_latency.cpp:24:25: warning: pointer of type ‘void *’ used in arithmetic [-Wpointer-arith]
+   24 |         _mm_clflush(buf + i);
+      |                     ~~~~^~~
+(base) n869p538@sapphire:cpu_decomp_perf$ gcc -O3 -o decomp_latency decomp_latency.cpp
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void* gen_cbuf(Bytef*)’:
+utils.h:31:1: warning: no return statement in function returning non-void [-Wreturn-type]
+   31 | }
+      | ^
+decomp_latency.cpp: In function ‘int main()’:
+decomp_latency.cpp:24:25: warning: pointer of type ‘void *’ used in arithmetic [-Wpointer-arith]
+   24 |         _mm_clflush(buf + i);
+      |                     ~~~~^~~
+(base) n869p538@sapphire:cpu_decomp_perf$ gcc -O3 -o decomp_latency decomp_latency.cpp
+
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void* gen_cbuf(Bytef*)’:
+utils.h:85:1: warning: no return statement in function returning non-void [-Wreturn-type]
+   85 | }
+      | ^
+decomp_latency.cpp: In function ‘int main()’:
+decomp_latency.cpp:17:26: error: invalid conversion from ‘Byte**’ {aka ‘unsigned char**’} to ‘void**’ [-fpermissive]
+   17 |     ret = posix_memalign(&buf, PAGE_SIZE, sizeof(char) * size);
+      |                          ^~~~
+      |                          |
+      |                          Byte** {aka unsigned char**}
+In file included from /usr/include/c++/11/cstdlib:75,
+                 from /usr/include/c++/11/stdlib.h:36,
+                 from /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h:27,
+                 from /usr/lib/gcc/x86_64-linux-gnu/11/include/xmmintrin.h:34,
+                 from /usr/lib/gcc/x86_64-linux-gnu/11/include/immintrin.h:31,
+                 from /usr/lib/gcc/x86_64-linux-gnu/11/include/x86intrin.h:32,
+                 from decomp_latency.cpp:1:
+/usr/include/stdlib.h:586:35: note:   initializing argument 1 of ‘int posix_memalign(void**, size_t, size_t)’
+  586 | extern int posix_memalign (void **__memptr, size_t __alignment, size_t __size)
+      |                            ~~~~~~~^~~~~~~~
+decomp_latency.cpp:22:20: error: too few arguments to function ‘void* index_into_cbuf(Byte*, size_t, size_t)’
+   22 |     index_into_cbuf()
+      |     ~~~~~~~~~~~~~~~^~
+In file included from decomp_latency.cpp:5:
+utils.h:24:22: note: declared here
+   24 | static inline void * index_into_cbuf(Byte *cbuf, size_t offset, size_t len){
+      |                      ^~~~~~~~~~~~~~~
+(base) n869p538@sapphire:cpu_decomp_perf$ git add utils.h
+(base) n869p538@sapphire:cpu_decomp_perf$ git add decomp_latency.cpp
+(base) n869p538@sapphire:cpu_decomp_perf$ git commit -m "test cpu decompression latency deflate"
+[main 3e23c43] test cpu decompression latency deflate
+ Committer: Neel Patel <n869p538@sapphire.ittc.ku.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 5 files changed, 152 insertions(+)
+ create mode 100644 cpu_decomp_perf/decomp_latency.cpp
+ create mode 100644 cpu_decomp_perf/utils.h
+ create mode 160000 cpu_decomp_perf/zlib
+ create mode 160000 intel-onchip-accel-tutorial
+(base) n869p538@sapphire:cpu_decomp_perf$ ls
+decomp_latency  decomp_latency.cpp  utils.h  zlib
+(base) n869p538@sapphire:cpu_decomp_perf$ cp ../IAA_Decomp/Makefile .
+(base) n869p538@sapphire:cpu_decomp_perf$ ls
+decomp_latency  decomp_latency.cpp  Makefile  utils.h  zlib
+(base) n869p538@sapphire:cpu_decomp_perf$ make
+make: *** No rule to make target 'decompression.cpp', needed by 'decompression'.  Stop.
+(base) n869p538@sapphire:cpu_decomp_perf$ realpath Makefile
+/home/n869p538/spr-accel-profiling/cpu_decomp_perf/Makefile
+(base) n869p538@sapphire:cpu_decomp_perf$ make
+g++ -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib64/libqpl.a -l
+dl -lqpl
+In file included from decomp_latency.cpp:5:
+utils.h:59:23: error: macro "assert" requires 2 arguments, but only 1 given
+   59 |     assert(ret == Z_OK)
+      |                       ^
+utils.h:20: note: macro "assert" defined here
+   20 | #define assert(stmt,msg) \
+      |
+utils.h: In function ‘void generate_cbuf(Byte*, Byte*, uLong, uLong*)’:
+utils.h:59:5: error: ‘assert’ was not declared in this scope
+   59 |     assert(ret == Z_OK)
+      |     ^~~~~~
+In file included from decomp_latency.cpp:5:
+utils.h:1:1: note: ‘assert’ is defined in header ‘<cassert>’; did you forget to ‘#include <cassert>’?
+  +++ |+#include <cassert>
+    1 | #include <zlib.h>
+decomp_latency.cpp: In function ‘int main()’:
+decomp_latency.cpp:16:26: error: invalid conversion from ‘Byte**’ {aka ‘unsigned char**’} to ‘void**’ [-fpermissive]
+   16 |     ret = posix_memalign(&buf, PAGE_SIZE, sizeof(char) * size);
+      |                          ^~~~
+      |                          |
+      |                          Byte** {aka unsigned char**}
+In file included from /usr/include/c++/11/cstdlib:75,
+                 from /usr/include/c++/11/stdlib.h:36,
+                 from /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h:27,
+                 from /usr/lib/gcc/x86_64-linux-gnu/11/include/xmmintrin.h:34,
+                 from /usr/lib/gcc/x86_64-linux-gnu/11/include/immintrin.h:31,
+                 from /usr/lib/gcc/x86_64-linux-gnu/11/include/x86intrin.h:32,
+                 from decomp_latency.cpp:1:
+/usr/include/stdlib.h:586:35: note:   initializing argument 1 of ‘int posix_memalign(void**, size_t, size_t)’
+  586 | extern int posix_memalign (void **__memptr, size_t __alignment, size_t __size)
+      |                            ~~~~~~~^~~~~~~~
+decomp_latency.cpp:20:26: error: invalid conversion from ‘Byte**’ {aka ‘unsigned char**’} to ‘void**’ [-fpermissive]
+   20 |     ret = posix_memalign(&cbuf, PAGE_SIZE, sizeof(char) * size);
+      |                          ^~~~~
+      |                          |
+      |                          Byte** {aka unsigned char**}
+In file included from /usr/include/c++/11/cstdlib:75,
+                 from /usr/include/c++/11/stdlib.h:36,
+                 from /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h:27,
+                 from /usr/lib/gcc/x86_64-linux-gnu/11/include/xmmintrin.h:34,
+                 from /usr/lib/gcc/x86_64-linux-gnu/11/include/immintrin.h:31,
+                 from /usr/lib/gcc/x86_64-linux-gnu/11/include/x86intrin.h:32,
+                 from decomp_latency.cpp:1:
+/usr/include/stdlib.h:586:35: note:   initializing argument 1 of ‘int posix_memalign(void**, size_t, size_t)’
+  586 | extern int posix_memalign (void **__memptr, size_t __alignment, size_t __size)
+      |                            ~~~~~~~^~~~~~~~
+decomp_latency.cpp:26:18: error: too few arguments to function ‘void generate_cbuf(Byte*, Byte*, uLong, uLong*)’
+   26 |     generate_cbuf(cbuf, buf, size);
+      |     ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+In file included from decomp_latency.cpp:5:
+utils.h:43:13: note: declared here
+   43 | static void generate_cbuf(Byte *cbuf, Byte *inbuf, uLong size, uLong *totalOut){
+      |             ^~~~~~~~~~~~~
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+make: *** [Makefile:7: decomp_latency] Error 1
+(base) n869p538@sapphire:cpu_decomp_perf$ realpath utils.h
+/home/n869p538/spr-accel-profiling/cpu_decomp_perf/utils.h
+(base) n869p538@sapphire:cpu_decomp_perf$ make
+g++ -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib64/libqpl.a -l
+dl -lqpl
+In file included from decomp_latency.cpp:5:
+utils.h:59:23: error: macro "assert" requires 2 arguments, but only 1 given
+   59 |     assert(ret == Z_OK);
+      |                       ^
+utils.h:20: note: macro "assert" defined here
+   20 | #define assert(stmt,msg) \
+      |
+utils.h: In function ‘void generate_cbuf(Byte*, Byte*, uLong, uLong*)’:
+utils.h:59:5: error: ‘assert’ was not declared in this scope
+   59 |     assert(ret == Z_OK);
+      |     ^~~~~~
+In file included from decomp_latency.cpp:5:
+utils.h:1:1: note: ‘assert’ is defined in header ‘<cassert>’; did you forget to ‘#include <cassert>’?
+  +++ |+#include <cassert>
+    1 | #include <zlib.h>
+decomp_latency.cpp: In function ‘int main()’:
+decomp_latency.cpp:16:26: error: invalid conversion from ‘Byte**’ {aka ‘unsigned char**’} to ‘void**’ [-fpermissive]
+   16 |     ret = posix_memalign(&buf, PAGE_SIZE, sizeof(char) * size);
+      |                          ^~~~
+      |                          |
+      |                          Byte** {aka unsigned char**}
+In file included from /usr/include/c++/11/cstdlib:75,
+                 from /usr/include/c++/11/stdlib.h:36,
+                 from /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h:27,
+                 from /usr/lib/gcc/x86_64-linux-gnu/11/include/xmmintrin.h:34,
+                 from /usr/lib/gcc/x86_64-linux-gnu/11/include/immintrin.h:31,
+                 from /usr/lib/gcc/x86_64-linux-gnu/11/include/x86intrin.h:32,
+                 from decomp_latency.cpp:1:
+/usr/include/stdlib.h:586:35: note:   initializing argument 1 of ‘int posix_memalign(void**, size_t, size_t)’
+  586 | extern int posix_memalign (void **__memptr, size_t __alignment, size_t __size)
+      |                            ~~~~~~~^~~~~~~~
+decomp_latency.cpp:20:26: error: invalid conversion from ‘Byte**’ {aka ‘unsigned char**’} to ‘void**’ [-fpermissive]
+   20 |     ret = posix_memalign(&cbuf, PAGE_SIZE, sizeof(char) * size);
+      |                          ^~~~~
+      |                          |
+      |                          Byte** {aka unsigned char**}
+In file included from /usr/include/c++/11/cstdlib:75,
+                 from /usr/include/c++/11/stdlib.h:36,
+                 from /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h:27,
+                 from /usr/lib/gcc/x86_64-linux-gnu/11/include/xmmintrin.h:34,
+                 from /usr/lib/gcc/x86_64-linux-gnu/11/include/immintrin.h:31,
+                 from /usr/lib/gcc/x86_64-linux-gnu/11/include/x86intrin.h:32,
+                 from decomp_latency.cpp:1:
+/usr/include/stdlib.h:586:35: note:   initializing argument 1 of ‘int posix_memalign(void**, size_t, size_t)’
+  586 | extern int posix_memalign (void **__memptr, size_t __alignment, size_t __size)
+      |                            ~~~~~~~^~~~~~~~
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+make: *** [Makefile:7: decomp_latency] Error 1
+(base) n869p538@sapphire:cpu_decomp_perf$ make  |& less
+(base) n869p538@sapphire:cpu_decomp_perf$ make  |& less
+(base) n869p538@sapphire:cpu_decomp_perf$ make  |& less
+(base) n869p538@sapphire:cpu_decomp_perf$ make  |& less
+(base) n869p538@sapphire:cpu_decomp_perf$ make  |& less
+(base) n869p538@sapphire:cpu_decomp_perf$ make  |& less
+(base) n869p538@sapphire:cpu_decomp_perf$ make  |& less
+(base) n869p538@sapphire:cpu_decomp_perf$ ./decomp_latency
+Generating 16 KB with P=80.00%
+Segmentation fault (core dumped)
+(base) n869p538@sapphire:cpu_decomp_perf$ make
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+(base) n869p538@sapphire:cpu_decomp_perf$ make
+make: 'decomp_latency' is up to date.
+(base) n869p538@sapphire:cpu_decomp_perf$ ./decomp_latency
+Generating 16 KB with P=80.00%
+Segmentation fault (core dumped)
+(base) n869p538@sapphire:cpu_decomp_perf$ ls
+decomp_latency  decomp_latency.cpp  Makefile  utils.h  zlib
+(base) n869p538@sapphire:cpu_decomp_perf$ ^Cke
+(base) n869p538@sapphire:cpu_decomp_perf$ make
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void generate_cbuf(Byte*, Byte*, uLong, uLong*)’:
+utils.h:50:60: error: ‘buffSize’ was not declared in this scope
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n", (unsigned)(buffSize >> 10), p*100);
+      |                                                            ^~~~~~~~
+utils.h:12:46: note: in definition of macro ‘DISPLAY’
+   12 | #define DISPLAY(...)         fprintf(stderr, __VA_ARGS__)
+      |                                              ^~~~~~~~~~~
+utils.h:50:77: error: ‘p’ was not declared in this scope
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n", (unsigned)(buffSize >> 10), p*100);
+      |                                                                             ^
+utils.h:12:46: note: in definition of macro ‘DISPLAY’
+   12 | #define DISPLAY(...)         fprintf(stderr, __VA_ARGS__)
+      |                                              ^~~~~~~~~~~
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+make: *** [Makefile:8: decomp_latency] Error 1
+(base) n869p538@sapphire:cpu_decomp_perf$ make
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void generate_cbuf(Byte*, Byte*, uLong, uLong*)’:
+utils.h:50:13: warning: format ‘%u’ expects a matching ‘unsigned int’ argument [-Wformat=]
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n");
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+utils.h:12:46: note: in definition of macro ‘DISPLAY’
+   12 | #define DISPLAY(...)         fprintf(stderr, __VA_ARGS__)
+      |                                              ^~~~~~~~~~~
+In file included from decomp_latency.cpp:5:
+utils.h:50:26: note: format string is defined here
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n");
+      |                         ~^
+      |                          |
+      |                          unsigned int
+In file included from decomp_latency.cpp:5:
+utils.h:50:13: warning: format ‘%f’ expects a matching ‘double’ argument [-Wformat=]
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n");
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+utils.h:12:46: note: in definition of macro ‘DISPLAY’
+   12 | #define DISPLAY(...)         fprintf(stderr, __VA_ARGS__)
+      |                                              ^~~~~~~~~~~
+In file included from decomp_latency.cpp:5:
+utils.h:50:41: note: format string is defined here
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n");
+      |                                      ~~~^
+      |                                         |
+      |                                         double
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+(base) n869p538@sapphire:cpu_decomp_perf$ ls
+
+decomp_latency  decomp_latency.cpp  Makefile  utils.h  zlib
+(base) n869p538@sapphire:cpu_decomp_perf$ ./decomp_latency
+
+Generating 1 KB with P=80.00%
+Segmentation fault (core dumped)
+(base) n869p538@sapphire:cpu_decomp_perf$ ls
+decomp_latency  decomp_latency.cpp  Makefile  utils.h  zlib
+(base) n869p538@sapphire:cpu_decomp_perf$ make
+make: 'decomp_latency' is up to date.
+(base) n869p538@sapphire:cpu_decomp_perf$ make clean
+make: *** No rule to make target 'clean'.  Stop.
+(base) n869p538@sapphire:cpu_decomp_perf$ make
+make: 'decomp_latency' is up to date.
+(base) n869p538@sapphire:cpu_decomp_perf$ make clean
+rm -f decomp_latency
+(base) n869p538@sapphire:cpu_decomp_perf$ make
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void generate_cbuf(Byte*, Byte*, uLong, uLong*)’:
+utils.h:50:13: warning: format ‘%u’ expects a matching ‘unsigned int’ argument [-Wformat=]
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n");
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+utils.h:12:46: note: in definition of macro ‘DISPLAY’
+   12 | #define DISPLAY(...)         fprintf(stderr, __VA_ARGS__)
+      |                                              ^~~~~~~~~~~
+In file included from decomp_latency.cpp:5:
+utils.h:50:26: note: format string is defined here
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n");
+      |                         ~^
+      |                          |
+      |                          unsigned int
+In file included from decomp_latency.cpp:5:
+utils.h:50:13: warning: format ‘%f’ expects a matching ‘double’ argument [-Wformat=]
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n");
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+utils.h:12:46: note: in definition of macro ‘DISPLAY’
+   12 | #define DISPLAY(...)         fprintf(stderr, __VA_ARGS__)
+      |                                              ^~~~~~~~~~~
+In file included from decomp_latency.cpp:5:
+utils.h:50:41: note: format string is defined here
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n");
+      |                                      ~~~^
+      |                                         |
+      |                                         double
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+(base) n869p538@sapphire:cpu_decomp_perf$ ./decomp_latency
+Generating 1 KB with P=80.00%
+Generating 2107715632 KB with P=0.00%
+(base) n869p538@sapphire:cpu_decomp_perf$ make
+make: 'decomp_latency' is up to date.
+(base) n869p538@sapphire:cpu_decomp_perf$ make clean; make
+rm -f decomp_latency
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+./In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void generate_cbuf(Byte*, Byte*, uLong, uLong*)’:
+utils.h:50:13: warning: format ‘%u’ expects a matching ‘unsigned int’ argument [-Wformat=]
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n");
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+utils.h:12:46: note: in definition of macro ‘DISPLAY’
+   12 | #define DISPLAY(...)         fprintf(stderr, __VA_ARGS__)
+      |                                              ^~~~~~~~~~~
+In file included from decomp_latency.cpp:5:
+utils.h:50:26: note: format string is defined here
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n");
+      |                         ~^
+      |                          |
+      |                          unsigned int
+In file included from decomp_latency.cpp:5:
+utils.h:50:13: warning: format ‘%f’ expects a matching ‘double’ argument [-Wformat=]
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n");
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+utils.h:12:46: note: in definition of macro ‘DISPLAY’
+   12 | #define DISPLAY(...)         fprintf(stderr, __VA_ARGS__)
+      |                                              ^~~~~~~~~~~
+In file included from decomp_latency.cpp:5:
+utils.h:50:41: note: format string is defined here
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n");
+      |                                      ~~~^
+      |                                         |
+      |                                         double
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+d(base) n869p538@sapphire:cpu_decomp_perf$ ./decomp_latency
+Generating 1 KB with P=80.00%
+
+
+^C
+(base) n869p538@sapphire:cpu_decomp_perf$ make clean; make
+rm -f decomp_latency
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void generate_cbuf(Byte*, Byte*, uLong, uLong*)’:
+utils.h:50:13: warning: format ‘%u’ expects a matching ‘unsigned int’ argument [-Wformat=]
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n");
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+utils.h:12:46: note: in definition of macro ‘DISPLAY’
+   12 | #define DISPLAY(...)         fprintf(stderr, __VA_ARGS__)
+      |                                              ^~~~~~~~~~~
+In file included from decomp_latency.cpp:5:
+utils.h:50:26: note: format string is defined here
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n");
+      |                         ~^
+      |                          |
+      |                          unsigned int
+In file included from decomp_latency.cpp:5:
+utils.h:50:13: warning: format ‘%f’ expects a matching ‘double’ argument [-Wformat=]
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n");
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+utils.h:12:46: note: in definition of macro ‘DISPLAY’
+   12 | #define DISPLAY(...)         fprintf(stderr, __VA_ARGS__)
+      |                                              ^~~~~~~~~~~
+In file included from decomp_latency.cpp:5:
+utils.h:50:41: note: format string is defined here
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n");
+      |                                      ~~~^
+      |                                         |
+      |                                         double
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+(base) n869p538@sapphire:cpu_decomp_perf$ ./decomp_latency
+Generating 1 KB with P=80.00%
+Generating 348667952 KB with P=0.00%
+(base) n869p538@sapphire:cpu_decomp_perf$ make
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void generate_cbuf(Byte*, Byte*, uLong, uLong*)’:
+utils.h:50:13: warning: format ‘%u’ expects a matching ‘unsigned int’ argument [-Wformat=]
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n");
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+utils.h:12:46: note: in definition of macro ‘DISPLAY’
+   12 | #define DISPLAY(...)         fprintf(stderr, __VA_ARGS__)
+      |                                              ^~~~~~~~~~~
+In file included from decomp_latency.cpp:5:
+utils.h:50:26: note: format string is defined here
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n");
+      |                         ~^
+      |                          |
+      |                          unsigned int
+In file included from decomp_latency.cpp:5:
+utils.h:50:13: warning: format ‘%f’ expects a matching ‘double’ argument [-Wformat=]
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n");
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+utils.h:12:46: note: in definition of macro ‘DISPLAY’
+   12 | #define DISPLAY(...)         fprintf(stderr, __VA_ARGS__)
+      |                                              ^~~~~~~~~~~
+In file included from decomp_latency.cpp:5:
+utils.h:50:41: note: format string is defined here
+   50 |     DISPLAY("Generating %u KB with P=%.2f%%\n");
+      |                                      ~~~^
+      |                                         |
+      |                                         double
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+(base) n869p538@sapphire:cpu_decomp_perf$ ./decomp_latency
+Generating 16 KB with P=80.00%
+Generating 3994808368 KB with P=0.00%
+(base) n869p538@sapphire:cpu_decomp_perf$ realpath zlib/examples/zpipe.c
+/home/n869p538/spr-accel-profiling/cpu_decomp_perf/zlib/examples/zpipe.c
+(base) n869p538@sapphire:cpu_decomp_perf$ make
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+(base) n869p538@sapphire:cpu_decomp_perf$ make
+make: 'decomp_latency' is up to date.
+(base) n869p538@sapphire:cpu_decomp_perf$ make clean; make
+rm -f decomp_latency
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+(base) n869p538@sapphire:cpu_decomp_perf$ ./decomp_latency
+Generating 16 KB with P=80.00%
+^C
+(base) n869p538@sapphire:cpu_decomp_perf$ make clean; make
+
+rm -f decomp_latency
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+(base) n869p538@sapphire:cpu_decomp_perf$ ./decomp_latency
+Generating 16 KB with P=80.00%
+^C
+(base) n869p538@sapphire:cpu_decomp_perf$ make clean; make
+
+rm -f decomp_latency
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void generate_cbuf(Byte*, Byte*, uLong, uLong*)’:
+utils.h:62:5: error: ‘strm’ was not declared in this scope; did you mean ‘cstrm’?
+   62 |     strm.avail_out = size;
+      |     ^~~~
+      |     cstrm
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+make: *** [Makefile:10: decomp_latency] Error 1
+(base) n869p538@sapphire:cpu_decomp_perf$ ./decomp_latency
+-bash: ./decomp_latency: No such file or directory
+(base) n869p538@sapphire:cpu_decomp_perf$ make clean; make
+
+rm -f decomp_latency
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+(base) n869p538@sapphire:cpu_decomp_perf$ ./decomp_latency
+Generating 16 KB with P=80.00%
+deflate error:: Success
+(base) n869p538@sapphire:cpu_decomp_perf$ make clean; make
+
+rm -f decomp_latency
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+(base) n869p538@sapphire:cpu_decomp_perf$ ./decomp_latency
+Generating 16 KB with P=80.00%
+deflate error: Success
+(base) n869p538@sapphire:cpu_decomp_perf$ make clean; make
+
+rm -f decomp_latency
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+(base) n869p538@sapphire:cpu_decomp_perf$ ./decomp_latency
+Generating 16 KB with P=80.00%
+deflate error
+: Success
+(base) n869p538@sapphire:cpu_decomp_perf$ make clean; make
+
+rm -f decomp_latency
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+(base) n869p538@sapphire:cpu_decomp_perf$ ./decomp_latency
+Generating 16 KB with P=80.00%
+deflate error
+: Success
+(base) n869p538@sapphire:cpu_decomp_perf$ make clean; make; ./decomp_latency
+
+rm -f decomp_latency
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void generate_cbuf(Byte*, Byte*, uLong, uLong*)’:
+utils.h:66:9: error: ‘print’ was not declared in this scope; did you mean ‘printf’?
+   66 |         print("avail_in:%ld,avail_out:%ld\n",cstrm.avail_in,cstrm.avail_out);
+      |         ^~~~~
+      |         printf
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+make: *** [Makefile:10: decomp_latency] Error 1
+-bash: ./decomp_latency: No such file or directory
+(base) n869p538@sapphire:cpu_decomp_perf$ make clean; make; ./decomp_latency
+rm -f decomp_latency
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void generate_cbuf(Byte*, Byte*, uLong, uLong*)’:
+utils.h:66:28: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 2 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   66 |         printf("avail_in:%ld,avail_out:%ld\n",cstrm.avail_in,cstrm.avail_out);
+      |                          ~~^                  ~~~~~~~~~~~~~~
+      |                            |                        |
+      |                            long int                 uInt {aka unsigned int}
+      |                          %d
+utils.h:66:42: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 3 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   66 |         printf("avail_in:%ld,avail_out:%ld\n",cstrm.avail_in,cstrm.avail_out);
+      |                                        ~~^                   ~~~~~~~~~~~~~~~
+      |                                          |                         |
+      |                                          long int                  uInt {aka unsigned int}
+      |                                        %d
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+Generating 16 KB with P=80.00%
+avail_in:16384,avail_out:16384
+deflate error
+: Success
+(base) n869p538@sapphire:cpu_decomp_perf$ make clean; make; ./decomp_latency
+rm -f decomp_latency
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void generate_cbuf(Byte*, Byte*, uLong, uLong*)’:
+utils.h:66:28: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 2 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   66 |         printf("avail_in:%ld,avail_out:%ld\n",cstrm.avail_in,cstrm.avail_out);
+      |                          ~~^                  ~~~~~~~~~~~~~~
+      |                            |                        |
+      |                            long int                 uInt {aka unsigned int}
+      |                          %d
+utils.h:66:42: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 3 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   66 |         printf("avail_in:%ld,avail_out:%ld\n",cstrm.avail_in,cstrm.avail_out);
+      |                                        ~~^                   ~~~~~~~~~~~~~~~
+      |                                          |                         |
+      |                                          long int                  uInt {aka unsigned int}
+      |                                        %d
+utils.h:68:28: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 2 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   68 |         printf("avail_in:%ld,avail_out:%ld\n",cstrm.avail_in,cstrm.avail_out);
+      |                          ~~^                  ~~~~~~~~~~~~~~
+      |                            |                        |
+      |                            long int                 uInt {aka unsigned int}
+      |                          %d
+utils.h:68:42: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 3 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   68 |         printf("avail_in:%ld,avail_out:%ld\n",cstrm.avail_in,cstrm.avail_out);
+      |                                        ~~^                   ~~~~~~~~~~~~~~~
+      |                                          |                         |
+      |                                          long int                  uInt {aka unsigned int}
+      |                                        %d
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+Generating 16 KB with P=80.00%
+avail_in:16384,avail_out:16384
+avail_in:16384,avail_out:16384
+deflate error
+: Success
+(base) n869p538@sapphire:cpu_decomp_perf$ ./decomp_latency
+
+Generating 16 KB with P=80.00%
+avail_in:16384,avail_out:16384
+avail_in:16384,avail_out:16384
+deflate error
+: Success
+(base) n869p538@sapphire:cpu_decomp_perf$ ./decomp_latency
+Generating 16 KB with P=80.00%
+avail_in:16384,avail_out:16384
+avail_in:16384,avail_out:16384
+deflate error
+: Success
+(base) n869p538@sapphire:cpu_decomp_perf$ ./decomp_latency
+Generating 16 KB with P=80.00%
+avail_in:16384,avail_out:16384
+avail_in:16384,avail_out:16384
+deflate error
+: Success
+(base) n869p538@sapphire:cpu_decomp_perf$ make clean; make; ./decomp_latency
+
+rm -f decomp_latency
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void generate_cbuf(Byte*, Byte*, uLong, uLong*)’:
+utils.h:66:28: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 2 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   66 |         printf("avail_in:%ld,avail_out:%ld\n",cstrm.avail_in,cstrm.avail_out);
+      |                          ~~^                  ~~~~~~~~~~~~~~
+      |                            |                        |
+      |                            long int                 uInt {aka unsigned int}
+      |                          %d
+utils.h:66:42: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 3 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   66 |         printf("avail_in:%ld,avail_out:%ld\n",cstrm.avail_in,cstrm.avail_out);
+      |                                        ~~^                   ~~~~~~~~~~~~~~~
+      |                                          |                         |
+      |                                          long int                  uInt {aka unsigned int}
+      |                                        %d
+utils.h:68:28: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 2 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   68 |         printf("avail_in:%ld,avail_out:%ld\n",cstrm.avail_in,cstrm.avail_out);
+      |                          ~~^                  ~~~~~~~~~~~~~~
+      |                            |                        |
+      |                            long int                 uInt {aka unsigned int}
+      |                          %d
+utils.h:68:42: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 3 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   68 |         printf("avail_in:%ld,avail_out:%ld\n",cstrm.avail_in,cstrm.avail_out);
+      |                                        ~~^                   ~~~~~~~~~~~~~~~
+      |                                          |                         |
+      |                                          long int                  uInt {aka unsigned int}
+      |                                        %d
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+Generating 16 KB with P=80.00%
+avail_in:16384,avail_out:16384
+avail_in:16384,avail_out:16384
+deflate error
+: Success
+(base) n869p538@sapphire:cpu_decomp_perf$ make clean; make; ./decomp_latency
+
+rm -f decomp_latency
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void generate_cbuf(Byte*, Byte*, uLong, uLong*)’:
+utils.h:67:28: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 2 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   67 |         printf("avail_in:%ld,avail_out:%ld\n",cstrm.avail_in,cstrm.avail_out);
+      |                          ~~^                  ~~~~~~~~~~~~~~
+      |                            |                        |
+      |                            long int                 uInt {aka unsigned int}
+      |                          %d
+utils.h:67:42: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 3 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   67 |         printf("avail_in:%ld,avail_out:%ld\n",cstrm.avail_in,cstrm.avail_out);
+      |                                        ~~^                   ~~~~~~~~~~~~~~~
+      |                                          |                         |
+      |                                          long int                  uInt {aka unsigned int}
+      |                                        %d
+utils.h:69:28: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 2 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   69 |         printf("avail_in:%ld,avail_out:%ld\n",cstrm.avail_in,cstrm.avail_out);
+      |                          ~~^                  ~~~~~~~~~~~~~~
+      |                            |                        |
+      |                            long int                 uInt {aka unsigned int}
+      |                          %d
+utils.h:69:42: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 3 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   69 |         printf("avail_in:%ld,avail_out:%ld\n",cstrm.avail_in,cstrm.avail_out);
+      |                                        ~~^                   ~~~~~~~~~~~~~~~
+      |                                          |                         |
+      |                                          long int                  uInt {aka unsigned int}
+      |                                        %d
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+Generating 16 KB with P=80.00%
+avail_in:16384,avail_out:16384
+avail_in:16384,avail_out:16384
+deflate error
+: Success
+(base) n869p538@sapphire:cpu_decomp_perf$ ls
+decomp_latency  decomp_latency.cpp  Makefile  utils.h  zlib
+(base) n869p538@sapphire:cpu_decomp_perf$ cd ../
+(base) n869p538@sapphire:spr-accel-profiling$ mkdir compgroup_ratio
+(base) n869p538@sapphire:spr-accel-profiling$ cd compgroup_ratio/
+(base) n869p538@sapphire:compgroup_ratio$ sudo apt install qp
+qpdf                         qpdfview-djvu-plugin         qpdfview-pdf-poppler-plugin  qpdfview-translations        qprint                       qprogram
+-starter             qpsmtpd
+qpdfview                     qpdfview-pdf-mupdf-plugin    qpdfview-ps-plugin           qperf                        qprint-doc                   qps
+                     qpxtool
+(base) n869p538@sapphire:compgroup_ratio$ sudo apt install qp
+qpdf                         qpdfview-djvu-plugin         qpdfview-pdf-poppler-plugin  qpdfview-translations        qprint                       qprogram
+-starter             qpsmtpd
+qpdfview                     qpdfview-pdf-mupdf-plugin    qpdfview-ps-plugin           qperf                        qprint-doc                   qps
+                     qpxtool
+(base) n869p538@sapphire:compgroup_ratio$ apt show qpdf
+
+Package: qpdf
+Version: 10.6.3-1
+Priority: optional
+Section: universe/text
+Origin: Ubuntu
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Jay Berkenbilt <qjb@debian.org>
+Bugs: https://bugs.launchpad.net/ubuntu/+filebug
+Installed-Size: 241 kB
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 3.3.1), libqpdf28 (>> 10.6~), libstdc++6 (>= 11)
+Homepage: http://qpdf.sourceforge.net
+Download-Size: 69.3 kB
+APT-Sources: http://us.archive.ubuntu.com/ubuntu jammy/universe amd64 Packages
+Description: tools for transforming and inspecting PDF files
+ QPDF is a program that can be used to linearize (web-optimize),
+ encrypt (password-protect), decrypt, and inspect PDF files from the
+ command-line.  It does these and other structural, content-preserving
+ transformations on PDF files, reading a PDF file as input and
+ creating a new one as output.  It also provides many useful
+ capabilities to developers of PDF-producing software or for people
+ who just want to look at the innards of a PDF file to learn more
+ about how they work.
+ .
+ QPDF understands PDF files that use compressed object streams
+ (supported by newer PDF applications) and can convert such files into
+ those that can be read with older viewers.  It can also be used for
+ checking PDF files for structural errors, inspecting stream contents,
+ or extracting objects from PDF files.  QPDF is not PDF content
+ creation or viewing software -- it does not have the capability to
+ create PDF files from scratch or to display PDF files.
+ .
+ This package includes the command-line qpdf tools.  It also contains
+ the documentation.
+
+(base) n869p538@sapphire:compgroup_ratio$ apt show zlib
+zlib1g      zlib1g-dev  zlib-gst
+(base) n869p538@sapphire:compgroup_ratio$ apt show zlib
+zlib1g      zlib1g-dev  zlib-gst
+(base) n869p538@sapphire:compgroup_ratio$ apt show pigz
+Package: pigz
+Version: 2.6-1
+Priority: extra
+Section: universe/utils
+Origin: Ubuntu
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Original-Maintainer: Eduard Bloch <blade@debian.org>
+Bugs: https://bugs.launchpad.net/ubuntu/+filebug
+Installed-Size: 162 kB
+Pre-Depends: dpkg (>= 1.15.6)
+Depends: libc6 (>= 2.33), zlib1g (>= 1:1.2.6)
+Homepage: http://zlib.net/pigz/
+Download-Size: 63.6 kB
+APT-Manual-Installed: no
+APT-Sources: http://us.archive.ubuntu.com/ubuntu jammy/universe amd64 Packages
+Description: Parallel Implementation of GZip
+ pigz, which stands for Parallel Implementation of GZip, is a fully functional
+ replacement for gzip that takes advantage of multiple processors and multiple
+ cores when compressing data.
+
+(base) n869p538@sapphire:compgroup_ratio$ sudo apt install pigz
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+pigz is already the newest version (2.6-1).
+pigz set to manually installed.
+The following packages were automatically installed and are no longer required:
+  bridge-utils cmake-data dh-elpa-helper libjsoncpp25 liblockfile-bin liblockfile1 libpapi6.0 librhash0 libsysmetrics1 lockfile-progs python3-distlib pyt
+hon3-filelock python3-virtualenv python3-virtualenv-clone
+  python3-wheel-whl sendmail-base sensible-mda ubuntu-fan
+Use 'sudo apt autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 58 not upgraded.
+(base) n869p538@sapphire:compgroup_ratio$ pigz --helo
+pigz: abort: invalid option: --helo
+(base) n869p538@sapphire:compgroup_ratio$ pigz --help
+Usage: pigz [options] [files ...]
+  will compress files in place, adding the suffix '.gz'. If no files are
+  specified, stdin will be compressed to stdout. pigz does what gzip does,
+  but spreads the work over multiple processors and cores when compressing.
+
+Options:
+  -0 to -9, -11        Compression level (level 11, zopfli, is much slower)
+  --fast, --best       Compression levels 1 and 9 respectively
+  -A, --alias xxx      Use xxx as the name for any --zip entry from stdin
+  -b, --blocksize mmm  Set compression block size to mmmK (default 128K)
+  -c, --stdout         Write all processed output to stdout (won't delete)
+  -C, --comment ccc    Put comment ccc in the gzip or zip header
+  -d, --decompress     Decompress the compressed input
+  -f, --force          Force overwrite, compress .gz, links, and to terminal
+  -F  --first          Do iterations first, before block split for -11
+  -h, --help           Display a help screen and quit
+  -H, --huffman        Use only Huffman coding for compression
+  -i, --independent    Compress blocks independently for damage recovery
+  -I, --iterations n   Number of iterations for -11 optimization
+  -J, --maxsplits n    Maximum number of split blocks for -11
+  -k, --keep           Do not delete original file after processing
+  -K, --zip            Compress to PKWare zip (.zip) single entry format
+  -l, --list           List the contents of the compressed input
+  -L, --license        Display the pigz license and quit
+  -m, --no-time        Do not store or restore mod time
+  -M, --time           Store or restore mod time
+  -n, --no-name        Do not store or restore file name or mod time
+  -N, --name           Store or restore file name and mod time
+  -O  --oneblock       Do not split into smaller blocks for -11
+  -p, --processes n    Allow up to n compression threads (default is the
+                       number of online processors, or 8 if unknown)
+  -q, --quiet          Print no messages, even on error
+  -r, --recursive      Process the contents of all subdirectories
+  -R, --rsyncable      Input-determined block locations for rsync
+  -S, --suffix .sss    Use suffix .sss instead of .gz (for compression)
+  -t, --test           Test the integrity of the compressed input
+  -U, --rle            Use run-length encoding for compression
+  -v, --verbose        Provide more verbose output
+  -V  --version        Show the version of pigz
+  -Y  --synchronous    Force output file write to permanent storage
+  -z, --zlib           Compress to zlib (.zz) instead of gzip format
+  --                   All arguments after "--" are treated as files
+(base) n869p538@sapphire:compgroup_ratio$ make
+make: *** No targets specified and no makefile found.  Stop.
+(base) n869p538@sapphire:compgroup_ratio$ cd ../
+(base) n869p538@sapphire:spr-accel-profiling$ ls
+compgroup_ratio  cpu_decomp_perf  dev-info-logs  iaa_cfg.txt  IAA_Decomp  idxd-config  intel-onchip-accel-tutorial  issues  pane.log  qpl  README.md  scr
+ipts  spr-4416-devices.log
+(base) n869p538@sapphire:spr-accel-profiling$ cd cpu_decomp_perf/
+(base) n869p538@sapphire:cpu_decomp_perf$ make
+make: 'decomp_latency' is up to date.
+(base) n869p538@sapphire:cpu_decomp_perf$ make clean; make; ./decomp_latency
+rm -f decomp_latency
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void generate_cbuf(Byte*, Byte*, uLong, uLong*)’:
+utils.h:67:28: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 2 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   67 |         printf("avail_in:%ld,avail_out:%ld\n",strm.avail_in,strm.avail_out);
+      |                          ~~^                  ~~~~~~~~~~~~~
+      |                            |                       |
+      |                            long int                uInt {aka unsigned int}
+      |                          %d
+utils.h:67:42: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 3 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   67 |         printf("avail_in:%ld,avail_out:%ld\n",strm.avail_in,strm.avail_out);
+      |                                        ~~^                  ~~~~~~~~~~~~~~
+      |                                          |                       |
+      |                                          long int                uInt {aka unsigned int}
+      |                                        %d
+utils.h:69:28: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 2 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   69 |         printf("avail_in:%ld,avail_out:%ld\n",strm.avail_in,strm.avail_out);
+      |                          ~~^                  ~~~~~~~~~~~~~
+      |                            |                       |
+      |                            long int                uInt {aka unsigned int}
+      |                          %d
+utils.h:69:42: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 3 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   69 |         printf("avail_in:%ld,avail_out:%ld\n",strm.avail_in,strm.avail_out);
+      |                                        ~~^                  ~~~~~~~~~~~~~~
+      |                                          |                       |
+      |                                          long int                uInt {aka unsigned int}
+      |                                        %d
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+Generating 16 KB with P=80.00%
+avail_in:16384,avail_out:16384
+avail_in:16384,avail_out:16384
+deflate error
+: Success
+(base) n869p538@sapphire:cpu_decomp_perf$ make clean; make; ./decomp_latency
+rm -f decomp_latency
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void generate_cbuf(Byte*, Byte*, uLong, uLong*)’:
+utils.h:67:28: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 2 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   67 |         printf("avail_in:%ld,avail_out:%ld\n",strm.avail_in,strm.avail_out);
+      |                          ~~^                  ~~~~~~~~~~~~~
+      |                            |                       |
+      |                            long int                uInt {aka unsigned int}
+      |                          %d
+utils.h:67:42: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 3 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   67 |         printf("avail_in:%ld,avail_out:%ld\n",strm.avail_in,strm.avail_out);
+      |                                        ~~^                  ~~~~~~~~~~~~~~
+      |                                          |                       |
+      |                                          long int                uInt {aka unsigned int}
+      |                                        %d
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+Generating 16 KB with P=80.00%
+avail_in:16384,avail_out:16384
+deflate error
+: Success
+(base) n869p538@sapphire:cpu_decomp_perf$ make clean; make; ./decomp_latency
+rm -f decomp_latency
+g++ -fpermissive -I../qpl/install/include -I../qpl/examples/low-level-api -L../qpl/install/lib -o decomp_latency decomp_latency.cpp -L../qpl/install/lib6
+4/libqpl.a -ldl -lqpl -lz
+In file included from decomp_latency.cpp:5:
+utils.h: In function ‘void generate_cbuf(Byte*, Byte*, uLong, uLong*)’:
+utils.h:67:28: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 2 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   67 |         printf("avail_in:%ld,avail_out:%ld\n",strm.avail_in,strm.avail_out);
+      |                          ~~^                  ~~~~~~~~~~~~~
+      |                            |                       |
+      |                            long int                uInt {aka unsigned int}
+      |                          %d
+utils.h:67:42: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 3 has type ‘uInt’ {aka ‘unsigned int’} [-Wformat=]
+   67 |         printf("avail_in:%ld,avail_out:%ld\n",strm.avail_in,strm.avail_out);
+      |                                        ~~^                  ~~~~~~~~~~~~~~
+      |                                          |                       |
+      |                                          long int                uInt {aka unsigned int}
+      |                                        %d
+utils.h: In function ‘void* index_into_cbuf(Byte*, size_t, size_t)’:
+utils.h:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+   41 | }
+      | ^
+Generating 16 KB with P=80.00%
+avail_in:16384,avail_out:16384
+deflate error
+: Success
+(base) n869p538@sapphire:cpu_decomp_perf$ ls
+decomp_latency  decomp_latency.cpp  Makefile  utils.h  zlib
+(base) n869p538@sapphire:cpu_decomp_perf$ git submodule add https://github.com/intel/isa-l.git
+Cloning into '/home/n869p538/spr-accel-profiling/cpu_decomp_perf/isa-l'...
+remote: Enumerating objects: 4616, done.
+remote: Counting objects: 100% (1032/1032), done.
+remote: Compressing objects: 100% (273/273), done.
+remote: Total 4616 (delta 834), reused 820 (delta 757), pack-reused 3584
+Receiving objects: 100% (4616/4616), 2.34 MiB | 14.12 MiB/s, done.
+Resolving deltas: 100% (3595/3595), done.
+(base) n869p538@sapphire:cpu_decomp_perf$ cd isa-l/
+(base) n869p538@sapphire:isa-l$ ./autogen.sh
+libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'build-aux'.
+libtoolize: linking file 'build-aux/ltmain.sh'
+libtoolize: Consider adding 'AC_CONFIG_MACRO_DIRS([m4])' to configure.ac,
+libtoolize: and rerunning libtoolize and aclocal.
+libtoolize: Consider adding '-I m4' to ACLOCAL_AMFLAGS in Makefile.am.
+configure.ac:53: warning: The macro `AC_PROG_CC_STDC' is obsolete.
+configure.ac:53: You should run autoupdate.
+./lib/autoconf/c.m4:1666: AC_PROG_CC_STDC is expanded from...
+configure.ac:53: the top level
+configure.ac:72: warning: The macro `AC_TRY_COMPILE' is obsolete.
+configure.ac:72: You should run autoupdate.
+./lib/autoconf/general.m4:2847: AC_TRY_COMPILE is expanded from...
+configure.ac:72: the top level
+configure.ac:23: installing 'build-aux/compile'
+configure.ac:25: installing 'build-aux/config.guess'
+configure.ac:25: installing 'build-aux/config.sub'
+configure.ac:12: installing 'build-aux/install-sh'
+configure.ac:12: installing 'build-aux/missing'
+Makefile.am: installing 'build-aux/depcomp'
+parallel-tests: installing 'build-aux/test-driver'
+
+----------------------------------------------------------------
+Initialized build system. For a common configuration please run:
+----------------------------------------------------------------
+
+./configure --prefix=/usr --libdir=/usr/lib
+
+(base) n869p538@sapphire:isa-l$ ./configure --prefix=/usr --libdir=/usr/lib
+checking for a BSD-compatible install... /bin/install -c
+checking whether build environment is sane... yes
+checking for a race-free mkdir -p... /bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking how to create a pax tar archive... gnutar
+checking whether make supports the include directive... yes (GNU style)
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables...
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether the compiler supports GNU C... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to enable C11 features... none needed
+checking whether gcc understands -c and -o together... yes
+checking dependency style of gcc... gcc3
+checking dependency style of gcc... gcc3
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-pc-linux-gnu
+checking for stdio.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for strings.h... yes
+checking for sys/stat.h... yes
+checking for sys/types.h... yes
+checking for unistd.h... yes
+checking for wchar.h... yes
+checking for minix/config.h... no
+checking whether it is safe to define __EXTENSIONS__... yes
+checking whether _XOPEN_SOURCE should be defined... no
+checking whether make supports nested variables... (cached) yes
+checking how to print strings... printf
+checking for a sed that does not truncate output... /bin/sed
+checking for grep that handles long lines and -e... /bin/grep
+checking for egrep... /bin/grep -E
+checking for fgrep... /bin/grep -F
+checking for ld used by gcc... /bin/ld
+checking if the linker (/bin/ld) is GNU ld... yes
+checking for BSD- or MS-compatible name lister (nm)... /bin/nm -B
+checking the name lister (/bin/nm -B) interface... BSD nm
+checking whether ln -s works... yes
+checking the maximum length of command line arguments... 1572864
+checking how to convert x86_64-pc-linux-gnu file names to x86_64-pc-linux-gnu format... func_convert_file_noop
+checking how to convert x86_64-pc-linux-gnu file names to toolchain format... func_convert_file_noop
+checking for /bin/ld option to reload object files... -r
+checking for objdump... objdump
+checking how to recognize dependent libraries... pass_all
+checking for dlltool... no
+checking how to associate runtime and link libraries... printf %s\n
+checking for ar... ar
+checking for archiver @FILE support... @
+checking for strip... strip
+checking for ranlib... ranlib
+checking command to parse /bin/nm -B output from gcc object... ok
+checking for sysroot... no
+checking for a working dd... /bin/dd
+checking how to truncate binary pipes... /bin/dd bs=4096 count=1
+checking for mt... mt
+checking if mt is a manifest tool... no
+checking for dlfcn.h... yes
+checking for objdir... .libs
+checking if gcc supports -fno-rtti -fno-exceptions... no
+checking for gcc option to produce PIC... -fPIC -DPIC
+checking if gcc PIC flag -fPIC -DPIC works... yes
+checking if gcc static flag -static works... yes
+checking if gcc supports -c -o file.o... yes
+checking if gcc supports -c -o file.o... (cached) yes
+checking whether the gcc linker (/bin/ld -m elf_x86_64) supports shared libraries... yes
+checking whether -lc should be explicitly linked in... no
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... yes
+checking for a sed that does not truncate output... (cached) /bin/sed
+checking whether Intel CET is enabled... yes
+checking for yasm... yes
+checking for modern yasm... yes
+checking for optional yasm AVX512 support... no
+checking for nasm... yes
+checking for modern nasm... yes
+checking for optional nasm AVX512 support... yes
+checking for additional nasm AVX512 support... yes
+Using nasm args target "linux" "-f elf64"
+checking for limits.h... yes
+checking for stdint.h... (cached) yes
+checking for stdlib.h... (cached) yes
+checking for string.h... (cached) yes
+checking for inline... inline
+checking for size_t... yes
+checking for uint16_t... yes
+checking for uint32_t... yes
+checking for uint64_t... yes
+checking for uint8_t... yes
+checking for GNU libc compatible malloc... yes
+checking for memmove... yes
+checking for memset... yes
+checking for getopt... yes
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating libisal.pc
+config.status: executing depfiles commands
+config.status: executing libtool commands
+
+        isa-l 2.30.0
+        =====
+
+        prefix:                 /usr
+        sysconfdir:             ${prefix}/etc
+        libdir:                 /usr/lib
+        includedir:             ${prefix}/include
+
+        compiler:               gcc
+        cflags:                 -g -O2
+        ldflags:
+
+        debug:                  no
+
+(base) n869p538@sapphire:isa-l$ make
+Building isa-l.h
+make --no-print-directory all-am
+  CC       programs/igzip_cli.o
+  CC       erasure_code/ec_base.lo
+  CC       raid/raid_base.lo
+  CC       crc/crc_base.lo
+  CC       crc/crc64_base.lo
+  CC       igzip/igzip.lo
+  CC       igzip/hufftables_c.lo
+  CC       igzip/igzip_base.lo
+  CC       igzip/igzip_icf_base.lo
+  CC       igzip/adler32_base.lo
+  CC       igzip/flatten_ll.lo
+  CC       igzip/encode_df.lo
+  CC       igzip/igzip_icf_body.lo
+  CC       igzip/huff_codes.lo
+  CC       igzip/igzip_inflate.lo
+  CC       mem/mem_zero_detect_base.lo
+  CC       erasure_code/ec_highlevel_func.lo
+  MKTMP    erasure_code/gf_vect_mul_sse.s
+  CCAS     erasure_code/gf_vect_mul_sse.lo
+  MKTMP    erasure_code/gf_vect_mul_avx.s
+  CCAS     erasure_code/gf_vect_mul_avx.lo
+  MKTMP    erasure_code/gf_vect_dot_prod_sse.s
+  CCAS     erasure_code/gf_vect_dot_prod_sse.lo
+  MKTMP    erasure_code/gf_vect_dot_prod_avx.s
+  CCAS     erasure_code/gf_vect_dot_prod_avx.lo
+  MKTMP    erasure_code/gf_vect_dot_prod_avx2.s
+  CCAS     erasure_code/gf_vect_dot_prod_avx2.lo
+  MKTMP    erasure_code/gf_2vect_dot_prod_sse.s
+  CCAS     erasure_code/gf_2vect_dot_prod_sse.lo
+  MKTMP    erasure_code/gf_3vect_dot_prod_sse.s
+  CCAS     erasure_code/gf_3vect_dot_prod_sse.lo
+  MKTMP    erasure_code/gf_4vect_dot_prod_sse.s
+  CCAS     erasure_code/gf_4vect_dot_prod_sse.lo
+  MKTMP    erasure_code/gf_5vect_dot_prod_sse.s
+  CCAS     erasure_code/gf_5vect_dot_prod_sse.lo
+  MKTMP    erasure_code/gf_6vect_dot_prod_sse.s
+  CCAS     erasure_code/gf_6vect_dot_prod_sse.lo
+  MKTMP    erasure_code/gf_2vect_dot_prod_avx.s
+  CCAS     erasure_code/gf_2vect_dot_prod_avx.lo
+  MKTMP    erasure_code/gf_3vect_dot_prod_avx.s
+  CCAS     erasure_code/gf_3vect_dot_prod_avx.lo
+  MKTMP    erasure_code/gf_4vect_dot_prod_avx.s
+  CCAS     erasure_code/gf_4vect_dot_prod_avx.lo
+  MKTMP    erasure_code/gf_5vect_dot_prod_avx.s
+  CCAS     erasure_code/gf_5vect_dot_prod_avx.lo
+  MKTMP    erasure_code/gf_6vect_dot_prod_avx.s
+  CCAS     erasure_code/gf_6vect_dot_prod_avx.lo
+  MKTMP    erasure_code/gf_2vect_dot_prod_avx2.s
+  CCAS     erasure_code/gf_2vect_dot_prod_avx2.lo
+  MKTMP    erasure_code/gf_3vect_dot_prod_avx2.s
+  CCAS     erasure_code/gf_3vect_dot_prod_avx2.lo
+  MKTMP    erasure_code/gf_4vect_dot_prod_avx2.s
+  CCAS     erasure_code/gf_4vect_dot_prod_avx2.lo
+  MKTMP    erasure_code/gf_5vect_dot_prod_avx2.s
+  CCAS     erasure_code/gf_5vect_dot_prod_avx2.lo
+  MKTMP    erasure_code/gf_6vect_dot_prod_avx2.s
+  CCAS     erasure_code/gf_6vect_dot_prod_avx2.lo
+  MKTMP    erasure_code/gf_vect_mad_sse.s
+  CCAS     erasure_code/gf_vect_mad_sse.lo
+  MKTMP    erasure_code/gf_2vect_mad_sse.s
+  CCAS     erasure_code/gf_2vect_mad_sse.lo
+  MKTMP    erasure_code/gf_3vect_mad_sse.s
+  CCAS     erasure_code/gf_3vect_mad_sse.lo
+  MKTMP    erasure_code/gf_4vect_mad_sse.s
+  CCAS     erasure_code/gf_4vect_mad_sse.lo
+  MKTMP    erasure_code/gf_5vect_mad_sse.s
+  CCAS     erasure_code/gf_5vect_mad_sse.lo
+  MKTMP    erasure_code/gf_6vect_mad_sse.s
+  CCAS     erasure_code/gf_6vect_mad_sse.lo
+  MKTMP    erasure_code/gf_vect_mad_avx.s
+  CCAS     erasure_code/gf_vect_mad_avx.lo
+  MKTMP    erasure_code/gf_2vect_mad_avx.s
+  CCAS     erasure_code/gf_2vect_mad_avx.lo
+  MKTMP    erasure_code/gf_3vect_mad_avx.s
+  CCAS     erasure_code/gf_3vect_mad_avx.lo
+  MKTMP    erasure_code/gf_4vect_mad_avx.s
+  CCAS     erasure_code/gf_4vect_mad_avx.lo
+  MKTMP    erasure_code/gf_5vect_mad_avx.s
+  CCAS     erasure_code/gf_5vect_mad_avx.lo
+  MKTMP    erasure_code/gf_6vect_mad_avx.s
+  CCAS     erasure_code/gf_6vect_mad_avx.lo
+  MKTMP    erasure_code/gf_vect_mad_avx2.s
+  CCAS     erasure_code/gf_vect_mad_avx2.lo
+  MKTMP    erasure_code/gf_2vect_mad_avx2.s
+  CCAS     erasure_code/gf_2vect_mad_avx2.lo
+  MKTMP    erasure_code/gf_3vect_mad_avx2.s
+  CCAS     erasure_code/gf_3vect_mad_avx2.lo
+  MKTMP    erasure_code/gf_4vect_mad_avx2.s
+  CCAS     erasure_code/gf_4vect_mad_avx2.lo
+  MKTMP    erasure_code/gf_5vect_mad_avx2.s
+  CCAS     erasure_code/gf_5vect_mad_avx2.lo
+  MKTMP    erasure_code/gf_6vect_mad_avx2.s
+  CCAS     erasure_code/gf_6vect_mad_avx2.lo
+  MKTMP    erasure_code/ec_multibinary.s
+  CCAS     erasure_code/ec_multibinary.lo
+  MKTMP    erasure_code/gf_vect_dot_prod_avx512.s
+  CCAS     erasure_code/gf_vect_dot_prod_avx512.lo
+  MKTMP    erasure_code/gf_2vect_dot_prod_avx512.s
+  CCAS     erasure_code/gf_2vect_dot_prod_avx512.lo
+  MKTMP    erasure_code/gf_3vect_dot_prod_avx512.s
+  CCAS     erasure_code/gf_3vect_dot_prod_avx512.lo
+  MKTMP    erasure_code/gf_4vect_dot_prod_avx512.s
+  CCAS     erasure_code/gf_4vect_dot_prod_avx512.lo
+  MKTMP    erasure_code/gf_5vect_dot_prod_avx512.s
+  CCAS     erasure_code/gf_5vect_dot_prod_avx512.lo
+  MKTMP    erasure_code/gf_6vect_dot_prod_avx512.s
+  CCAS     erasure_code/gf_6vect_dot_prod_avx512.lo
+  MKTMP    erasure_code/gf_vect_mad_avx512.s
+  CCAS     erasure_code/gf_vect_mad_avx512.lo
+  MKTMP    erasure_code/gf_2vect_mad_avx512.s
+  CCAS     erasure_code/gf_2vect_mad_avx512.lo
+  MKTMP    erasure_code/gf_3vect_mad_avx512.s
+  CCAS     erasure_code/gf_3vect_mad_avx512.lo
+  MKTMP    erasure_code/gf_4vect_mad_avx512.s
+  CCAS     erasure_code/gf_4vect_mad_avx512.lo
+  MKTMP    erasure_code/gf_5vect_mad_avx512.s
+  CCAS     erasure_code/gf_5vect_mad_avx512.lo
+  MKTMP    erasure_code/gf_6vect_mad_avx512.s
+  CCAS     erasure_code/gf_6vect_mad_avx512.lo
+  MKTMP    raid/xor_gen_sse.s
+  CCAS     raid/xor_gen_sse.lo
+  MKTMP    raid/pq_gen_sse.s
+  CCAS     raid/pq_gen_sse.lo
+  MKTMP    raid/xor_check_sse.s
+  CCAS     raid/xor_check_sse.lo
+  MKTMP    raid/pq_check_sse.s
+  CCAS     raid/pq_check_sse.lo
+  MKTMP    raid/pq_gen_avx.s
+  CCAS     raid/pq_gen_avx.lo
+  MKTMP    raid/xor_gen_avx.s
+  CCAS     raid/xor_gen_avx.lo
+  MKTMP    raid/pq_gen_avx2.s
+  CCAS     raid/pq_gen_avx2.lo
+  MKTMP    raid/xor_gen_avx512.s
+  CCAS     raid/xor_gen_avx512.lo
+  MKTMP    raid/pq_gen_avx512.s
+  CCAS     raid/pq_gen_avx512.lo
+  MKTMP    raid/raid_multibinary.s
+  CCAS     raid/raid_multibinary.lo
+  MKTMP    crc/crc16_t10dif_01.s
+  CCAS     crc/crc16_t10dif_01.lo
+  MKTMP    crc/crc16_t10dif_by4.s
+  CCAS     crc/crc16_t10dif_by4.lo
+  MKTMP    crc/crc16_t10dif_02.s
+  CCAS     crc/crc16_t10dif_02.lo
+  MKTMP    crc/crc16_t10dif_by16_10.s
+  CCAS     crc/crc16_t10dif_by16_10.lo
+  MKTMP    crc/crc16_t10dif_copy_by4.s
+  CCAS     crc/crc16_t10dif_copy_by4.lo
+  MKTMP    crc/crc16_t10dif_copy_by4_02.s
+  CCAS     crc/crc16_t10dif_copy_by4_02.lo
+  MKTMP    crc/crc32_ieee_01.s
+  CCAS     crc/crc32_ieee_01.lo
+  MKTMP    crc/crc32_ieee_02.s
+  CCAS     crc/crc32_ieee_02.lo
+  MKTMP    crc/crc32_ieee_by4.s
+  CCAS     crc/crc32_ieee_by4.lo
+  MKTMP    crc/crc32_ieee_by16_10.s
+  CCAS     crc/crc32_ieee_by16_10.lo
+  MKTMP    crc/crc32_iscsi_01.s
+  CCAS     crc/crc32_iscsi_01.lo
+  MKTMP    crc/crc32_iscsi_00.s
+  CCAS     crc/crc32_iscsi_00.lo
+  MKTMP    crc/crc32_iscsi_by16_10.s
+  CCAS     crc/crc32_iscsi_by16_10.lo
+  MKTMP    crc/crc_multibinary.s
+  CCAS     crc/crc_multibinary.lo
+  MKTMP    crc/crc64_multibinary.s
+  CCAS     crc/crc64_multibinary.lo
+  MKTMP    crc/crc64_ecma_refl_by8.s
+  CCAS     crc/crc64_ecma_refl_by8.lo
+  MKTMP    crc/crc64_ecma_refl_by16_10.s
+  CCAS     crc/crc64_ecma_refl_by16_10.lo
+  MKTMP    crc/crc64_ecma_norm_by8.s
+  CCAS     crc/crc64_ecma_norm_by8.lo
+  MKTMP    crc/crc64_ecma_norm_by16_10.s
+  CCAS     crc/crc64_ecma_norm_by16_10.lo
+  MKTMP    crc/crc64_iso_refl_by8.s
+  CCAS     crc/crc64_iso_refl_by8.lo
+  MKTMP    crc/crc64_iso_refl_by16_10.s
+  CCAS     crc/crc64_iso_refl_by16_10.lo
+  MKTMP    crc/crc64_iso_norm_by8.s
+  CCAS     crc/crc64_iso_norm_by8.lo
+  MKTMP    crc/crc64_iso_norm_by16_10.s
+  CCAS     crc/crc64_iso_norm_by16_10.lo
+  MKTMP    crc/crc64_jones_refl_by8.s
+  CCAS     crc/crc64_jones_refl_by8.lo
+  MKTMP    crc/crc64_jones_refl_by16_10.s
+  CCAS     crc/crc64_jones_refl_by16_10.lo
+  MKTMP    crc/crc64_jones_norm_by8.s
+  CCAS     crc/crc64_jones_norm_by8.lo
+  MKTMP    crc/crc64_jones_norm_by16_10.s
+  CCAS     crc/crc64_jones_norm_by16_10.lo
+  MKTMP    crc/crc64_rocksoft_refl_by8.s
+  CCAS     crc/crc64_rocksoft_refl_by8.lo
+  MKTMP    crc/crc64_rocksoft_refl_by16_10.s
+  CCAS     crc/crc64_rocksoft_refl_by16_10.lo
+  MKTMP    crc/crc64_rocksoft_norm_by8.s
+  CCAS     crc/crc64_rocksoft_norm_by8.lo
+  MKTMP    crc/crc64_rocksoft_norm_by16_10.s
+  CCAS     crc/crc64_rocksoft_norm_by16_10.lo
+  MKTMP    crc/crc32_gzip_refl_by8.s
+  CCAS     crc/crc32_gzip_refl_by8.lo
+  MKTMP    crc/crc32_gzip_refl_by8_02.s
+  CCAS     crc/crc32_gzip_refl_by8_02.lo
+  MKTMP    crc/crc32_gzip_refl_by16_10.s
+  CCAS     crc/crc32_gzip_refl_by16_10.lo
+  MKTMP    igzip/igzip_body.s
+  CCAS     igzip/igzip_body.lo
+  MKTMP    igzip/igzip_finish.s
+  CCAS     igzip/igzip_finish.lo
+  MKTMP    igzip/igzip_icf_body_h1_gr_bt.s
+  CCAS     igzip/igzip_icf_body_h1_gr_bt.lo
+  MKTMP    igzip/igzip_icf_finish.s
+  CCAS     igzip/igzip_icf_finish.lo
+  MKTMP    igzip/rfc1951_lookup.s
+  CCAS     igzip/rfc1951_lookup.lo
+  MKTMP    igzip/adler32_sse.s
+  CCAS     igzip/adler32_sse.lo
+  MKTMP    igzip/adler32_avx2_4.s
+  CCAS     igzip/adler32_avx2_4.lo
+  MKTMP    igzip/igzip_multibinary.s
+  CCAS     igzip/igzip_multibinary.lo
+  MKTMP    igzip/igzip_update_histogram_01.s
+  CCAS     igzip/igzip_update_histogram_01.lo
+  MKTMP    igzip/igzip_update_histogram_04.s
+  CCAS     igzip/igzip_update_histogram_04.lo
+  MKTMP    igzip/igzip_decode_block_stateless_01.s
+  CCAS     igzip/igzip_decode_block_stateless_01.lo
+  MKTMP    igzip/igzip_decode_block_stateless_04.s
+  CCAS     igzip/igzip_decode_block_stateless_04.lo
+  MKTMP    igzip/igzip_inflate_multibinary.s
+  CCAS     igzip/igzip_inflate_multibinary.lo
+  MKTMP    igzip/encode_df_04.s
+  CCAS     igzip/encode_df_04.lo
+  MKTMP    igzip/encode_df_06.s
+  CCAS     igzip/encode_df_06.lo
+  MKTMP    igzip/proc_heap.s
+  CCAS     igzip/proc_heap.lo
+  MKTMP    igzip/igzip_deflate_hash.s
+  CCAS     igzip/igzip_deflate_hash.lo
+  MKTMP    igzip/igzip_gen_icf_map_lh1_06.s
+  CCAS     igzip/igzip_gen_icf_map_lh1_06.lo
+  MKTMP    igzip/igzip_gen_icf_map_lh1_04.s
+  CCAS     igzip/igzip_gen_icf_map_lh1_04.lo
+  MKTMP    igzip/igzip_set_long_icf_fg_04.s
+  CCAS     igzip/igzip_set_long_icf_fg_04.lo
+  MKTMP    igzip/igzip_set_long_icf_fg_06.s
+  CCAS     igzip/igzip_set_long_icf_fg_06.lo
+  MKTMP    mem/mem_zero_detect_avx512.s
+  CCAS     mem/mem_zero_detect_avx512.lo
+  MKTMP    mem/mem_zero_detect_avx2.s
+  CCAS     mem/mem_zero_detect_avx2.lo
+  MKTMP    mem/mem_zero_detect_avx.s
+  CCAS     mem/mem_zero_detect_avx.lo
+  MKTMP    mem/mem_zero_detect_sse.s
+  CCAS     mem/mem_zero_detect_sse.lo
+  MKTMP    mem/mem_multibinary.s
+  CCAS     mem/mem_multibinary.lo
+  CCLD     libisal.la
+  CCLD     programs/igzip
+rm erasure_code/gf_5vect_dot_prod_avx512.s erasure_code/gf_3vect_mad_avx.s erasure_code/gf_5vect_dot_prod_avx2.s erasure_code/gf_6vect_dot_prod_avx.s crc
+/crc16_t10dif_01.s crc/crc32_iscsi_00.s erasure_code/gf_5vect_dot_prod_avx.s igzip/encode_df_04.s erasure_code/gf_6vect_mad_sse.s erasure_code/gf_4vect_d
+ot_prod_sse.s erasure_code/gf_5vect_mad_avx512.s crc/crc16_t10dif_copy_by4.s erasure_code/gf_5vect_mad_avx2.s erasure_code/gf_vect_mad_avx2.s igzip/proc_
+heap.s erasure_code/gf_3vect_dot_prod_sse.s igzip/igzip_set_long_icf_fg_06.s crc/crc64_jones_refl_by8.s erasure_code/gf_vect_dot_prod_avx2.s igzip/encode
+_df_06.s crc/crc_multibinary.s erasure_code/gf_4vect_mad_avx512.s erasure_code/gf_2vect_mad_avx2.s erasure_code/gf_4vect_mad_avx.s igzip/igzip_set_long_i
+cf_fg_04.s crc/crc64_iso_refl_by8.s crc/crc16_t10dif_by16_10.s erasure_code/gf_2vect_dot_prod_avx2.s igzip/igzip_gen_icf_map_lh1_04.s erasure_code/gf_5ve
+ct_mad_avx.s raid/xor_check_sse.s raid/pq_gen_sse.s erasure_code/gf_vect_mad_avx.s erasure_code/gf_5vect_dot_prod_sse.s erasure_code/ec_multibinary.s crc
+/crc64_iso_norm_by16_10.s igzip/rfc1951_lookup.s raid/pq_gen_avx2.s erasure_code/gf_6vect_mad_avx.s crc/crc32_gzip_refl_by8.s igzip/igzip_gen_icf_map_lh1
+_06.s erasure_code/gf_3vect_dot_prod_avx2.s erasure_code/gf_2vect_mad_avx512.s igzip/igzip_update_histogram_04.s crc/crc64_ecma_norm_by16_10.s crc/crc64_
+rocksoft_norm_by8.s crc/crc32_ieee_by4.s erasure_code/gf_4vect_dot_prod_avx.s crc/crc64_rocksoft_norm_by16_10.s crc/crc16_t10dif_02.s erasure_code/gf_2ve
+ct_mad_sse.s raid/xor_gen_sse.s erasure_code/gf_5vect_mad_sse.s erasure_code/gf_3vect_dot_prod_avx512.s erasure_code/gf_3vect_mad_avx512.s raid/pq_gen_av
+x.s erasure_code/gf_2vect_dot_prod_sse.s igzip/igzip_multibinary.s igzip/igzip_deflate_hash.s erasure_code/gf_vect_mad_avx512.s raid/pq_gen_avx512.s igzi
+p/adler32_sse.s crc/crc32_iscsi_01.s crc/crc16_t10dif_by4.s erasure_code/gf_6vect_dot_prod_avx2.s crc/crc32_gzip_refl_by16_10.s raid/xor_gen_avx512.s era
+sure_code/gf_vect_dot_prod_avx.s crc/crc64_rocksoft_refl_by16_10.s igzip/igzip_icf_finish.s erasure_code/gf_vect_mad_sse.s erasure_code/gf_vect_mul_sse.s
+ erasure_code/gf_6vect_mad_avx512.s igzip/igzip_decode_block_stateless_04.s erasure_code/gf_6vect_mad_avx2.s crc/crc64_ecma_refl_by16_10.s raid/xor_gen_a
+vx.s erasure_code/gf_6vect_dot_prod_avx512.s erasure_code/gf_2vect_mad_avx.s erasure_code/gf_2vect_dot_prod_avx512.s crc/crc32_ieee_by16_10.s crc/crc64_i
+so_refl_by16_10.s erasure_code/gf_3vect_mad_sse.s raid/pq_check_sse.s erasure_code/gf_2vect_dot_prod_avx.s mem/mem_zero_detect_avx.s crc/crc32_ieee_01.s
+crc/crc64_jones_refl_by16_10.s crc/crc64_multibinary.s raid/raid_multibinary.s mem/mem_multibinary.s erasure_code/gf_3vect_dot_prod_avx.s crc/crc32_ieee_
+02.s mem/mem_zero_detect_sse.s igzip/igzip_decode_block_stateless_01.s erasure_code/gf_4vect_dot_prod_avx2.s crc/crc32_gzip_refl_by8_02.s igzip/igzip_fin
+ish.s mem/mem_zero_detect_avx2.s erasure_code/gf_4vect_mad_avx2.s crc/crc16_t10dif_copy_by4_02.s erasure_code/gf_vect_dot_prod_sse.s erasure_code/gf_3vec
+t_mad_avx2.s erasure_code/gf_vect_mul_avx.s crc/crc64_rocksoft_refl_by8.s igzip/adler32_avx2_4.s erasure_code/gf_4vect_mad_sse.s igzip/igzip_inflate_mult
+ibinary.s crc/crc64_ecma_norm_by8.s igzip/igzip_body.s erasure_code/gf_6vect_dot_prod_sse.s crc/crc32_iscsi_by16_10.s crc/crc64_jones_norm_by16_10.s crc/
+crc64_iso_norm_by8.s mem/mem_zero_detect_avx512.s crc/crc64_jones_norm_by8.s erasure_code/gf_4vect_dot_prod_avx512.s crc/crc64_ecma_refl_by8.s igzip/igzi
+p_update_histogram_01.s igzip/igzip_icf_body_h1_gr_bt.s erasure_code/gf_vect_dot_prod_avx512.s
+(base) n869p538@sapphire:isa-l$ sudo make install
+make --no-print-directory install-am
+ /bin/mkdir -p '/usr/lib'
+ /bin/bash ./libtool   --mode=install /bin/install -c   libisal.la '/usr/lib'
+libtool: install: /bin/install -c .libs/libisal.so.2.0.30 /usr/lib/libisal.so.2.0.30
+libtool: install: (cd /usr/lib && { ln -s -f libisal.so.2.0.30 libisal.so.2 || { rm -f libisal.so.2 && ln -s libisal.so.2.0.30 libisal.so.2; }; })
+libtool: install: (cd /usr/lib && { ln -s -f libisal.so.2.0.30 libisal.so || { rm -f libisal.so && ln -s libisal.so.2.0.30 libisal.so; }; })
+libtool: install: /bin/install -c .libs/libisal.lai /usr/lib/libisal.la
+libtool: install: /bin/install -c .libs/libisal.a /usr/lib/libisal.a
+libtool: install: chmod 644 /usr/lib/libisal.a
+libtool: install: ranlib /usr/lib/libisal.a
+libtool: finish: PATH="/home/n869p538/anaconda3/condabin:/home/n869p538/anaconda3/bin:/opt/intel/oneapi/vtune/2022.4.0/bin64:/usr/system/bin:/usr/local/b
+in:/bin:/usr/bin:/usr/bin/X11:/usr/X11R6/bin:/sbin:/usr/sbin:/usr/local/sbin:/tools/matlab/bin:/home/n869p538/.local/bin:/snap/bin:/sbin" ldconfig -n /us
+r/lib
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+ /bin/mkdir -p '/usr/bin'
+  /bin/bash ./libtool   --mode=install /bin/install -c programs/igzip '/usr/bin'
+libtool: install: /bin/install -c programs/.libs/igzip /usr/bin/igzip
+ /bin/mkdir -p '/usr/share/man/man1'
+ /bin/install -c -m 644 programs/igzip.1 '/usr/share/man/man1'
+ /bin/mkdir -p '/usr/include'
+ /bin/install -c -m 644  isa-l.h '/usr/include/.'
+ /bin/mkdir -p '/usr/lib/pkgconfig'
+ /bin/install -c -m 644 libisal.pc '/usr/lib/pkgconfig'
+ /bin/mkdir -p '/usr/include/isa-l'
+ /bin/install -c -m 644 include/test.h include/crc.h include/crc64.h include/erasure_code.h include/gf_vect_mul.h include/igzip_lib.h include/mem_routine
+s.h include/raid.h '/usr/include/isa-l'
+(base) n869p538@sapphire:isa-l$
