@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <chrono>
 #include <algorithm>
+#include <numeric>
 
 #ifdef USE_LIBDEFLATE
 #include "libdeflate/libdeflate.h"
@@ -29,7 +30,7 @@ int main(int argc, char **argv) {
    size_t outlen = sizeof output_buffer;
    int status = uncompress((uint8_t*)output_buffer, &outlen, (uint8_t*)input_buffer, sizeof input_buffer);
 
-   double times[100];
+   double times[10000];
 
    for (int j = 0; j < runs; j++) {
       {
@@ -41,13 +42,17 @@ int main(int argc, char **argv) {
          uint64_t end = nano();
          double bb = (end-start);
          times[j] = bb;
+        //  printf("%lfns\n", times[j]);
          double b = (end-start) / (double)(compressed_size*iterations_per_run) * 3.2;
       }
    }
 
    std::sort(&times[0], &times[runs]);
-   
-   printf("%lf\n", compressed_size * iterations_per_run / (times[0] / 1000.0));
+   double mean = std::accumulate(&times[0], &times[runs], 0)/runs;
+//    printf("%s-decomp(ns),median:%lf,mean:%lf,max:%lf,min:%lf\n", argv[1],times[runs/2], mean, times[runs-2], times[0]);
+   printf("%lf,%lf,%lf,%lf\n", argv[1],times[runs/2], mean, times[runs-2], times[0]);
+
+//    printf("%lf\n", compressed_size * iterations_per_run / (times[0] / 1000.0));
    
    return 0;
 }
