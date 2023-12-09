@@ -19,10 +19,10 @@ def zstd_compress_file(infile, outfile):
         with open(outfile,'wb') as of:
             of.write(comp)
 
-def lz4_compress_file(infile):
-    import lz4.frame
-    # level=1
-    outfile = './corpus/' + os.path.basename(infile) + '.lz4' #+ str(level)
+
+def lz4_compress_file(infile, outfile):
+    import zstd
+    level=1
     with open(infile, 'rb') as f:
         data = f.read()
         comp = lz4.frame.compress(data)

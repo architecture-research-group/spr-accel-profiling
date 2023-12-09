@@ -40,3 +40,12 @@ zstd,google-corpus/000657_cl0_ws15_131072,1.941002,54781.000000,2.392654
 zstd,google-corpus/001689_cl4_ws23_8388608,5.365725,9667153.000000,0.867743
 (env) (base) n869p538@emerald:cpu_decomp_perf$
 ```
+
+
+#### Dependenceis:
+```
+Package: liblz4-dev
+Version: 1.9.3-2build2
+
+```
+

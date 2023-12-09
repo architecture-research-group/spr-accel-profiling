@@ -1,8 +1,10 @@
 import zlib_compress
+from gen_corpus import *
 import subprocess
 import os
 import glob
 
+size = 1024
 CC = 'g++'
 TARGETS = [
 	#{
@@ -20,13 +22,13 @@ TARGETS = [
 		'name': 'zstd',
 		'library': '-lzstd',
 		'cflags': [ ],
-		'tests': glob.glob('google-corpus/*')
+		'tests': glob.glob('google-corpus/*_zstd1_*' + str(size))
 	},
 	# {
 	# 	'name': 'lz4',
 	# 	'library': '-llz4',
 	# 	'cflags': [ ],
-	# 	'tests': glob.glob('corpus/*.lz4')
+	# 	'tests': glob.glob('google-corpus/*_lz4_*')
 	# },
 	# {
 	# 	'name': 'isal_zlib',
@@ -37,24 +39,26 @@ TARGETS = [
 
 ]
 
-
+gen_corpus_google_size(size)
 
 for target in TARGETS:
 	subprocess.run([CC] + target.get('cflags', []) + ['harness-' + target['name'] + '.cpp', target['library'], '-o', 'harness-' + target['name']], check=True)
 	TESTS = target['tests']
 	TESTS.sort(key=os.path.getsize)
 
-	for test in TESTS:
+	with open('result.csv', 'w') as f:
 
-		last = None
+		for test in TESTS:
 
-		runs = 1000
+			last = None
 
-		results = []
-		for target in TARGETS:
+			runs = 100
 
-			r = subprocess.check_output(['./harness-' + target['name'], test, '2', str(runs)]).decode("utf-8")[:-1]
-			print(target['name']+','+test+','+r)
+			results = []
+			for target in TARGETS:
+
+				r = subprocess.check_output(['./harness-' + target['name'], test, '10', str(runs)]).decode("utf-8")[:-1]
+				f.write(target['name']+','+test+','+ r +'\n')
 			# results.append('%.1f' % (r,))
 			# if last is not None:
 			# 	results[-1] += (' (%.3fx)' % (r / last,))
