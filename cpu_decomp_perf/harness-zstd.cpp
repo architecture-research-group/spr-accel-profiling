@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
          uint64_t end = nano();
          double bb = (end-start);
          times[j] = bb/iterations_per_run;
-         fprintf(stderr,"%d\n", size);
+         // fprintf(stderr,"%d\n", size);
          double band =  (double)(size*iterations_per_run) / (end-start);
          bands[j] = band;
       }

@@ -20,7 +20,7 @@ TARGETS = [
 		'name': 'zstd',
 		'library': '-lzstd',
 		'cflags': [ ],
-		'tests': glob.glob('corpus/*.zst1')
+		'tests': glob.glob('google-corpus/*')
 	},
 	# {
 	# 	'name': 'lz4',
@@ -48,12 +48,12 @@ for target in TARGETS:
 
 		last = None
 
-		runs = 1
+		runs = 1000
 
 		results = []
 		for target in TARGETS:
 
-			r = subprocess.check_output(['./harness-' + target['name'], test, '1', str(runs)]).decode("utf-8")[:-1]
+			r = subprocess.check_output(['./harness-' + target['name'], test, '2', str(runs)]).decode("utf-8")[:-1]
 			print(target['name']+','+test+','+r)
 			# results.append('%.1f' % (r,))
 			# if last is not None:
