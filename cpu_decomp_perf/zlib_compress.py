@@ -10,10 +10,9 @@ def zlib_compress_file(infile):
         with open(outfile,'wb') as of:
             of.write(comp)
 
-def zstd_compress_file(infile):
+def zstd_compress_file(infile, outfile):
     import zstd
     level=1
-    outfile = './corpus/' + os.path.basename(infile) + '.zst' + str(level)
     with open(infile, 'rb') as f:
         data = f.read()
         comp = zstd.ZSTD_compress(data)
