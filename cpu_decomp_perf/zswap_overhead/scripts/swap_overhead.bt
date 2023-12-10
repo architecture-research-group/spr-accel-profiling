@@ -1,0 +1,39 @@
+BEGIN
+{
+	printf("Hit Ctrl-C to end.\n");
+}
+
+kprobe:handle_mm_fault
+{
+	@swapin[pid] = kstack;
+	@swapin_ts[pid] = nsecs;
+    @start = 1;
+    @zswap = 0;
+}
+
+kprobe:__frontswap_load
+{
+    if (@start==0){
+        @zswap = 1;
+    }
+}
+
+kretprobe:handle_mm_fault
+{
+    if(@zswap == 1){
+        @usecs[@swapin[pid]] = lhist(nsecs - @swapin_ts[pid], 0, 20000, 1000);
+        @lat_stats = stats(nsecs - @swapin_ts[pid]);
+        delete(@swapin[pid]);
+        delete(@swapin_ts[pid]);
+        
+    }
+    @start=0;
+    @zswap=0;
+}
+
+END
+{
+    clear(@swapin);
+    clear(@swapin_ts);
+
+}
