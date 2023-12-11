@@ -13,7 +13,7 @@ kprobe:handle_mm_fault
 
 kprobe:__frontswap_load
 {
-    if (@start==0){
+    if (@start==1){
         @zswap = 1;
     }
 }
@@ -22,7 +22,7 @@ kretprobe:handle_mm_fault
 {
     if(@zswap == 1){
         @usecs[@swapin[pid]] = lhist(nsecs - @swapin_ts[pid], 0, 20000, 1000);
-        @lat_stats = stats(nsecs - @swapin_ts[pid]);
+        @lat_stats[pid] = stats(nsecs - @swapin_ts[pid]);
         delete(@swapin[pid]);
         delete(@swapin_ts[pid]);
         
