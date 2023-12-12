@@ -1,0 +1,11 @@
+(base) n869p538@sapphire:cpu_decomp_perf$ sudo ./QAT20.L.1.0.50-00003/build/cpa_sample_code runTests=32 getLatency=1 | tee res
+ults.txt
+[error] SalCtrl_AdfServicesStartedCheck() - : Sal Ctrl failed to start in given time
+
+[error] do_userStart() - : Failed to start services
+
+WARNING! Param Check is enabled, this may effect Latency computation
+WARNING! Stats enabled, this may effect Latency computation
+Latency computation Enabled
+qaeMemInit started
+/home/n869p538/spr-accel-profiling/cpu_decomp_perf/QAT20.L.1.0.50-00003/quickassist/lookaside/access_layer/src/sample_code/performance/cpa_sample_code_main.c, main():452 Could not start sal for user space
