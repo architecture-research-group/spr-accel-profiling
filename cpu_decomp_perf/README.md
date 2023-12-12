@@ -12,6 +12,7 @@ tree:
 * once to generate the corpus
 * second w/ `gen_corpus` commented to run benchmark
 * output to `result.csv`
+* also need to `mkdir -p google-corpus`
 
 ```sh
 (base) n869p538@emerald:cpu_decomp_perf$ python3 -m venv env
