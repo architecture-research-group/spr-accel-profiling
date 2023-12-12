@@ -19,6 +19,14 @@ def zstd_compress_file(infile, outfile):
         with open(outfile,'wb') as of:
             of.write(comp)
 
+def zstd_compress_file_level(infile, outfile, level):
+    import zstd
+    with open(infile, 'rb') as f:
+        data = f.read()
+        comp = zstd.ZSTD_compress(data, level)
+        with open(outfile,'wb') as of:
+            of.write(comp)
+
 
 def lz4_compress_file(infile, outfile):
     import zstd

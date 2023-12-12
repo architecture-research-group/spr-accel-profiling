@@ -4,7 +4,8 @@ import subprocess
 import os
 import glob
 
-size = 1024
+size = 32 * 1024
+level = 22
 CC = 'g++'
 TARGETS = [
 	#{
@@ -22,7 +23,7 @@ TARGETS = [
 		'name': 'zstd',
 		'library': '-lzstd',
 		'cflags': [ ],
-		'tests': glob.glob('google-corpus/*_zstd1_*' + str(size))
+		'tests': glob.glob('google-corpus/*_zstd' + str(level) + '_' + str(size))
 	},
 	# {
 	# 	'name': 'lz4',
@@ -39,7 +40,7 @@ TARGETS = [
 
 ]
 
-gen_corpus_google_size(size)
+# gen_corpus_google_size_level(size, level)
 
 for target in TARGETS:
 	subprocess.run([CC] + target.get('cflags', []) + ['harness-' + target['name'] + '.cpp', target['library'], '-o', 'harness-' + target['name']], check=True)

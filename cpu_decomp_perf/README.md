@@ -1,6 +1,18 @@
 
 ### Decompression Latency of Google Files using ZSTD:
 
+tree:
+```
+* /zswap_overhead: bpftrace and zswap/cgroup setup scripts for VM zswap latency analysis
+* test.py: google trace decompression latencies
+```
+
+#### issue:
+* currently requires running `python3 test.py` twice
+* once to generate the corpus
+* second w/ `gen_corpus` commented to run benchmark
+* output to `result.csv`
+
 ```sh
 (base) n869p538@emerald:cpu_decomp_perf$ python3 -m venv env
 (base) n869p538@emerald:cpu_decomp_perf$ source env/bin/activate
