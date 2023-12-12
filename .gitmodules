@@ -19,3 +19,6 @@
 [submodule "cpu_decomp_perf/HyperCompressBench"]
 	path = cpu_decomp_perf/HyperCompressBench
 	url = git@github.com:neel-patel-1/HyperCompressBench.git
+[submodule "cpu_decomp_perf/QAT20.L.1.0.50-00003"]
+	path = cpu_decomp_perf/QAT20.L.1.0.50-00003
+	url = git@github.com:neel-patel-1/QAT20.L.1.0.50-00003.git
