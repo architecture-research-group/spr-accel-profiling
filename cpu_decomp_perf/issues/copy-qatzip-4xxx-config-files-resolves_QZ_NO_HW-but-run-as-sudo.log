@@ -1,0 +1,28 @@
+cd(base) n869p538@sapphire:cpu_decomp_perf$ cd QATzip/
+(base) n869p538@sapphire:QATzip$ ls
+aclocal.m4  autom4te.cache  config.guess   config.sub    depcomp  install-sh  ltmain.sh  Makefile.am  missing       qatzip.spec     SECURITY.md  test
+ar-lib      compile         config.log     configure     docs     libtool     m4         Makefile.in  qatzip.pc     qatzip.spec.in  specgen.sh   utils
+autogen.sh  config_file     config.status  configure.ac  include  LICENSE     Makefile   man          qatzip.pc.in  README.md       src
+(base) n869p538@sapphire:QATzip$ ls co
+compile        config_file/   config.guess   config.log     config.status  config.sub     configure      configure.ac
+(base) n869p538@sapphire:QATzip$ ls config_file/
+4xxx  c3xxx  c6xx  dh895xcc  LICENSE.BSD  LICENSE.GPL
+(base) n869p538@sapphire:QATzip$ ls config_file/4xxx/
+multiple_process_opt  multiple_thread_opt
+(base) n869p538@sapphire:QATzip$ ls config_file/4xxx/multiple_thread_opt/
+4xxx_dev0.conf  4xxx_dev1.conf  4xxx_dev2.conf  4xxx_dev3.conf  4xxx_dev4.conf  4xxx_dev5.conf  4xxx_dev6.conf  4xxx_dev7.conf
+(base) n869p538@sapphire:QATzip$ mkdir 4xxx_bak
+(base) n869p538@sapphire:QATzip$ cp -r /etc/4xxx_dev
+4xxx_dev0.conf  4xxx_dev1.conf
+(base) n869p538@sapphire:QATzip$ cp -r /etc/4xxx_dev* ./4xxx_bak/
+cp: cannot open '/etc/4xxx_dev0.conf' for reading: Permission denied
+cp: cannot open '/etc/4xxx_dev1.conf' for reading: Permission denied
+(base) n869p538@sapphire:QATzip$ sudo !!
+sudo cp -r /etc/4xxx_dev* ./4xxx_bak/
+(base) n869p538@sapphire:QATzip$ sudo cp -r config_file/4xxx/multiple_thread_opt/4xxx_dev
+4xxx_dev0.conf  4xxx_dev1.conf  4xxx_dev2.conf  4xxx_dev3.conf  4xxx_dev4.conf  4xxx_dev5.conf  4xxx_dev6.conf  4xxx_dev7.conf
+(base) n869p538@sapphire:QATzip$ sudo cp -r config_file/4xxx/multiple_thread_opt/4xxx_dev0.conf
+sudo cp -r config_file/4xxx/multiple_thread_opt/4xxx_dev0.conf config_file/4xxx/multiple_thread_opt/4xxx_dev1.conf /etc
+(base) n869p538@sapphire:QATzip$ ^C -r /etc/4xxx_dev* ./4xxx_bak/
+(base) n869p538@sapphire:QATzip$ sudo service qat_service restart
+(base) n869p538@sapphire:QATzip$

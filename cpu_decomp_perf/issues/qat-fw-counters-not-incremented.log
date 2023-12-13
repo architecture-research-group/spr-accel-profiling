@@ -1,0 +1,122 @@
+cd(base) n869p538@sapphire:cpu_decomp_perf$ cd QATzip/
+(base) n869p538@sapphire:QATzip$ ls
+aclocal.m4  autom4te.cache  config.guess   config.sub    depcomp  install-sh  ltmain.sh  Makefile.am  missing       qatzip.spec     SECURITY.md  test
+ar-lib      compile         config.log     configure     docs     libtool     m4         Makefile.in  qatzip.pc     qatzip.spec.in  specgen.sh   utils
+autogen.sh  config_file     config.status  configure.ac  include  LICENSE     Makefile   man          qatzip.pc.in  README.md       src
+(base) n869p538@sapphire:QATzip$ ls co
+compile        config_file/   config.guess   config.log     config.status  config.sub     configure      configure.ac
+(base) n869p538@sapphire:QATzip$ ls config_file/
+4xxx  c3xxx  c6xx  dh895xcc  LICENSE.BSD  LICENSE.GPL
+(base) n869p538@sapphire:QATzip$ ls config_file/4xxx/
+multiple_process_opt  multiple_thread_opt
+(base) n869p538@sapphire:QATzip$ ls config_file/4xxx/multiple_thread_opt/
+4xxx_dev0.conf  4xxx_dev1.conf  4xxx_dev2.conf  4xxx_dev3.conf  4xxx_dev4.conf  4xxx_dev5.conf  4xxx_dev6.conf  4xxx_dev7.conf
+(base) n869p538@sapphire:QATzip$ mkdir 4xxx_bak
+(base) n869p538@sapphire:QATzip$ cp -r /etc/4xxx_dev
+4xxx_dev0.conf  4xxx_dev1.conf
+(base) n869p538@sapphire:QATzip$ cp -r /etc/4xxx_dev* ./4xxx_bak/
+cp: cannot open '/etc/4xxx_dev0.conf' for reading: Permission denied
+cp: cannot open '/etc/4xxx_dev1.conf' for reading: Permission denied
+(base) n869p538@sapphire:QATzip$ sudo !!
+sudo cp -r /etc/4xxx_dev* ./4xxx_bak/
+(base) n869p538@sapphire:QATzip$ sudo cp -r config_file/4xxx/multiple_thread_opt/4xxx_dev
+4xxx_dev0.conf  4xxx_dev1.conf  4xxx_dev2.conf  4xxx_dev3.conf  4xxx_dev4.conf  4xxx_dev5.conf  4xxx_dev6.conf  4xxx_dev7.conf
+(base) n869p538@sapphire:QATzip$ sudo cp -r config_file/4xxx/multiple_thread_opt/4xxx_dev0.conf
+sudo cp -r config_file/4xxx/multiple_thread_opt/4xxx_dev0.conf config_file/4xxx/multiple_thread_opt/4xxx_dev1.conf /etc
+(base) n869p538@sapphire:QATzip$ ^C -r /etc/4xxx_dev* ./4xxx_bak/
+(base) n869p538@sapphire:QATzip$ sudo service qat_service restart
+(base) n869p538@sapphire:QATzip$ cp pane.log ./../
+corpus/                harness                harness-zlib           old/                   result.csv             zlib_compress.py
+create/                harness.cpp            harness-zlib.cpp       __pycache__/           results.txt            zlib-dougallj/
+decomp_latency_isal    harness-isal_zlib.cpp  harness-zstd           QAT20.L.1.0.50-00003/  run_harness.sh         zswap_overhead/
+env/                   harness-lz4            harness-zstd.cpp       QATzip/                scripts/
+gen_corpus.py          harness-lz4.cpp        HyperCompressBench/    rand.txt               test.py
+.gitignore             harness-qat            isa-l/                 README.md              utils.h
+google-corpus/         harness-qat.cpp        issues/                requirements.txt       zlib/
+(base) n869p538@sapphire:QATzip$ cp pane.log ./../issues/copy-qatzip-4xxx-config-files-resolves_QZ_NO_HW-but-run-as-sudo.log
+(base) n869p538@sapphire:QATzip$ ea
+(base) n869p538@sapphire:QATzip$ ls config_file/4xxx/multiple_thread_opt/4xxx_dev
+4xxx_dev0.conf  4xxx_dev1.conf  4xxx_dev2.conf  4xxx_dev3.conf  4xxx_dev4.conf  4xxx_dev5.conf  4xxx_dev6.conf  4xxx_dev7.conf
+(base) n869p538@sapphire:QATzip$ cat /sys/kernel/debug/<QAT_device_id>/fw_counters
+-bash: QAT_device_id: No such file or directory
+(base) n869p538@sapphire:QATzip$ ls /sys/kernel/debug/
+ls: cannot open directory '/sys/kernel/debug/': Permission denied
+(base) n869p538@sapphire:QATzip$ sudo !!
+sudo ls /sys/kernel/debug/
+acpi             devfreq           dynamic_debug       hid               mce               qat_4xxx_0000:76:00.0  sched             sync            zswap
+bdi              device_component  energy_model        intel_powerclamp  opp               qat_4xxx_0000:f3:00.0  slab              tracing
+block            devices_deferred  error_injection     interconnect      pinctrl           ras                    sleep_time        ttm
+cec              dma_buf           extfrag             iosf_sb           pkg_temp_thermal  regmap                 split_huge_pages  usb
+cleancache       dmaengine         fault_around_bytes  ixgbe             pm_genpd          regulator              sunrpc            virtio-ports
+clear_warn_once  dma_pools         frontswap           kprobes           pwm               remoteproc             suspend_stats     wakeup_sources
+clk              dri               gpio                kvm               qae_mem_dbg       resctrl                swiotlb           x86
+(base) n869p538@sapphire:QATzip$ cat /sys/kernel/debug/qat_4xxx_0000:76:00.0/
+cat: '/sys/kernel/debug/qat_4xxx_0000:76:00.0/': Permission denied
+(base) n869p538@sapphire:QATzip$ cat /sys/kernel/debug/qat_4xxx_0000:76:00.0/fw_counters
+cat: '/sys/kernel/debug/qat_4xxx_0000:76:00.0/fw_counters': Permission denied
+(base) n869p538@sapphire:QATzip$ sudo !!
+sudo cat /sys/kernel/debug/qat_4xxx_0000:76:00.0/fw_counters
++------------------------------------------------+
+| FW Statistics for Qat Device                   |
++------------------------------------------------+
+| Firmware Requests [AE  0]:                   0 |
+| Firmware Responses[AE  0]:                   0 |
++------------------------------------------------+
+| Firmware Requests [AE  1]:                   0 |
+| Firmware Responses[AE  1]:                   0 |
++------------------------------------------------+
+| Firmware Requests [AE  2]:                   0 |
+| Firmware Responses[AE  2]:                   0 |
++------------------------------------------------+
+| Firmware Requests [AE  3]:                   0 |
+| Firmware Responses[AE  3]:                   0 |
++------------------------------------------------+
+| Firmware Requests [AE  4]:                   0 |
+| Firmware Responses[AE  4]:                   0 |
++------------------------------------------------+
+| Firmware Requests [AE  5]:                   0 |
+| Firmware Responses[AE  5]:                   0 |
++------------------------------------------------+
+| Firmware Requests [AE  6]:                   0 |
+| Firmware Responses[AE  6]:                   0 |
++------------------------------------------------+
+| Firmware Requests [AE  7]:                   0 |
+| Firmware Responses[AE  7]:                   0 |
++------------------------------------------------+
+| Firmware Requests [AE  8]:                   0 |
+| Firmware Responses[AE  8]:                   0 |
++------------------------------------------------+
+(base) n869p538@sapphire:QATzip$ sudo cat /sys/kernel/debug/qat_4xxx_0000:f3:00.0/fw_coutners
+cat: '/sys/kernel/debug/qat_4xxx_0000:f3:00.0/fw_coutners': No such file or directory
+(base) n869p538@sapphire:QATzip$ sudo cat /sys/kernel/debug/qat_4xxx_0000:f3:00.0/fw_counters
++------------------------------------------------+
+| FW Statistics for Qat Device                   |
++------------------------------------------------+
+| Firmware Requests [AE  0]:                   0 |
+| Firmware Responses[AE  0]:                   0 |
++------------------------------------------------+
+| Firmware Requests [AE  1]:                   0 |
+| Firmware Responses[AE  1]:                   0 |
++------------------------------------------------+
+| Firmware Requests [AE  2]:                   0 |
+| Firmware Responses[AE  2]:                   0 |
++------------------------------------------------+
+| Firmware Requests [AE  3]:                   0 |
+| Firmware Responses[AE  3]:                   0 |
++------------------------------------------------+
+| Firmware Requests [AE  4]:                   0 |
+| Firmware Responses[AE  4]:                   0 |
++------------------------------------------------+
+| Firmware Requests [AE  5]:                   0 |
+| Firmware Responses[AE  5]:                   0 |
++------------------------------------------------+
+| Firmware Requests [AE  6]:                   0 |
+| Firmware Responses[AE  6]:                   0 |
++------------------------------------------------+
+| Firmware Requests [AE  7]:                   0 |
+| Firmware Responses[AE  7]:                   0 |
++------------------------------------------------+
+| Firmware Requests [AE  8]:                   0 |
+| Firmware Responses[AE  8]:                   0 |
++------------------------------------------------+
+(base) n869p538@sapphire:QATzip$
