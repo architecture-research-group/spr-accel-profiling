@@ -14,3 +14,7 @@ QZ_ROOT=$(pwd) ./configure --with-ICP_ROOT=$ICP_ROOT
 make clean
 make -j
 sudo make install
+
+# intel 4116+ config
+sudo cp -r config_file/4xxx/multiple_thread_opt/4xxx_dev0 config_file/4xxx/multiple_thread_opt/4xxx_dev1 /etc
+sudo service qat_service restart
