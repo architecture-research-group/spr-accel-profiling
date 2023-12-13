@@ -4,8 +4,6 @@ import subprocess
 import os
 import glob
 
-size = 32 * 1024
-level = 22
 CC = 'g++'
 TARGETS = [
 	#{
@@ -19,11 +17,22 @@ TARGETS = [
 	# 	'cflags': [ ],
 	# 	'tests': glob.glob('corpus/*.zlib6')
 	# },
+	# {
+	# 	'name': 'zstd',
+	# 	'library': '-lzstd',
+	# 	'size': 4*1024,
+	# 	'level': 22,
+	# 	'cflags': [ ],
+	# 	'tests': glob.glob('google-corpus/*_zstd' + str(level) + '_' + str(size))
+	# },
 	{
-		'name': 'zstd',
-		'library': '-lzstd',
+		'name': 'qat',
+		'library': '-lqatzip',
 		'cflags': [ ],
-		'tests': glob.glob('google-corpus/*_zstd' + str(level) + '_' + str(size))
+		'size': 4*1024,
+		'level': 6,
+		'corpus_gen': gen_corpus_google_size_level_gzip,
+		'tests': 'google-corpus/*_gz'
 	},
 	# {
 	# 	'name': 'lz4',
@@ -40,11 +49,13 @@ TARGETS = [
 
 ]
 
-# gen_corpus_google_size_level(size, level)
 
 for target in TARGETS:
+	size = target['size']
+	level = target['level']
+	target['corpus_gen'](target['size'],target['level'])
 	subprocess.run([CC] + target.get('cflags', []) + ['harness-' + target['name'] + '.cpp', target['library'], '-o', 'harness-' + target['name']], check=True)
-	TESTS = target['tests']
+	TESTS = glob.glob(target['tests'] + str(level) + '_' + str(size))
 	TESTS.sort(key=os.path.getsize)
 
 	with open('result.csv', 'w') as f:

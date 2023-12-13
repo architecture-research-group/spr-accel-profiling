@@ -1,4 +1,6 @@
 import os
+import gzip    
+
 
 def zlib_compress_file(infile):
     import zlib
@@ -9,6 +11,7 @@ def zlib_compress_file(infile):
         comp = zlib.compress(data)
         with open(outfile,'wb') as of:
             of.write(comp)
+
 
 def zstd_compress_file(infile, outfile):
     import zstd
@@ -27,6 +30,11 @@ def zstd_compress_file_level(infile, outfile, level):
         with open(outfile,'wb') as of:
             of.write(comp)
 
+def gzip_compress_file_level(infile, outfile, level):
+    with open(infile, 'rb') as f:
+        data = f.read()
+        with gzip.open(outfile,'wb', level) as of:
+            of.write(data)
 
 def lz4_compress_file(infile, outfile):
     import zstd

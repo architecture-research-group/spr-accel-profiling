@@ -16,6 +16,18 @@ def gen_corpus_google_size_level(size, level):
         # if ( os.path.isfile(outfile) ):
         zstd_compress_file_level(file, outfile, level)
 
+def gen_corpus_google_size_level_gzip(size, level):
+    folder = 'HyperCompressBench/extracted_benchmarks'
+    outdir = 'google-corpus'
+    corpus = glob.glob(folder+'/*/*')
+    kb4 = [file for file in corpus if os.stat(file).st_size == size]
+    for i in range(len(kb4)):
+        file = kb4[i]
+        size = os.stat(file).st_size
+        outfile = outdir + '/' + os.path.basename(file) + '_gz' + str(level) + '_' + str(size)
+        # if ( os.path.isfile(outfile) ):
+        gzip_compress_file_level(file, outfile, level)
+
 def gen_corpus_google_size(size):
     folder = 'HyperCompressBench/extracted_benchmarks'
     outdir = 'google-corpus'
