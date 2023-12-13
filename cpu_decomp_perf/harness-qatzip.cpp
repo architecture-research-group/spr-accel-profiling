@@ -33,18 +33,25 @@ int main(int argc, char **argv) {
    if (QZ_OK != rc) {
       return rc;
    }
-   QzSessionParams_T params;
-   params.direction = QZ_DIR_DECOMPRESS;
-   params.huffman_hdr = QZ_STATIC_HDR;
-   params.data_fmt = QZ_DEFLATE_GZIP;
-   params.comp_algorithm = QZ_DEFLATE;
-   params.comp_lvl = 6;
-   params.max_forks = 0;
-   params.hw_buff_sz = 8192; // must be power of 2
-   params.strm_buff_sz = params.hw_buff_sz;
-   params.input_sz_thrshold = QZ_COMP_THRESHOLD_MINIMUM; // no sw fallback
-   params.req_cnt_thrshold = 32; // qatzip_internal.h: NUM_BUFF= 32
-   params.wait_cnt_thrshold = 0; //retry immediately
+   QzSessionParams_T params = {0};
+   // params.direction = QZ_DIR_DECOMPRESS;
+   // params.huffman_hdr = QZ_STATIC_HDR;
+   // params.data_fmt = QZ_DEFLATE_GZIP;
+   // params.comp_algorithm = QZ_DEFLATE;
+   // params.comp_lvl = 6;
+   // params.max_forks = 0;
+   // params.strm_buff_sz = params.hw_buff_sz;
+   // params.input_sz_thrshold = QZ_COMP_THRESHOLD_MINIMUM; // no sw fallback
+   // params.req_cnt_thrshold = 32; // qatzip_internal.h: NUM_BUFF= 32
+   // params.wait_cnt_thrshold = 0; //retry immediately
+   if (qzGetDefaults(&params) != QZ_OK) {
+         printf("Err: set params fail to set defaults\n");
+   }
+   params.hw_buff_sz = 64 * 1024; // must be power of 2
+   if (qzSetDefaults(&params) != QZ_OK) {
+         printf("Err: set params fail to set defaults\n");
+   }
+   
 
 
    qzSetupSession(&sess, &params);

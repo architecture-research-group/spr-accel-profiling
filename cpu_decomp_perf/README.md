@@ -5,6 +5,34 @@ tree:
 ```
 * /zswap_overhead: bpftrace and zswap/cgroup setup scripts for VM zswap latency analysis
 * test.py: google trace decompression latencies
+* harness-*.cpp: Decompression Latency programs used by test.py
+```
+
+* spr setup for qat accelerator latency measurement (output to `result.csv`)
+```sh
+git submodule update --init --recursive .
+./scripts/build-accel.sh
+./scripts/build-qatzip.sh
+
+cd HyperCompressBench
+./gen_source_data.sh
+python3 reconstruct.py
+
+sudo cp -r QATzip/4xxx_bak/* /etc # TODO: change QATZIP to use nanos() instead of tv_usec
+sudo service qat_service restart
+
+python3 -m venv env
+pip install -r requirements.txt
+python qatzip_test.py
+```
+
+* run test in `test.py` (only for CPU tests)
+```sh
+git submodule update --init --recursive .
+mkdir -p google-corpus
+python3 -m venv env
+pip install -r requirements.txt
+python3 test.py
 ```
 
 #### issue:
