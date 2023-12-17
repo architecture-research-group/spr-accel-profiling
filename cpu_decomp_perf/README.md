@@ -35,58 +35,72 @@ pip install -r requirements.txt
 python3 test.py
 ```
 
-#### issue:
-* currently requires running `python3 test.py` twice
-* once to generate the corpus
-* second w/ `gen_corpus` commented to run benchmark
-* output to `result.csv`
-* also need to `mkdir -p google-corpus`
 
+* intel mlc reported bandwidth for spr 4416+
 ```sh
-(base) n869p538@emerald:cpu_decomp_perf$ python3 -m venv env
-(base) n869p538@emerald:cpu_decomp_perf$ source env/bin/activate
-(env) (base) n869p538@emerald:cpu_decomp_perf$ pip install -r requirements.txt
-Collecting lz4==4.3.2 (from -r requirements.txt (line 1))
-  Downloading lz4-4.3.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.3 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 18.1 MB/s eta 0:00:00
-Collecting zstd==1.5.5.1 (from -r requirements.txt (line 2))
-  Downloading zstd-1.5.5.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.8 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 76.7 MB/s eta 0:00:00
-Installing collected packages: zstd, lz4
-Successfully installed lz4-4.3.2 zstd-1.5.5.1
+(base) n869p538@sapphire:~$ wget https://downloadmirror.intel.com/793041/mlc_v3.11.tgz
+--2023-12-14 22:42:05--  https://downloadmirror.intel.com/793041/mlc_v3.11.tgz
+Resolving downloadmirror.intel.com (downloadmirror.intel.com)... 108.157.142.9, 108.157.142.34, 108.157.142.32, ...
+Connecting to downloadmirror.intel.com (downloadmirror.intel.com)|108.157.142.9|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1050545 (1.0M) [application/octet-stream]
+Saving to: ‘mlc_v3.11.tgz.1’
 
-[notice] A new release of pip is available: 23.2.1 -> 23.3.1
-[notice] To update, run: pip install --upgrade pip
-(env) (base) n869p538@emerald:cpu_decomp_perf$ python3 gen_corpus.py
-(env) (base) n869p538@emerald:cpu_decomp_perf$ python3 test.py
-1024
-zstd,google-corpus/000290_cl0_ws16_1024,4.338983,29161.000000,0.035115
-1024
-zstd,google-corpus/004113_cl0_ws16_1024,2.211663,40947.000000,0.025008
-1024
-zstd,google-corpus/007174_cl0_ws16_1024,1.706667,37713.000000,0.027152
-1024
-zstd,google-corpus/001982_cl1_ws10_1024,1.477633,41771.000000,0.024515
-1024
-zstd,google-corpus/004475_cl1_ws10_1024,1.259533,19942.000000,0.051349
-1024
-zstd,google-corpus/002134_cl1_ws10_1024,1.259533,41372.000000,0.024751
-32768
-zstd,google-corpus/002246_cl0_ws16_32768,4.674465,98646.000000,0.332178
-32768
-zstd,google-corpus/002168_cl0_ws16_32768,1.274127,75516.000000,0.433921
-131072
-zstd,google-corpus/000657_cl0_ws15_131072,1.941002,54781.000000,2.392654
-8388608
-zstd,google-corpus/001689_cl4_ws23_8388608,5.365725,9667153.000000,0.867743
-(env) (base) n869p538@emerald:cpu_decomp_perf$
-```
+mlc_v3.11.tgz.1                                100%[==================================================================================================>]   1.00M  --.-KB/s    in 0.01s
 
+2023-12-14 22:42:05 (82.8 MB/s) - ‘mlc_v3.11.tgz.1’ saved [1050545/1050545]
 
-#### Dependenceis:
-```
-Package: liblz4-dev
-Version: 1.9.3-2build2
+(base) n869p538@sapphire:~$ mkdir mlc
+(base) n869p538@sapphire:~$ mv ml
+mlc/                mlc_v3.11.tgz       mlc_v3.11.tgz.1     mlnx_l2fwd_testing/
+(base) n869p538@sapphire:~$ mv mlc_v3.11.tgz mlc
+(base) n869p538@sapphire:~$ cd mlc/
+(base) n869p538@sapphire:mlc$ tar -xf mlc_v3.11.tgz
+(base) n869p538@sapphire:mlc$ ls
+'Intel Memory Latency Tools Outbound License Agreement.pdf'   Linux   mlc_v3.11.tgz   readme_mlc_v3.11.pdf   Windows
+(base) n869p538@sapphire:mlc$ cd Linux/
+(base) n869p538@sapphire:Linux$ ls
+mlc  redist.txt
+(base) n869p538@sapphire:Linux$ sudo ./mlc --bandwidth_matrix
+Intel(R) Memory Latency Checker - v3.11
+Command line parameters: --bandwidth_matrix
 
+Using buffer size of 100.000MiB/thread for reads and an additional 100.000MiB/thread for writes
+Measuring Memory Bandwidths between nodes within system
+Bandwidths are in MB/sec (1 MB/sec = 1,000,000 Bytes/sec)
+Using all the threads from each core if Hyper-threading is enabled
+Using Read-only traffic type
+                Numa node
+Numa node            0       1
+       0        112664.2        63136.5
+       1        63287.5 112624.1
+(base) n869p538@sapphire:Linux$ sudo ./mlc --latency_matrix
+Intel(R) Memory Latency Checker - v3.11
+Command line parameters: --latency_matrix
+
+Using buffer size of 2000.000MiB
+Measuring idle latencies for sequential access (in ns)...
+                Numa node
+Numa node            0       1
+       0         113.0   167.9
+       1         169.6   106.4
+(base) n869p538@sapphire:Linux$ sudo ./mlc --max_bandwidth
+Intel(R) Memory Latency Checker - v3.11
+Command line parameters: --max_bandwidth
+
+Using buffer size of 100.000MiB/thread for reads and an additional 100.000MiB/thread for writes
+
+Measuring Maximum Memory Bandwidths for the system
+Will take several minutes to complete as multiple injection rates will be tried to get the best bandwidth
+Bandwidths are in MB/sec (1 MB/sec = 1,000,000 Bytes/sec)
+Using all the threads from each core if Hyper-threading is enabled
+Using traffic with the following read-write ratios
+ALL Reads        :      222587.27
+3:1 Reads-Writes :      209030.57
+2:1 Reads-Writes :      207439.92
+1:1 Reads-Writes :      201931.21
+Stream-triad like:      201446.18
+
+(base) n869p538@sapphire:Linux$
 ```
 

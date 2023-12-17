@@ -4,6 +4,8 @@ import subprocess
 import os
 import glob
 
+size = 4*1024
+level = 2
 CC = 'g++'
 TARGETS = [
 	#{
@@ -17,23 +19,23 @@ TARGETS = [
 	# 	'cflags': [ ],
 	# 	'tests': glob.glob('corpus/*.zlib6')
 	# },
-	# {
-	# 	'name': 'zstd',
-	# 	'library': '-lzstd',
-	# 	'size': 4*1024,
-	# 	'level': 22,
-	# 	'cflags': [ ],
-	# 	'tests': glob.glob('google-corpus/*_zstd' + str(level) + '_' + str(size))
-	# },
 	{
-		'name': 'qat',
-		'library': '-lqatzip',
-		'cflags': [ ],
+		'name': 'zstd',
+		'library': '-lzstd',
 		'size': 4*1024,
-		'level': 6,
-		'corpus_gen': gen_corpus_google_size_level_gzip,
-		'tests': 'google-corpus/*_gz'
+		'level': 22,
+		'cflags': [ ],
+		'tests': glob.glob('google-corpus/*_zstd' + str(level) + '_' + str(size))
 	},
+	# {
+	# 	'name': 'qat',
+	# 	'library': '-lqatzip',
+	# 	'cflags': [ ],
+	# 	'size': 4*1024,
+	# 	'level': 6,
+	# 	'corpus_gen': gen_corpus_google_size_level_gzip,
+	# 	'tests': 'google-corpus/*_gz'
+	# },
 	# {
 	# 	'name': 'lz4',
 	# 	'library': '-llz4',

@@ -49,10 +49,10 @@ int main(int argc, char **argv) {
    }
 
    std::sort(&times[0], &times[runs]);
-   double mean = std::accumulate(&times[0], &times[runs], 0)/runs;
+   double sum = std::accumulate(&times[0], &times[runs], 0);
    std::sort(&bands[0], &bands[runs]);
 //    printf("%s-decomp(ns),median:%lf,mean:%lf,max:%lf,min:%lf\n", argv[1],times[runs/2], mean, times[runs-2], times[0]);
-   printf("%lf,%lf,%lf,%d,%d\n",(1.0 * size / compressed_size), (times[runs/2]), bands[runs/2],compressed_size, size);
+   printf("%lf,%lf,%lf,%lf,%d,%d\n",(1.0 * size / compressed_size), (times[runs/2]), sum/runs, bands[runs/2],compressed_size, size);
 
 //    printf("%lf\n", compressed_size * iterations_per_run / (times[0] / 1000.0));
    
