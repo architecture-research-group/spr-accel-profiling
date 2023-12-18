@@ -6,7 +6,11 @@ tree:
 * /zswap_overhead: bpftrace and zswap/cgroup setup scripts for VM zswap latency analysis
 * test.py: google trace decompression latencies
 * harness-*.cpp: Decompression Latency programs used by test.py
+* QATzip/test/performance_tests
+
 ```
+
+* TODO: instructions PCM setup, QAT/QATzip Build, run `./dcu_membw_scaling.sh` for DCU membw consumption
 
 * spr setup for qat accelerator latency measurement (output to `result.csv`)
 ```sh
