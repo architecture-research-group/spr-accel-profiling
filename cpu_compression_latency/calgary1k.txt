@@ -1,0 +1,53 @@
+%A Abdou, I.E.
+%A Wong, K.Y.
+%D 1982
+%T Analysis of linear interpolation schemes for bi-level image applications
+%J IBM J Research and Development
+%V 26
+%P 667-680
+
+%A Abell, R.
+%D 1981
+%T Implementation of a Telidon system using Unix file structures
+%B The Telidon book
+%E D.Godfrey and E.Chang
+%I Press Porcepic
+%C Toronto, ON
+%P 203-209
+
+%A Abut, H.
+%A Gray, R.M.
+%A Rebolledo, V.
+%D 1982
+%T Vector quantization of speech and speech-like waveforms
+%J IEEE Trans Acoustics, Speech and Signal Processing
+%V Acoustics, Speech, and Signal Processing -30
+%N 3
+%P 423-435 
+%O June
+%K *
+
+%A Achugbue, J.O.
+%D 1981
+%T On the line breaking problem in text formatting
+%J SIGOA Newsletter (Proc ACM Symposium on Text manipulation, Portland, Oregon)
+%V 2
+%N 1/2
+%P 117-121
+%O Spring/Summer
+
+%A Adams, D.N.
+%D 1979
+%T The hitchhiker's guide to the galaxy
+%I Pan
+%C London, England
+
+%A Adams, J.B.
+%D 1976
+%T A probability model of medical reasoning and the MYCIN model
+%J Mathematical Biosciences
+%V 32
+%P 177-186
+
+%A Aho, A.V.
+%A Cor
