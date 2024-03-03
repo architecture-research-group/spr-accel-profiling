@@ -8,6 +8,7 @@
 
 char input_buffer[64 * 1024 * 1024];
 char output_buffer[64 * 1024 * 1024];
+char level_buffer[64 * 1024 * 1024];
 
 uint64_t nano() {
    return std::chrono::duration_cast< ::std::chrono::nanoseconds>(
@@ -52,16 +53,18 @@ struct isal_zstream {
 };
 */
 
-   isal_deflate_stateless_init(&strm);
+   isal_deflate_init(&strm);
    strm.next_in = (uint8_t *)input_buffer;
    strm.avail_in = size;
    strm.next_out = (uint8_t *)output_buffer;
    strm.avail_out = sizeof output_buffer;
+   strm.level_buf_size=sizeof level_buffer;
+   strm.level_buf=(uint8_t *)level_buffer;
    strm.level = 1;
 
-   int status = isal_deflate_stateless(&strm);
+   int status = isal_deflate(&strm);
    if( status != COMP_OK ){
-		perror("error isal deflate\n");
+		printf("Error: %d\n",status);
 	   exit(-1);
 	}
 
@@ -73,6 +76,7 @@ for (int level=1; level <=6; level+=5){
 		   strm.avail_in = size;
 		   strm.next_out = (uint8_t *)output_buffer;
 		   strm.avail_out = sizeof output_buffer;
+		   strm.end_of_stream = 1;
 		   strm.level = level;
          uint64_t start = nano();
          for (int i = 0; i < iterations_per_run; i++) {
@@ -89,7 +93,7 @@ for (int level=1; level <=6; level+=5){
    std::sort(&times[0], &times[runs]);
    double sum = std::accumulate(&times[0], &times[runs], 0);
    std::sort(&bands[0], &bands[runs]);
-   printf("%d,%lf,%lf,%lf,%lf,%d,%d\n",level,(1.0 * orig_size / strm.total_out), (times[runs/2]), sum/runs, bands[runs/2],orig_size, strm.avail_out);
+   printf("%d,%lf,%lf,%lf,%lf,%d,%d\n",level,(1.0 * orig_size / strm.total_out), (times[runs/2]), sum/runs, bands[runs/2],orig_size, strm.total_out);
    }
    
    return 0;
