@@ -25,3 +25,9 @@
 [submodule "cpu_decomp_perf/QATzip"]
 	path = cpu_decomp_perf/QATzip
 	url = https://github.com/intel/QATzip
+[submodule "cpu_decomp_perf/pcm"]
+	path = cpu_decomp_perf/pcm
+	url = https://github.com/intel/pcm.git
+[submodule "dsa-perf-micros"]
+	path = dsa-perf-micros
+	url = https://github.com/intel/dsa-perf-micros.git
