@@ -31,3 +31,6 @@
 [submodule "dsa-perf-micros"]
 	path = dsa-perf-micros
 	url = https://github.com/intel/dsa-perf-micros.git
+[submodule "cpu_compression_latency/isa-l"]
+	path = cpu_compression_latency/isa-l
+	url = https://github.com/intel/isa-l.git
