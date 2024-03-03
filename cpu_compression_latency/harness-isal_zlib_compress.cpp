@@ -69,7 +69,7 @@ struct isal_zstream {
 	}
 
 
-for (int level=1; level <=6; level+=5){
+for (int level=ISAL_DEF_MIN_LEVEL; level !=ISAL_DEF_MAX_LEVEL; level+=1){
    for (int j = 0; j < runs; j++) {
       {
 		   strm.next_in = (uint8_t *)input_buffer;
@@ -78,9 +78,14 @@ for (int level=1; level <=6; level+=5){
 		   strm.avail_out = sizeof output_buffer;
 		   strm.end_of_stream = 1;
 		   strm.level = level;
+		   strm.total_out = 0;
          uint64_t start = nano();
          for (int i = 0; i < iterations_per_run; i++) {
-            isal_deflate_stateless(&strm);
+            int status = isal_deflate_stateless(&strm);
+		   if( status != COMP_OK ){
+				printf("Error: %d\n",status);
+			   exit(-1);
+			}
          }
          uint64_t end = nano();
          double bb = (end-start);
