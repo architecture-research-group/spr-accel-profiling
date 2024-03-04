@@ -34,3 +34,6 @@
 [submodule "cpu_compression_latency/isa-l"]
 	path = cpu_compression_latency/isa-l
 	url = https://github.com/intel/isa-l.git
+[submodule "interrupt_qat_dc/qatlib"]
+	path = interrupt_qat_dc/qatlib
+	url = https://github.com/intel/qatlib.git
