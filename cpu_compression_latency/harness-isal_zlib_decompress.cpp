@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
    char **input_buffers;
    int num_bufs = corpus_to_input_buffer(input_buffers, size);
    char **output_buffers = (char **)malloc(sizeof(char *) * num_bufs);
-   uint32_t compressed_sizes[num_bufs];
+   int compressed_sizes[num_bufs];
    char **output_buffers_2 = (char **)malloc(sizeof(char *) * num_bufs);
    char **backup_buffers = (char **)malloc(sizeof(char *) * num_bufs);
    for(int i=0; i<num_bufs; i++){
@@ -97,36 +97,54 @@ int main(int argc, char **argv) {
 
    /* DEFLATE */
    struct isal_zstream stream;
-   isal_deflate_init(&stream);
-   stream.end_of_stream = 1;
-   stream.next_in = (uint8_t *)input_buffers[0];
-   stream.avail_in = size;
-   stream.next_out = (uint8_t *)output_buffers[0];
-   stream.avail_out = MAX_EXPAND_ISAL(size);
-   do{
-      int status = isal_deflate(&stream);
-      if( status != COMP_OK){
-         printf("Error: Compression failed\n");
+   
+   vector <uint64_t> times(num_bufs);
+   for(int i=0; i<num_bufs; i++){
+      isal_deflate_init(&stream);
+      stream.end_of_stream = 1;
+      stream.next_in = (uint8_t *)input_buffers[i];
+      stream.avail_in = size;
+      stream.next_out = (uint8_t *)output_buffers[i];
+      stream.avail_out = MAX_EXPAND_ISAL(size);
+      uint64_t start = nanos();
+      do{
+         int status = isal_deflate(&stream);
+         if( status != COMP_OK){
+            printf("Error: Compression failed\n");
+            return -1;
+         }
+      } while(stream.avail_out == 0);
+      uint64_t end = nanos();
+      times[i] = end - start;
+      compressed_sizes[i] = stream.total_out;
+   }
+   printf("Size,AvgRatio,Direction,Latency\n");
+   int compressed_sum = 0;
+   for(auto& compressed_size : compressed_sizes)
+      compressed_sum += compressed_size;
+   double avg_ratio = 
+      (1.0 * size * num_bufs) / 
+         compressed_sum;
+   double avg_time = accumulate(begin(times),end(times),0) / num_bufs;
+   printf("%d,%f,%s,%f\n", size, avg_ratio, "Compress", avg_time);
+   
+   for(int i=0; i<num_bufs; i++){
+      struct inflate_state state;
+      isal_inflate_init(&state);
+      state.next_in = (uint8_t*)(output_buffers[i]);
+      state.avail_in = compressed_sizes[i];
+      state.next_out = (uint8_t*)output_buffers_2[i];
+      state.avail_out = size;
+      int status = isal_inflate(&state);
+      if(status != ISAL_DECOMP_OK){
+         printf("Error: Decompression failed: %d\n", status);
          return -1;
       }
-   } while(stream.avail_out == 0);
-   compressed_sizes[0] = stream.total_out;
-
-   struct inflate_state state;
-   isal_inflate_init(&state);
-   state.next_in = (uint8_t*)(output_buffers[0]);
-   state.avail_in = compressed_sizes[0];
-   state.next_out = (uint8_t*)output_buffers_2[0];
-   state.avail_out = size;
-   int status = isal_inflate(&state);
-   if(status != ISAL_DECOMP_OK){
-      printf("Error: Decompression failed: %d\n", status);
-      return -1;
-   }
-   int mismatch = compare_buffers(output_buffers_2[0], input_buffers[0], size);
-   if(mismatch != -1){
-      printf("Error: Decompression mismatch buffer:%d index:%d \n", 0, mismatch );
-      return -1;
+      int mismatch = compare_buffers(output_buffers_2[i], input_buffers[i], size);
+      if(mismatch != -1){
+         printf("Error: Decompression mismatch buffer:%d index:%d \n", 0, mismatch );
+         return -1;
+      }
    }
    return 0;
 
