@@ -30,7 +30,7 @@ int main(int argc, char **argv) {
    size_t outlen = sizeof output_buffer;
    int status = ZSTD_decompress((uint8_t*)output_buffer, outlen, (uint8_t*)input_buffer, compressed_size);
 
-   double times[10000], bands[10000];
+   double times[runs], bands[runs];
 
    for (int j = 0; j < runs; j++) {
       {
@@ -48,9 +48,9 @@ int main(int argc, char **argv) {
       }
    }
 
-   std::sort(&times[0], &times[runs]);
-   double sum = std::accumulate(&times[0], &times[runs], 0);
-   std::sort(&bands[0], &bands[runs]);
+   std::sort(&times[0], &times[runs-1]);
+   double sum = std::accumulate(&times[0], &times[runs-1], 0);
+   std::sort(&bands[0], &bands[runs-1]);
 //    printf("%s-decomp(ns),median:%lf,mean:%lf,max:%lf,min:%lf\n", argv[1],times[runs/2], mean, times[runs-2], times[0]);
    printf("%lf,%lf,%lf,%lf,%d,%d\n",(1.0 * size / compressed_size), (times[runs/2]), sum/runs, bands[runs/2],compressed_size, size);
 

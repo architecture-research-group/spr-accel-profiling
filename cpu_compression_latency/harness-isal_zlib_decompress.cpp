@@ -2,6 +2,7 @@
 #include <chrono>
 #include <algorithm>
 #include <numeric>
+#include <vector>
 #include <cassert>
 
 #include "igzip_lib.h"
@@ -11,10 +12,20 @@ char output_buffer[64 * 1024 * 1024];
 char output_buffer_2[64 * 1024 * 1024];
 char level_buffer[64 * 1024 * 1024];
 
-uint64_t nano() {
+using namespace std;
+uint64_t nanos() {
    return std::chrono::duration_cast< ::std::chrono::nanoseconds>(
           std::chrono::steady_clock::now().time_since_epoch())
           .count();
+}
+
+int compare_buffers(const char *a, const char *b, int size) {
+   for (int i = 0; i < size; i++) {
+      if (a[i] != b[i]) {
+         return i;
+      }
+   }
+   return -1;
 }
 
 
@@ -28,82 +39,51 @@ int main(int argc, char **argv) {
    int orig_size = fread(input_buffer, 1, size, f);
    assert( orig_size == size );
 
-   /*
-struct isal_zstream {
-	uint8_t *next_in;	//!< Next input byte
-	uint32_t avail_in;	//!< number of bytes available at next_in
-	uint32_t total_in;	//!< total number of bytes read so far
-
-	uint8_t *next_out;	//!< Next output byte
-	uint32_t avail_out;	//!< number of bytes available at next_out
-	uint32_t total_out;	//!< total number of bytes written so far
-
-	struct isal_hufftables *hufftables; //!< Huffman encoding used when compressing
-	uint32_t level; //!< Compression level to use
-	uint32_t level_buf_size; //!< Size of level_buf
-	uint8_t * level_buf; //!< User allocated buffer required for different compression levels
-	uint16_t end_of_stream;	//!< non-zero if this is the last input buffer
-	uint16_t flush;	//!< Flush type can be NO_FLUSH, SYNC_FLUSH or FULL_FLUSH
-	uint16_t gzip_flag; //!< Indicate if gzip compression is to be performed
-	uint16_t hist_bits; //!< Log base 2 of maximum lookback distance, 0 is use default
-	struct isal_zstate internal_state;	//!< Internal state for this stream
-	
-};
-*/
-
-
-
-for (int level=ISAL_DEF_MIN_LEVEL; level !=ISAL_DEF_MAX_LEVEL; level+=1){
-   double times[runs], bands[runs];
-
    struct isal_zstream strm;
    isal_deflate_init(&strm);
    strm.next_in = (uint8_t *)input_buffer;
    strm.avail_in = size;
    strm.next_out = (uint8_t *)output_buffer;
    strm.avail_out = sizeof output_buffer;
-   strm.level_buf_size=sizeof level_buffer;
-   strm.level_buf=(uint8_t *)level_buffer;
-   strm.level = 1;
+   strm.end_of_stream = 1;
+   isal_deflate(&strm);
 
    struct inflate_state state;
    isal_inflate_init(&state);
-   state.next_in = (uint8_t *)input_buffer;
-   state.avail_in = size;
-   state.next_out = (uint8_t *)output_buffer;
-   state.avail_out = sizeof output_buffer;
+   state.next_in = (uint8_t *)output_buffer;
+   state.avail_in = strm.total_out;
+   state.next_out = (uint8_t *)output_buffer_2;
+   state.avail_out = sizeof output_buffer_2;
+   isal_inflate(&state);
 
-   int status = isal_deflate(&strm);
-   if( status != COMP_OK ){
-		printf("Error: %d\n",status);
-	   exit(-1);
-	}
-   for (int j = 0; j < runs; j++) {
-         uint64_t start = nano();
-         for (int i = 0; i < iterations_per_run; i++) {
-		   state.next_in = (uint8_t *)output_buffer;
-		   state.avail_in = size;
-		   state.next_out = (uint8_t *)output_buffer_2;
-		   state.avail_out = sizeof output_buffer;
-		   state.total_out = 0;
-         int status = isal_inflate(&state);
-		   if( status != COMP_OK ){
-				printf("Error: %d\n",status);
-			   exit(-1);
-			}
-         }
-         uint64_t end = nano();
-         double bb = (end-start);
-         times[j] = bb/iterations_per_run;
-         double band =  (double)(size*iterations_per_run) / (end-start);
-         bands[j] = band;
+   compare_buffers(output_buffer_2, input_buffer, size);
+   
+   int index;
+   if((index = compare_buffers(output_buffer_2, input_buffer, size)) != -1) {
+      printf("Error: decompressed buffer does not match original buffer at index %d\n", index);
+      return 1;
    }
-
-   std::sort(&times[0], &times[runs-1]);
-   double sum = std::accumulate(&times[0], &times[runs-1], 0);
-   std::sort(&bands[0], &bands[runs-1]);
-   printf("%d,%lf,%lf,%lf,%lf,%d,%d\n",level,(1.0 * orig_size / state.total_out), (times[runs/2]), sum/runs, bands[runs/2],orig_size, state.total_out);
+   
+   uint64_t latency_avg, latency_min, latency_max;
+   vector<uint64_t> latencies(runs);
+   for(int i=0; i<runs; i++){
+      uint64_t start = nanos();
+      for(int j=0; j<iterations_per_run; j++){
+         state.next_in = (uint8_t *)output_buffer;
+         state.avail_in = strm.total_out;
+         state.next_out = (uint8_t *)output_buffer_2;
+         state.avail_out = sizeof output_buffer_2;
+         isal_inflate(&state);
+      }
+      uint64_t end = nanos();
+      latencies.push_back(end - start);      
    }
+   printf("DecompressAverageLatency(ns),%d,%f\n",
+   size, 
+   std::accumulate(latencies.begin(), 
+   
+   latencies.end(), 0) / (runs*1.0));
+   
    
    return 0;
 }

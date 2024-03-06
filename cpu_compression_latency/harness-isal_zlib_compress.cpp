@@ -26,9 +26,6 @@ int main(int argc, char **argv) {
    int runs = atoi(argv[3]), ret;
    int orig_size = fread(input_buffer, 1, size, f);
    assert( orig_size == size );
-   double times[10000], bands[10000];
-
-   struct isal_zstream strm;
 
    /*
 struct isal_zstream {
@@ -53,6 +50,12 @@ struct isal_zstream {
 };
 */
 
+
+
+for (int level=ISAL_DEF_MIN_LEVEL; level !=ISAL_DEF_MAX_LEVEL; level+=1){
+   double times[runs], bands[runs];
+
+   struct isal_zstream strm;
    isal_deflate_init(&strm);
    strm.next_in = (uint8_t *)input_buffer;
    strm.avail_in = size;
@@ -67,11 +70,9 @@ struct isal_zstream {
 		printf("Error: %d\n",status);
 	   exit(-1);
 	}
-
-
-for (int level=ISAL_DEF_MIN_LEVEL; level !=ISAL_DEF_MAX_LEVEL; level+=1){
    for (int j = 0; j < runs; j++) {
-      {
+         uint64_t start = nano();
+         for (int i = 0; i < iterations_per_run; i++) {
 		   strm.next_in = (uint8_t *)input_buffer;
 		   strm.avail_in = size;
 		   strm.next_out = (uint8_t *)output_buffer;
@@ -79,8 +80,6 @@ for (int level=ISAL_DEF_MIN_LEVEL; level !=ISAL_DEF_MAX_LEVEL; level+=1){
 		   strm.end_of_stream = 1;
 		   strm.level = level;
 		   strm.total_out = 0;
-         uint64_t start = nano();
-         for (int i = 0; i < iterations_per_run; i++) {
             int status = isal_deflate_stateless(&strm);
 		   if( status != COMP_OK ){
 				printf("Error: %d\n",status);
@@ -92,12 +91,11 @@ for (int level=ISAL_DEF_MIN_LEVEL; level !=ISAL_DEF_MAX_LEVEL; level+=1){
          times[j] = bb/iterations_per_run;
          double band =  (double)(size*iterations_per_run) / (end-start);
          bands[j] = band;
-      }
    }
 
-   std::sort(&times[0], &times[runs]);
-   double sum = std::accumulate(&times[0], &times[runs], 0);
-   std::sort(&bands[0], &bands[runs]);
+   std::sort(&times[0], &times[runs-1]);
+   double sum = std::accumulate(&times[0], &times[runs-1], 0);
+   std::sort(&bands[0], &bands[runs-1]);
    printf("%d,%lf,%lf,%lf,%lf,%d,%d\n",level,(1.0 * orig_size / strm.total_out), (times[runs/2]), sum/runs, bands[runs/2],orig_size, strm.total_out);
    }
    
