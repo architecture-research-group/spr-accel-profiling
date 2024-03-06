@@ -4,6 +4,7 @@
 #include <numeric>
 #include <vector>
 #include <cassert>
+#include <cstring>
 
 #include "igzip_lib.h"
 
@@ -48,6 +49,9 @@ int main(int argc, char **argv) {
    strm.end_of_stream = 1;
    isal_deflate(&strm);
 
+   char *backup_buffer = (char *)malloc(strm.total_out);
+   memcpy(backup_buffer, output_buffer, strm.total_out);
+
    struct inflate_state state;
    isal_inflate_init(&state);
    state.next_in = (uint8_t *)output_buffer;
@@ -64,6 +68,8 @@ int main(int argc, char **argv) {
       return 1;
    }
    
+   runs = 1;
+   iterations_per_run=1;
    uint64_t latency_avg, latency_min, latency_max;
    vector<uint64_t> latencies(runs);
    for(int i=0; i<runs; i++){
@@ -76,13 +82,40 @@ int main(int argc, char **argv) {
          isal_inflate(&state);
       }
       uint64_t end = nanos();
-      latencies.push_back(end - start);      
+      printf("latency:%lu\n", end - start);
+      fflush(NULL);
+      latencies.push_back((end - start)/iterations_per_run);      
    }
-   printf("DecompressAverageLatency(ns),%d,%f\n",
+   uint64_t max_latency = *max_element(&(latencies[0]), &(latencies[runs-1]));
+   printf("Size:%d,DecompressAverageLatency(ns):%f,MaxLatency(ns):%f\n",
    size, 
    std::accumulate(latencies.begin(), 
-   
-   latencies.end(), 0) / (runs*1.0));
+      latencies.end(), 0) / (runs*1.0),
+      max_latency/(runs*1.0));
+
+   latencies.clear();
+   for(int i=0; i<runs; i++){
+      uint64_t start = nanos();
+      for(int j=0; j<iterations_per_run; j++){
+         strm.next_in = (uint8_t *)input_buffer;
+         strm.avail_in = size;
+         strm.next_out = (uint8_t *)output_buffer;
+         strm.avail_out = sizeof output_buffer;
+         strm.end_of_stream = 1;
+         isal_deflate(&strm);
+      }
+      uint64_t end = nanos();
+      assert(compare_buffers(output_buffer, backup_buffer, strm.total_out) == -1);
+      latencies.push_back(end - start);      
+   }
+   max_latency = *max_element(&(latencies[0]), &(latencies[runs-1]));
+   printf("Size:%d,Ratio:%f,CompressAverageLatency(ns):%f,MaxLatency(ns):%f\n",
+   size,
+   size*1.0/strm.total_out,
+   std::accumulate(latencies.begin(),
+      latencies.end(), 0) / (runs*1.0),
+      max_latency/(runs*1.0));   
+
    
    
    return 0;
