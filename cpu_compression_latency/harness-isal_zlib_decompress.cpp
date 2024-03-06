@@ -47,6 +47,14 @@ void flush_buf(char *buf, int size) {
    }
 }
 
+vector<uint64_t> WithoutHiLo(vector<uint64_t> orig)
+{
+     std::sort(orig.begin(), orig.end());
+     vector<uint64_t> newVec = vector<uint64_t>(orig.size());
+     std:copy(&orig[1], &orig[orig.size()-1], &newVec[0]);
+     return newVec;
+}
+
 /*
  * This function reads the calgary corpus into a buffer and then splits it into
    * num_buffers sub-buffers. It returns the number of sub-buffers created.
@@ -120,6 +128,7 @@ int main(int argc, char **argv) {
    double avg_ratio = 
       (1.0 * size * num_bufs) / 
          compressed_sum;
+   times = WithoutHiLo(times);
    double avg_time = accumulate(begin(times),end(times),0) / num_bufs;
    printf("%d,%f,%s,%f\n", size, avg_ratio, "Compress", avg_time);
    
@@ -145,6 +154,7 @@ int main(int argc, char **argv) {
       }
       
    }
+   times = WithoutHiLo(times);
    avg_time = accumulate(begin(times),end(times),0) / num_bufs;
    printf("%d,%f,%s,%f\n", size, avg_ratio, "Decompress", avg_time);
    return 0;
