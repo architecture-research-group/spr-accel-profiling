@@ -56,20 +56,18 @@ int corpus_to_input_buffer(char ** &testBufs,int sizePerBuf ) {
    fseek(file, 0, SEEK_END);
    int size = ftell(file);
    fseek(file, 0, SEEK_SET);
-   int max_bufs = size / sizePerBuf;
-   testBufs = (char **)malloc(sizeof(char *) * max_bufs);
+   int num_bufs = size / sizePerBuf;
+
+   testBufs = (char **)malloc(sizeof(char *) * num_bufs);
    std::ifstream infile(CALGARY, std::ios::binary);
-   int i=0;
-   if (file) {
-      while (true) {
-         testBufs[i] = (char *)malloc(sizePerBuf);
-         if (!infile.read(testBufs[i], sizePerBuf)) { /*fail if not enough content*/
-               break;
-         }
-         i++;
+   for(int i=0; i< num_bufs; i++){
+      testBufs[i] = (char *)malloc(sizePerBuf);
+      if (!infile.read(testBufs[i], sizePerBuf)){
+         printf("Error: Failed to read file\n");
+         return -1;
       }
    }
-   return i;
+   return num_bufs;
 }
 #define MAX_EXPAND_ISAL(size) ISAL_DEF_MAX_HDR_SIZE + size
 
@@ -77,9 +75,6 @@ int main(int argc, char **argv) {
 
 
    int size = atoi(argv[1]);
-   int do_flush = atoi(argv[2]), ret;
-   int iterations_per_run = atoi(argv[3]);
-   int discard_fst = atoi(argv[4]);
 
 
    char **input_buffers;
@@ -135,17 +130,23 @@ int main(int argc, char **argv) {
       state.avail_in = compressed_sizes[i];
       state.next_out = (uint8_t*)output_buffers_2[i];
       state.avail_out = size;
+      uint64_t start = nanos();
       int status = isal_inflate(&state);
+      uint64_t end = nanos();
       if(status != ISAL_DECOMP_OK){
          printf("Error: Decompression failed: %d\n", status);
          return -1;
       }
+      times[i] = end - start;
       int mismatch = compare_buffers(output_buffers_2[i], input_buffers[i], size);
       if(mismatch != -1){
          printf("Error: Decompression mismatch buffer:%d index:%d \n", 0, mismatch );
          return -1;
       }
+      
    }
+   avg_time = accumulate(begin(times),end(times),0) / num_bufs;
+   printf("%d,%f,%s,%f\n", size, avg_ratio, "Decompress", avg_time);
    return 0;
 
 
