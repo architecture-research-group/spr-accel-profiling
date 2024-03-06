@@ -48,16 +48,6 @@ void flush_buf(char *buf, int size) {
 }
 
 /*
- * populate list of buffers with sub-buffers of size size/num_buffers using contents of input_buffer
-*/
-void generate_list_of_buffers(char *input_buffer, int size, int num_buffers, char **buffers) {
-   for (int i = 0; i < num_buffers; i++) {
-      buffers[i] = (char *)malloc(size / num_buffers);
-      memcpy(buffers[i], input_buffer + (i * (size / num_buffers)), size/num_buffers);
-   }
-}
-
-/*
  * This function reads the calgary corpus into a buffer and then splits it into
    * num_buffers sub-buffers. It returns the number of sub-buffers created.
 */
@@ -81,7 +71,7 @@ int corpus_to_input_buffer(char ** &testBufs,int sizePerBuf ) {
    }
    return i;
 }
-
+#define MAX_EXPAND_ISAL(size) ISAL_DEF_MAX_HDR_SIZE + size
 
 int main(int argc, char **argv) {
 
@@ -99,7 +89,7 @@ int main(int argc, char **argv) {
    char **output_buffers_2 = (char **)malloc(sizeof(char *) * num_bufs);
    char **backup_buffers = (char **)malloc(sizeof(char *) * num_bufs);
    for(int i=0; i<num_bufs; i++){
-      output_buffers[i] = (char *)malloc(size);
+      output_buffers[i] = (char *)malloc(MAX_EXPAND_ISAL(size));
       output_buffers_2[i] = (char *)malloc(size);
    }
 
@@ -108,142 +98,38 @@ int main(int argc, char **argv) {
    /* DEFLATE */
    struct isal_zstream stream;
    isal_deflate_init(&stream);
+   stream.end_of_stream = 1;
+   stream.next_in = (uint8_t *)input_buffers[0];
+   stream.avail_in = size;
+   stream.next_out = (uint8_t *)output_buffers[0];
+   stream.avail_out = MAX_EXPAND_ISAL(size);
+   do{
+      int status = isal_deflate(&stream);
+      if( status != COMP_OK){
+         printf("Error: Compression failed\n");
+         return -1;
+      }
+   } while(stream.avail_out == 0);
+   compressed_sizes[0] = stream.total_out;
 
-   for(int i=0; i< num_bufs; i++){
-      backup_buffers[i] = (char *)malloc(size);
-      stream.next_in = (uint8_t *)input_buffers[i];
-      stream.avail_in = size;
-      stream.next_out = (uint8_t *)output_buffers[i];
-      stream.avail_out = size;
-      stream.end_of_stream = 0;
-      stream.flush = SYNC_FLUSH;
-      isal_deflate(&stream);
-      compressed_sizes[i] = stream.total_out;
-      backup_buffers[i] = (char *)malloc(stream.total_out);
-      memcpy(backup_buffers[i], output_buffers[i], stream.total_out);
-      printf("Compressed buffer %d   to %d\n", i, stream.total_out);
-      stream.total_out = 0;
-   }
-
-   iterations_per_run=1;
-   uint64_t latency_avg, latency_min, max_latency;
-   vector<uint64_t> latencies(num_bufs);
-
-   /* INFLATE */
    struct inflate_state state;
-   for(int i=0; i<num_bufs; i++){      
-      if(do_flush){
-         flush_buf(output_buffers[i], compressed_sizes[i]);
-         flush_buf(output_buffers_2[i], size);
-      }
-      uint64_t start = micros();
-      for(int j=0; j<iterations_per_run; j++){
-         state.next_in = (uint8_t*)output_buffers[i];
-         state.avail_in = compressed_sizes[i];
-         state.next_out = (uint8_t*)output_buffers_2[i];
-         state.avail_out = size;
-         isal_inflate(&state);
-      }
-      uint64_t end = micros();
-      // printf("latency,%ld\n", end-start);
-      int mismatch;
-      if( (mismatch = compare_buffers(output_buffers_2[i], input_buffers[i], size)) != -1){
-         printf("Error: Decompression mismatch buffer:%d index:%d \n", i, mismatch );
-         // return -1;
-      }
-      latencies[i]=((end - start)/iterations_per_run);      
+   isal_inflate_init(&state);
+   state.next_in = (uint8_t*)(output_buffers[0]);
+   state.avail_in = compressed_sizes[0];
+   state.next_out = (uint8_t*)output_buffers_2[0];
+   state.avail_out = size;
+   int status = isal_inflate(&state);
+   if(status != ISAL_DECOMP_OK){
+      printf("Error: Decompression failed: %d\n", status);
+      return -1;
    }
-   max_latency  = *max_element(&(latencies[0]), &(latencies[num_bufs-1]));
-   printf("ISAL-Decompress,%d,,%f,%ld,\n",
-   size, 
-   std::accumulate(latencies.begin()+discard_fst,
-      std::next(latencies.begin(),num_bufs-discard_fst), 0) / (num_bufs*1.0),
-      max_latency); 
-   int stateful_deviations=0;
-   for(int i=0; i<num_bufs; i++){
-      if(do_flush){
-         flush_buf(output_buffers[i], size);
-         flush_buf(input_buffers[i], size);
-      }
-      
-      uint64_t start = micros();
-      stream.total_out = 0;
-      for(int j=0; j<iterations_per_run; j++){
-         stream.next_in = (uint8_t *)input_buffers[i];
-         stream.avail_in = size;
-         stream.next_out = (uint8_t *)output_buffers[i];
-         stream.avail_out = size;
-         stream.end_of_stream = 0;
-         stream.flush = SYNC_FLUSH;
-         isal_deflate(&stream);
-      }
-      uint64_t end = micros();
-      // printf("latency,%ld\n", end-start);
-      if(compare_buffers(output_buffers[i], backup_buffers[i], stream.total_out) != -1){
-         stateful_deviations+=1;
-      }
-      latencies[i] = (end - start)/iterations_per_run;      
+   int mismatch = compare_buffers(output_buffers_2[0], input_buffers[0], size);
+   if(mismatch != -1){
+      printf("Error: Decompression mismatch buffer:%d index:%d \n", 0, mismatch );
+      return -1;
    }
-   max_latency = *max_element(&(latencies[0]), &(latencies[num_bufs-1]));
-   double avg_ratio = std::accumulate(&compressed_sizes[0],&compressed_sizes[num_bufs-1],0)/(num_bufs * size * 1.0);
-   printf("ISAL-Compress,%d,%f,%f,%ld,%d\n",
-      size,
-      // size*1.0/stream.total_out,
-      avg_ratio,
-      std::accumulate(latencies.begin()+discard_fst, 
-         std::next(latencies.begin(),
-            num_bufs-discard_fst), 0)
-      / (num_bufs*1.0),
-      max_latency,
-      stateful_deviations);  
-
-   
-
-   
-   
-
-   // latencies.clear();
-    
-
-   // /* Zlib */
-   // z_stream strm;
-   // strm.zalloc = Z_NULL;
-   // strm.zfree = Z_NULL;
-   // strm.opaque = Z_NULL;
-   // ret = deflateInit(&strm, 3);
-   // if (ret != Z_OK)
-   //      return ret;
-
-   // latencies.clear();
-   // for(int i=0; i<num_bufs; i++){
-   //    if(do_flush){
-   //       flush_buf(output_buffer, sizeof output_buffer);
-   //       flush_buf(input_buffer, sizeof input_buffer);
-   //       _mm_mfence();
-   //    }
-   //    uint64_t start = micros();
-   //    for(int j=0; j<iterations_per_run; j++){
-   //       strm.avail_in = size;
-   //       strm.next_in = (Bytef *)input_buffer;
-   //       strm.next_out = (Bytef *)output_buffer;
-   //       strm.avail_out = sizeof output_buffer;
-   //       deflate(&strm, Z_FINISH);
-   //    }
-   //    uint64_t end = micros();
-   //    // assert(compare_buffers(output_buffer, backup_buffer, size) == -1);
-   //    latencies[i] = ((end - start)/iterations_per_run);    
-   //    printf("latency,%ld\n", end-start);  
-   // }
-
-   // max_latency = *max_element(&(latencies[0]), &(latencies[num_bufs-1]));
-   // printf("Zlib-Compress,%d,%f,%f,%ld\n",
-   // size,
-   // size*1.0/strm.total_out,
-   // std::accumulate(latencies.begin()+discard_fst,
-   //    std::next(latencies.begin(),num_bufs-discard_fst), 0) / (num_bufs*1.0),
-   // max_latency);
-
-   
    return 0;
+
+
 }
 
