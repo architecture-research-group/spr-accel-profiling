@@ -1,6 +1,4 @@
-./build.sh
-./run.sh
-
+./run_calgary_isal.sh
 
 Testing procedure from: 
 https://dougallj.wordpress.com/2022/08/20/faster-zlib-deflate-decompression-on-the-apple-m1-and-x86/
