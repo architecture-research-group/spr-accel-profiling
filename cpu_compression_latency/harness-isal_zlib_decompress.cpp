@@ -83,7 +83,7 @@ int main(int argc, char **argv) {
 
 
    int size = atoi(argv[1]);
-
+   int num_iters = atoi(argv[2]);
 
    char **input_buffers;
    int num_bufs = corpus_to_input_buffer(input_buffers, size);
@@ -97,17 +97,18 @@ int main(int argc, char **argv) {
    }
 
    printf("Testing on %d buffers\n", num_bufs);
-
+   num_iters = num_iters > num_bufs ? num_iters : num_bufs; //max(num_bufs, num_iters);
+   printf("Testing on %d iterations\n", num_iters);
    /* DEFLATE */
    struct isal_zstream stream;
    
-   vector <uint64_t> times(num_bufs);
-   for(int i=0; i<num_bufs; i++){
+   vector <uint64_t> times(num_iters);
+   for(int i=0; i<num_iters; i++){
       isal_deflate_init(&stream);
       stream.end_of_stream = 1;
-      stream.next_in = (uint8_t *)input_buffers[i];
+      stream.next_in = (uint8_t *)input_buffers[i % num_bufs];
       stream.avail_in = size;
-      stream.next_out = (uint8_t *)output_buffers[i];
+      stream.next_out = (uint8_t *)output_buffers[i % num_bufs];
       stream.avail_out = MAX_EXPAND_ISAL(size);
       uint64_t start = nanos();
       do{
@@ -128,16 +129,16 @@ int main(int argc, char **argv) {
    double avg_ratio = 
       (1.0 * size * num_bufs) / 
          compressed_sum;
-   times = WithoutHiLo(times);
-   double avg_time = accumulate(begin(times),end(times),0) / num_bufs;
-   printf("%d,%f,%s,%f\n", size, avg_ratio, "Compress", avg_time);
+   double max_time = *max_element(times.begin(), times.end());
+   double avg_time = accumulate(begin(times),end(times),0) / num_iters;
+   printf("%d,%f,%s,%f,%f\n", size, avg_ratio, "Compress", avg_time, max_time);
    
-   for(int i=0; i<num_bufs; i++){
+   for(int i=0; i<num_iters; i++){
       struct inflate_state state;
       isal_inflate_init(&state);
-      state.next_in = (uint8_t*)(output_buffers[i]);
-      state.avail_in = compressed_sizes[i];
-      state.next_out = (uint8_t*)output_buffers_2[i];
+      state.next_in = (uint8_t*)(output_buffers[i % num_bufs]);
+      state.avail_in = compressed_sizes[i % num_bufs];
+      state.next_out = (uint8_t*)output_buffers_2[i % num_bufs];
       state.avail_out = size;
       uint64_t start = nanos();
       int status = isal_inflate(&state);
@@ -147,16 +148,16 @@ int main(int argc, char **argv) {
          return -1;
       }
       times[i] = end - start;
-      int mismatch = compare_buffers(output_buffers_2[i], input_buffers[i], size);
+      int mismatch = compare_buffers(output_buffers_2[i % num_bufs], input_buffers[i % num_bufs], size);
       if(mismatch != -1){
          printf("Error: Decompression mismatch buffer:%d index:%d \n", 0, mismatch );
          return -1;
       }
       
    }
-   times = WithoutHiLo(times);
-   avg_time = accumulate(begin(times),end(times),0) / num_bufs;
-   printf("%d,%f,%s,%f\n", size, avg_ratio, "Decompress", avg_time);
+   max_time = *max_element(times.begin(), times.end());
+   avg_time = accumulate(begin(times),end(times),0) / num_iters;
+   printf("%d,%f,%s,%f,%f\n", size, avg_ratio, "Decompress", avg_time, max_time);
    return 0;
 
 
