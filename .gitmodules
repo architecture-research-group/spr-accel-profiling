@@ -37,3 +37,6 @@
 [submodule "interrupt_qat_dc/qatlib"]
 	path = interrupt_qat_dc/qatlib
 	url = https://github.com/intel/qatlib.git
+[submodule "cpu_compression_latency/lzbench-isal"]
+	path = cpu_compression_latency/lzbench-isal
+	url = https://github.com/zero1248/lzbench-isal.git
