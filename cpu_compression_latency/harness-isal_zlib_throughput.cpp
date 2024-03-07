@@ -73,7 +73,7 @@ int main(int argc, char **argv) {
 
    }
 
-   printf("Size,AvgRatio,Direction,Bandwidth(Mbit/s)\n");
+   printf("Size,AvgRatio,Direction,BandwidthAvg(Mbit/s),BandwidthMax(Mbit/s)\n");
    vector<double> bandwidths(num_iters);
    for(int i=0; i<num_iters; i++){
       bandwidths[i] = (size*8) / (times[i] / 1000.0);
@@ -86,6 +86,7 @@ int main(int argc, char **argv) {
          compressed_sum;
    double max_bandwidth = *max_element(bandwidths.begin(), bandwidths.end());
    double avg_bandwidths = accumulate(begin(bandwidths),end(bandwidths),0) / num_iters;
+   
    printf("%d,%f,%s,%f,%f\n", size, avg_ratio, "Compress", avg_bandwidths, max_bandwidth);
 
 
