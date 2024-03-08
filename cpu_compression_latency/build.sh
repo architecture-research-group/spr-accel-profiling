@@ -6,3 +6,6 @@ cd isa-l
 ./configure
 make
 sudo make install
+
+cd lzbench-isal
+make -j
