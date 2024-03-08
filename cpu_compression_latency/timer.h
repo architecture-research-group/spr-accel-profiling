@@ -4,7 +4,6 @@
 #define CALGARY "./calgary"
 #include <fstream>
 
-
 uint64_t nanos() {
    return std::chrono::duration_cast< ::std::chrono::nanoseconds>(
           std::chrono::steady_clock::now().time_since_epoch())
@@ -37,22 +36,6 @@ int corpus_to_input_buffer(char ** &testBufs,int sizePerBuf ) {
    return num_bufs;
 }
 
-int uncompress(void *out, size_t *size, void *in, size_t insize) {
-   struct inflate_state state;
-	isal_inflate_init(&state);
-	state.next_out = (uint8_t *)out;
-	state.avail_out = *size;
-	state.next_in = (uint8_t *)in;
-	state.avail_in = insize;
-	state.crc_flag = ISAL_ZLIB;
-	int status = isal_inflate_stateless(&state);
-	if (status != ISAL_DECOMP_OK) {
-		printf("isal_inflate_stateless failed %d\n", status);
-		return 1;
-	}
-	*size = state.total_out;
-	return 0;
-}
 
 int compare_buffers(const char *a, const char *b, int size) {
    for (int i = 0; i < size; i++) {
