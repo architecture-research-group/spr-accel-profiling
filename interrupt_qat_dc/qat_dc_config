@@ -1,0 +1,4 @@
+# Comment or remove next line to disable sriov
+#SRIOV_ENABLE=1
+POLICY=16
+ServicesEnabled=dc
