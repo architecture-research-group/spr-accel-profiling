@@ -1,6 +1,6 @@
 #!/bin/bash
 SIZES=( `seq 10 20` )
-CORES=( 20 21 22 23 )
+CORES=( 40 41 42 43 )
 LZBENCH=$(pwd)/lzbench-isal/lzbench
 CALGARY=/lib/firmware/calgary
 [ -f "results_*" ] && echo "Remove your results" && exit -1

@@ -104,7 +104,7 @@ int main(int argc, char **argv) {
    }
    max_time = *max_element(times.begin(), times.end());
    avg_time = accumulate(begin(times),end(times),0) / num_iters;
-   printf("%d,%f,%s,%f,%f\n", size, avg_ratio, "Decompress", avg_time, max_time);
+   printf("%d,%d,%f,%s,%f,%f\n", size, level, avg_ratio, "Decompress", avg_time, max_time);
    return 0;
 
 

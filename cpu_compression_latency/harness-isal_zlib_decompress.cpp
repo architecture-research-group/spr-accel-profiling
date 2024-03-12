@@ -96,11 +96,11 @@ int main(int argc, char **argv) {
       output_buffers_2[i] = (char *)malloc(size);
    }
 
-   printf("Testing on %d buffers\n", num_bufs);
-   num_iters = num_iters > num_bufs ? num_iters : num_bufs; //max(num_bufs, num_iters);
-   printf("Testing on %d iterations\n", num_iters);
+   num_iters = num_iters > num_bufs ? num_iters : num_bufs; 
    /* DEFLATE */
+   int level = 2;
    struct isal_zstream stream;
+   stream.level = level;
    
    vector <uint64_t> times(num_iters);
    for(int i=0; i<num_iters; i++){
@@ -122,7 +122,7 @@ int main(int argc, char **argv) {
       times[i] = end - start;
       compressed_sizes[i] = stream.total_out;
    }
-   printf("Size,AvgRatio,Direction,Latency\n");
+   printf("Size,Level,AvgRatio,Direction,AvgLatency,MaxLatency\n");
    int compressed_sum = 0;
    for(auto& compressed_size : compressed_sizes)
       compressed_sum += compressed_size;
@@ -130,7 +130,7 @@ int main(int argc, char **argv) {
       (1.0 * size * num_bufs) ;
    double max_time = *max_element(times.begin(), times.end());
    double avg_time = accumulate(begin(times),end(times),0) / num_iters;
-   printf("%d,%f,%s,%f,%f\n", size, avg_ratio, "Compress", avg_time, max_time);
+   printf("%d,%d,%f,%s,%f,%f\n", size, level, avg_ratio, "Compress", avg_time, max_time);
    
    for(int i=0; i<num_iters; i++){
       struct inflate_state state;
@@ -156,7 +156,7 @@ int main(int argc, char **argv) {
    }
    max_time = *max_element(times.begin(), times.end());
    avg_time = accumulate(begin(times),end(times),0) / num_iters;
-   printf("%d,%f,%s,%f,%f\n", size, avg_ratio, "Decompress", avg_time, max_time);
+   printf("%d,%d,%f,%s,%f,%f\n", size, level, avg_ratio, "Decompress", avg_time, max_time);
    return 0;
 
 

@@ -1,10 +1,6 @@
 all: isal_zlib_compress isal_zlib_decompress zlib_decompress isal_zlib_throughput
 .PHONY: isal_zlib_compress isal_zlib_decompress zstd_compress clean  isal_zlib_throughput
 
-# isal bandwidth
-isal_zlib_throughput: harness-isal_zlib_throughput.cpp
-	g++ -o  isal_zlib_throughput $(CFLAGS) -Iisa-l/include harness-isal_zlib_throughput.cpp -lisal -lz
-
 # isal latency
 isal_zlib_decompress: harness-isal_zlib_decompress.cpp
 	g++ -o  isal_zlib_decompress $(CFLAGS) -Iisa-l/include harness-isal_zlib_decompress.cpp -lisal -lz

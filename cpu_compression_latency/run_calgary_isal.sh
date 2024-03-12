@@ -1,5 +1,5 @@
 #!/bin/bash
-SIZES=( 1024 4096 $((256 * 1024 )) $(( 1024 * 1024 )) )
+SIZES=( 1024 4096 65536 $((256 * 1024 )) $(( 1024 * 1024 )) )
+n=1000
 taskset -c 20 make
-echo "Level,Ratio,median(ns),avg(ns),BW(GB/s),payloadsize(B),compressedSize(B)"; 
-for i in ${SIZES[@]}; do taskset -c 20 ./isal_zlib_decompress ${i} 0 ;  done | sort  -g -k2 -t,
+for i in ${SIZES[@]}; do taskset -c 40 ./isal_zlib_decompress ${i} ${n} ;  done | sort -k1 -g -k4 -t,
