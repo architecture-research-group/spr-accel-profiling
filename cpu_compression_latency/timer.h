@@ -23,11 +23,11 @@ uint64_t micros() {
 
 
 int corpus_to_input_buffer(char ** &testBufs,int sizePerBuf, const char *filename) {
-   FILE *file = fopen(filename, "rb");
+   FILE *file = fopen(filename, "r");
    if (file == NULL){
-	   printf("Failed to open file:%s\n", filename);
-		 exit(-1);
-		}
+    printf("Failed to open file:%s\n", filename);
+    exit(-1);
+   }
    fseek(file, 0, SEEK_END);
    int size = ftell(file);
    fseek(file, 0, SEEK_SET);
@@ -35,13 +35,18 @@ int corpus_to_input_buffer(char ** &testBufs,int sizePerBuf, const char *filenam
 	 assert(size >= sizePerBuf);
 
    testBufs = (char **)malloc(sizeof(char *) * num_bufs);
-   std::ifstream infile(filename, std::ios::binary);
-   for(int i=0; i< num_bufs; i++){
-      testBufs[i] = (char *)malloc(sizePerBuf);
-      if (!infile.read(testBufs[i], sizePerBuf)){
-         printf("Error: Failed to read file\n");
-         return -1;
-      }
+
+   for ( int i=0; i < num_bufs; i++ ){
+       uint64_t offset=0;
+       testBufs[i] = (char *)malloc(sizePerBuf);
+       char *testBuf = testBufs[i];
+fill_file:
+       uint64_t readLen = fread((void *) (testBuf + offset), 1, sizePerBuf - offset, file);
+       if ( readLen < sizePerBuf ){
+           rewind(file);
+           offset += readLen;
+           goto fill_file;
+       }
    }
    return num_bufs;
 }
