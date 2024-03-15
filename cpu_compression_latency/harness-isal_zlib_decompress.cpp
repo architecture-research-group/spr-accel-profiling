@@ -12,26 +12,30 @@
 #include "igzip_lib.h"
 #include <zlib.h>
 
+
+// char input_buffer[64 * 1024 * 1024];
+// char output_buffer[64 * 1024 * 1024];
+// char output_buffer_2[64 * 1024 * 1024];
 char level_buffer[64 * 1024 * 1024];
+
+using namespace std;
 #include "timer.h"
+#define CALGARY "/lib/firmware/calgary"
+#define MAX_EXPAND_ISAL(size) ISAL_DEF_MAX_HDR_SIZE + size
 
 int main(int argc, char **argv) {
 
 
    int size = atoi(argv[1]);
    int num_iters = atoi(argv[2]);
-	 assert( argc >= 3);
-   char *file;
-   char **input_buffers;
-   int num_bufs;
+   assert(argc >= 3);
 
-   if(argc >= 4){
-      file = argv[3];
-	   num_bufs = corpus_to_input_buffer(input_buffers, size, file);
-	   printf("Corpus file:%s\n", file);
-   }
-   else{
-	   num_bufs = calgary_corpus_to_input_buffer(input_buffers, size);
+   char **input_buffers;
+   int num_bufs = 0;
+   if( argc == 4 ){
+      num_bufs = corpus_to_input_buffer(input_buffers, size, argv[3]);
+   } else {
+      exit (-1);
    }
    char **output_buffers = (char **)malloc(sizeof(char *) * num_bufs);
    int compressed_sizes[num_bufs];
@@ -42,19 +46,21 @@ int main(int argc, char **argv) {
       output_buffers_2[i] = (char *)malloc(size);
    }
 
-   num_iters = num_iters > num_bufs ? num_iters : num_bufs;
+   num_iters = num_iters > num_bufs ? num_iters : num_bufs; 
    /* DEFLATE */
    int level = 2;
    struct isal_zstream stream;
    stream.level = level;
-
+   
+   printf("num iterations:%d\n", num_iters);
+   printf("num bufs:%d\n", num_bufs);
    vector <uint64_t> times(num_iters);
    for(int i=0; i<num_iters; i++){
       isal_deflate_init(&stream);
       stream.end_of_stream = 1;
-      stream.next_in = (uint8_t *)input_buffers[i % num_bufs];
+      stream.next_in = (uint8_t *)(input_buffers[i % num_bufs]);
       stream.avail_in = size;
-      stream.next_out = (uint8_t *)output_buffers[i % num_bufs];
+      stream.next_out = (uint8_t *)(output_buffers[i % num_bufs]);
       stream.avail_out = MAX_EXPAND_ISAL(size);
       uint64_t start = nanos();
       do{
@@ -66,18 +72,18 @@ int main(int argc, char **argv) {
       } while(stream.avail_out == 0);
       uint64_t end = nanos();
       times[i] = end - start;
-      compressed_sizes[i] = stream.total_out;
+      compressed_sizes[i%num_bufs] = stream.total_out;
    }
    printf("Size,Level,AvgRatio,Direction,AvgLatency,MaxLatency\n");
    int compressed_sum = 0;
    for(auto& compressed_size : compressed_sizes)
       compressed_sum += compressed_size;
-   double avg_ratio = compressed_sum /
+   double avg_ratio = compressed_sum / 
       (1.0 * size * num_bufs) ;
    double max_time = *max_element(times.begin(), times.end());
    double avg_time = accumulate(begin(times),end(times),0) / num_iters;
    printf("%d,%d,%f,%s,%f,%f\n", size, level, avg_ratio, "Compress", avg_time, max_time);
-
+   
    for(int i=0; i<num_iters; i++){
       struct inflate_state state;
       isal_inflate_init(&state);
@@ -98,7 +104,7 @@ int main(int argc, char **argv) {
          printf("Error: Decompression mismatch buffer:%d index:%d \n", 0, mismatch );
          return -1;
       }
-
+      
    }
    max_time = *max_element(times.begin(), times.end());
    avg_time = accumulate(begin(times),end(times),0) / num_iters;
