@@ -40,3 +40,9 @@
 [submodule "cpu_compression_latency/lzbench-isal"]
 	path = cpu_compression_latency/lzbench-isal
 	url = https://github.com/zero1248/lzbench-isal.git
+[submodule "interrupt_qat_dc/pcm"]
+	path = interrupt_qat_dc/pcm
+	url = https://github.com/opcm/pcm.git
+[submodule "cpu_compression_latency/lzdatagen"]
+	path = cpu_compression_latency/lzdatagen
+	url = https://github.com/jibsen/lzdatagen.git

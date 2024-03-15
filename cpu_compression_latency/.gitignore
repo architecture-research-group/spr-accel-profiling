@@ -20,3 +20,7 @@ zlib_decompress
 
 isa-l-unknown-level.log
 
+.Makefile.swp
+.run_random_isal.sh.swp
+log
+
