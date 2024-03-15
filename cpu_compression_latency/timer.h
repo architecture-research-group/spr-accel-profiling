@@ -31,8 +31,10 @@ int corpus_to_input_buffer(char ** &testBufs,int sizePerBuf, const char *filenam
    fseek(file, 0, SEEK_END);
    int size = ftell(file);
    fseek(file, 0, SEEK_SET);
-   int num_bufs = size / sizePerBuf;
-	 assert(size >= sizePerBuf);
+   if (size < sizePerBuf){
+       printf("Warning: corpus file is smaller than payload size -- results may be skewed\n");
+   }
+   int num_bufs = size / sizePerBuf ;
 
    testBufs = (char **)malloc(sizeof(char *) * num_bufs);
 
