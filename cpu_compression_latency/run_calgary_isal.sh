@@ -1,5 +1,5 @@
 #!/bin/bash
-SIZES=( 1024 4096 16384  )
+SIZES=( $(( 2 * 1024 * 1024))  )
 SIZES_LOG=( `seq 8 21` )
 n=1000
 taskset -c 20 make

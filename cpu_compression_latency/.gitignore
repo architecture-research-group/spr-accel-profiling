@@ -34,3 +34,11 @@ foo.bin.zst
 isal_zlib_decompress_old
 run_random_zlib.sh
 
+.Makefile.swo
+.README.md.swo
+.pane.log.swp
+.run_calgary_isal.sh.swo
+calgary_copy
+main-harness-isal_zlib_decompress.cpp
+old
+
