@@ -12,81 +12,27 @@
 #include "igzip_lib.h"
 #include <zlib.h>
 
-#define CALGARY "./calgary"
-
-// char input_buffer[64 * 1024 * 1024];
-// char output_buffer[64 * 1024 * 1024];
-// char output_buffer_2[64 * 1024 * 1024];
 char level_buffer[64 * 1024 * 1024];
-
-using namespace std;
-uint64_t nanos() {
-   return std::chrono::duration_cast< ::std::chrono::nanoseconds>(
-          std::chrono::steady_clock::now().time_since_epoch())
-          .count();
-}
-
-uint64_t micros() {
-   return std::chrono::duration_cast< ::std::chrono::microseconds>(
-          std::chrono::steady_clock::now().time_since_epoch())
-          .count();
-}
-
-int compare_buffers(const char *a, const char *b, int size) {
-   for (int i = 0; i < size; i++) {
-      if (a[i] != b[i]) {
-         return i;
-      }
-   }
-   return -1;
-}
-
-void flush_buf(char *buf, int size) {
-   for (int i = 0; i < size; i+=64) {
-      _mm_clflush(&buf[i]);
-   }
-}
-
-vector<uint64_t> WithoutHiLo(vector<uint64_t> orig)
-{
-     std::sort(orig.begin(), orig.end());
-     vector<uint64_t> newVec = vector<uint64_t>(orig.size());
-     std:copy(&orig[1], &orig[orig.size()-1], &newVec[0]);
-     return newVec;
-}
-
-/*
- * This function reads the calgary corpus into a buffer and then splits it into
-   * num_buffers sub-buffers. It returns the number of sub-buffers created.
-*/
-int corpus_to_input_buffer(char ** &testBufs,int sizePerBuf ) {
-   FILE *file = fopen(CALGARY, "rb");
-   fseek(file, 0, SEEK_END);
-   int size = ftell(file);
-   fseek(file, 0, SEEK_SET);
-   int num_bufs = size / sizePerBuf;
-
-   testBufs = (char **)malloc(sizeof(char *) * num_bufs);
-   std::ifstream infile(CALGARY, std::ios::binary);
-   for(int i=0; i< num_bufs; i++){
-      testBufs[i] = (char *)malloc(sizePerBuf);
-      if (!infile.read(testBufs[i], sizePerBuf)){
-         printf("Error: Failed to read file\n");
-         return -1;
-      }
-   }
-   return num_bufs;
-}
-#define MAX_EXPAND_ISAL(size) ISAL_DEF_MAX_HDR_SIZE + size
+#include "timer.h"
 
 int main(int argc, char **argv) {
 
 
    int size = atoi(argv[1]);
    int num_iters = atoi(argv[2]);
-
+	 assert( argc >= 3);
+   char *file;
    char **input_buffers;
-   int num_bufs = corpus_to_input_buffer(input_buffers, size);
+   int num_bufs;
+
+   if(argc >= 4){
+      file = argv[3];
+	   num_bufs = corpus_to_input_buffer(input_buffers, size, file);
+	   printf("Corpus file:%s\n", file);
+   }
+   else{
+	   num_bufs = calgary_corpus_to_input_buffer(input_buffers, size);
+   }
    char **output_buffers = (char **)malloc(sizeof(char *) * num_bufs);
    int compressed_sizes[num_bufs];
    char **output_buffers_2 = (char **)malloc(sizeof(char *) * num_bufs);
@@ -96,12 +42,12 @@ int main(int argc, char **argv) {
       output_buffers_2[i] = (char *)malloc(size);
    }
 
-   num_iters = num_iters > num_bufs ? num_iters : num_bufs; 
+   num_iters = num_iters > num_bufs ? num_iters : num_bufs;
    /* DEFLATE */
    int level = 2;
    struct isal_zstream stream;
    stream.level = level;
-   
+
    vector <uint64_t> times(num_iters);
    for(int i=0; i<num_iters; i++){
       isal_deflate_init(&stream);
@@ -126,12 +72,12 @@ int main(int argc, char **argv) {
    int compressed_sum = 0;
    for(auto& compressed_size : compressed_sizes)
       compressed_sum += compressed_size;
-   double avg_ratio = compressed_sum / 
+   double avg_ratio = compressed_sum /
       (1.0 * size * num_bufs) ;
    double max_time = *max_element(times.begin(), times.end());
    double avg_time = accumulate(begin(times),end(times),0) / num_iters;
    printf("%d,%d,%f,%s,%f,%f\n", size, level, avg_ratio, "Compress", avg_time, max_time);
-   
+
    for(int i=0; i<num_iters; i++){
       struct inflate_state state;
       isal_inflate_init(&state);
@@ -152,7 +98,7 @@ int main(int argc, char **argv) {
          printf("Error: Decompression mismatch buffer:%d index:%d \n", 0, mismatch );
          return -1;
       }
-      
+
    }
    max_time = *max_element(times.begin(), times.end());
    avg_time = accumulate(begin(times),end(times),0) / num_iters;

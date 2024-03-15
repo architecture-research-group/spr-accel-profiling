@@ -27,8 +27,19 @@ int main(int argc, char **argv) {
    int size = atoi(argv[1]);
    int num_iters = atoi(argv[2]);
 
+   assert( argc >= 3);
+   char *file;
    char **input_buffers;
-   int num_bufs = corpus_to_input_buffer(input_buffers, size);
+
+   int num_bufs;
+   if(argc >= 4){
+      file = argv[3];
+  num_bufs = corpus_to_input_buffer(input_buffers, size, file);
+   }
+   else{
+  num_bufs = calgary_corpus_to_input_buffer(input_buffers, size);
+   }
+
    char **output_buffers = (char **)malloc(sizeof(char *) * num_bufs);
    int compressed_sizes[num_bufs];
    char **output_buffers_2 = (char **)malloc(sizeof(char *) * num_bufs);
@@ -48,7 +59,7 @@ int main(int argc, char **argv) {
    stream.zfree = Z_NULL;
    stream.opaque = Z_NULL;
    deflateInit(&stream, level);
-   
+
    vector <uint64_t> times(num_iters);
    for(int i=0; i<num_iters; i++){
       deflateInit(&stream, level);
@@ -73,13 +84,13 @@ int main(int argc, char **argv) {
    int compressed_sum = 0;
    for(auto& compressed_size : compressed_sizes)
       compressed_sum += compressed_size;
-   double avg_ratio = compressed_sum / 
-      (1.0 * size * num_bufs) 
+   double avg_ratio = compressed_sum /
+      (1.0 * size * num_bufs)
          ;
    double max_time = *max_element(times.begin(), times.end());
    double avg_time = accumulate(begin(times),end(times),0) / num_iters;
    printf("%d,%d,%f,%s,%f,%f\n", size, level, avg_ratio, "Compress", avg_time, max_time);
-   
+
    z_stream state;
    for(int i=0; i<num_iters; i++){
       assert( Z_OK == inflateInit(&state));
@@ -100,7 +111,7 @@ int main(int argc, char **argv) {
          printf("Error: Decompression mismatch buffer:%d index:%d \n", 0, mismatch );
          return -1;
       }
-      
+
    }
    max_time = *max_element(times.begin(), times.end());
    avg_time = accumulate(begin(times),end(times),0) / num_iters;

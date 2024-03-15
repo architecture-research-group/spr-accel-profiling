@@ -10,6 +10,17 @@ ISA-L Latency-Granularity Sweep:
 ./run_calgary_isal.sh
 
 
+ISSUES
+======
+harnesses don't work if files are small
+ISA-L cannot compress random text files (never ending compression)
+* tested on v2.31
+```
+(base) n869p538@sapphire:cpu_compression_latency$ ./run_random_isal.sh
+g++ -o  isal_zlib_decompress  -Iisa-l/include harness-isal_zlib_decompress.cpp -lisal -lz
+# hangs because deflate call does not stop
+```
+ISA-L cannot compress random text files >=2048B without lz repetitions
 
 
 Bandwidth Testing procedure from: 
