@@ -24,3 +24,13 @@ isa-l-unknown-level.log
 .run_random_isal.sh.swp
 log
 
+.gen_ratio_4.sh.swp
+.run_random_zlib.sh.swp
+.timer.h.swp
+decomp_output
+diff.zlib
+foo.bin
+foo.bin.zst
+isal_zlib_decompress_old
+run_random_zlib.sh
+
