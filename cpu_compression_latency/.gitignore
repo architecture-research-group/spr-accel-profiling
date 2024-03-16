@@ -42,3 +42,19 @@ calgary_copy
 main-harness-isal_zlib_decompress.cpp
 old
 
+.harness-zlib_decompress.cpp.swp
+.ratio_vs_latency.sh.swp
+r_1
+r_2
+r_4
+r_8
+ratio1_
+ratio1_4
+ratio1_6
+ratio1_7
+ratio1_75
+ratio1_775
+ratio1_8
+ratio2
+ratio_3
+

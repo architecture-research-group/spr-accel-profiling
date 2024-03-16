@@ -11,6 +11,7 @@
 
 #include "igzip_lib.h"
 #include <zlib.h>
+#define MAX_EXPAND_ISAL(size) ISAL_DEF_MAX_HDR_SIZE + size
 
 
 // char input_buffer[64 * 1024 * 1024];
@@ -18,31 +19,7 @@
 // char output_buffer_2[64 * 1024 * 1024];
 char level_buffer[64 * 1024 * 1024];
 
-using namespace std;
 #include "timer.h"
-#define CALGARY "/lib/firmware/calgary"
-#define MAX_EXPAND_ISAL(size) ISAL_DEF_MAX_HDR_SIZE + size
-int corpus_to_input_buffer_main(char ** &testBufs,int sizePerBuf ) {
-   FILE *file = fopen(CALGARY, "rb");
-   FILE *outfile = fopen("main-out.txt", "w");
-   fseek(file, 0, SEEK_END);
-   int size = ftell(file);
-   fseek(file, 0, SEEK_SET);
-   int num_bufs = size / sizePerBuf;
-
-   testBufs = (char **)malloc(sizeof(char *) * num_bufs);
-   std::ifstream infile(CALGARY, std::ios::binary);
-   for(int i=0; i< num_bufs; i++){
-      testBufs[i] = (char *)malloc(sizePerBuf);
-      if (!infile.read(testBufs[i], sizePerBuf)){
-         printf("Error: Failed to read file\n");
-         return -1;
-      }
-      fwrite(testBufs[i], 1, sizePerBuf, outfile);
-   }
-   return num_bufs;
-}
-
 int main(int argc, char **argv) {
 
 
@@ -53,7 +30,7 @@ int main(int argc, char **argv) {
    char **input_buffers;
    int num_bufs = 0;
    if( argc == 4 ){
-      num_bufs = corpus_to_input_buffer_main(input_buffers, size);
+      num_bufs = corpus_to_input_buffer(input_buffers, size,argv[3]);
    } else {
       exit (-1);
    }

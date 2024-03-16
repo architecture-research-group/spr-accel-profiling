@@ -1,3 +1,4 @@
+CFLAGS=-g
 all: isal_zlib_compress isal_zlib_decompress zlib_decompress isal_zlib_throughput
 .PHONY: isal_zlib_compress isal_zlib_decompress zstd_compress clean  isal_zlib_throughput
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "igzip_lib.h"
 #define MAX_EXPAND_ISAL(size) ISAL_DEF_MAX_HDR_SIZE + size
 #define CALGARY "./calgary"
 #include <fstream>
