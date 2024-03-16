@@ -46,3 +46,6 @@
 [submodule "cpu_compression_latency/lzdatagen"]
 	path = cpu_compression_latency/lzdatagen
 	url = https://github.com/jibsen/lzdatagen.git
+[submodule "interrupt_qat_dc/uintr-ipc-bench"]
+	path = interrupt_qat_dc/uintr-ipc-bench
+	url = https://github.com/intel/uintr-ipc-bench.git
