@@ -1,3 +1,286 @@
 ./build.sh
 ./run.sh
 ./parse.sh
+
+Monolithic HW Chaining Performance:
+====
+Userspace latency measurements: 
+git@github.com:neel-patel-1/qatlib.git
+```
+git checkout user_dcc_chain_timestamps_only
+./chaining_sample > user_times.log
+grep 'User ' user_times.log  | awk '/Desc/{DescPop+=$5;} /Poll/{Poll+=$4} /Submit/{Submit+=$4} END{printf("UserDescPop(ns):%f,UserSubmitApi:%f,UserPollTime:%f\n",DescPop/(NR/3),Submit/(NR/3),Poll/(NR/3));}'
+UserDescPop(ns):36.414880,UserSubmitApi:1222.795712,UserPollTime:10494.133670
+36.414880,1222.795712,10494.133670
+```
+
+Library-Side Latency Measurements and Session Initialization (branch: dc_chain_sample_app_breakdown )
+```sh
+sudo make samples -j; ./chaining_sample > sample
+grep Library sample | awk '/submit/{subSum+=$4} /create/{createSum+=$5} END{printf("create_desc_lib:%f,sub_desc_lib:%f\n",createSum/(NR/2),subSum/(NR/2))}'
+```
+
+
+Qs:
+Utilization of Other Chained ops -- not hw? https://vscode.dev/github/neel-patel-1/qatlib/blob/dc_chain_sample_app_breakdown/quickassist/lookaside/access_layer/src/sample_code/performance/compression/qat_chaining_main.c#L1735
+VFIO_DEVICE_GET_REGION_INFO ioctl failed ?
+CPM
+SHRAM Constants table?
+Does buffer allocation happen at session initialization time?
+- How are the number of descriptors to allocate determined?
+
+
+Obs:
+Complexity of the callback function increases polling time seen by the application
+- timestamp in the callback Function
+Hypo: 
+- response time observed in the callback function will be lowest
+
+
+Are any other requirements for establishing a sync session besides passing NULL as the cb here?: https://vscode.dev/github/neel-patel-1/qatlib/blob/dc_chain_sample_app_breakdown/quickassist/lookaside/access_layer/src/sample_code/functional/dc/chaining_sample/cpa_chaining_sample.c#L755
+NO:
+Synchronous or asynchronous operation of the API is determined by
+ *  the value of the callbackFn parameter passed to cpaDcChainInitSession()
+  *  when the sessionHandle was setup. If a non-NULL value was specified
+   *  then the supplied callback function will be invoked asynchronously
+    *  with the response of this request
+	This function has identical response ordering rules as
+	 *  cpaDcCompressData().
+https://vscode.dev/github/neel-patel-1/qatlib/blob/dc_chain_sample_app_breakdown/quickassist/include/dc/cpa_dc_chain.h#L658
+What are the Response ordering rules?
+What takes place in the kernel bottom half? What is a kernel bottom half?
+
+does sync op require app to poll the ring to determine completion? Yes, icp_sal_DcPollInstance is required -- passing NULL just prevents a callback from being registered / called once polling completes
+
+Can we invoke another accelerator in the callback function of the prior accelerator?
+- in the callback function we: update a single field pass a pre-prepped descriptor and 
+(1) update a field in a preallocated descriptor
+(2) call CpaPerformOp
+
+
+User registers an interrupt handler
+
+App-polling with Low-complexity callback:
+7776ns
+5638ns
+
+App-polling with no callback:
+
+Latency seen at callback:
+
+
+# SYNC Chained Operation Latency
+/home/n869p538/spr-accel-profiling/interrupt_qat_dc/qatlib/quickassist/include/dc/cpa_dc_chain.h -- are all of these operations supported?
+Which ones are sw/hw?
+
+Compress then Encrypt
+```p
+#qat config
+# Comment or remove next line to disable sriov
+#SRIOV_ENABLE=1
+POLICY=1
+ServicesEnabled=dcc
+```
+
+# Polling Breakdown
+git checkout polling_breakdown
+sudo make samples -j;  sudo ./cpa_sample_code runTests=32 getLatency=1 >& log
+awk 'BEGIN{printf("size(B),poll-time(ns)\n");sum=0;count=0;} /^COMPRESS/{print} /^DECOMPRESS/{print; } /.* Size.*/{printf("%s,",$3); if(sum > 0){print sum/count;} sum=0;count=0;} /Average.*/{ if ($5 < 1000000) {sum+=$5;count+=1;}} ' log
+# At what granularity is max bandwidth achieved?
+
+
+# RequestPopulation && Submission Breakdown
+Setup: call requests/submissions created/submitted from cpaDcCompressData API
+sudo ./latency_sample runTests=32 getLatency=1 >& avg_req_sub_times.log
+echo -n "ReqPrep time:"; awk '/16384.\*/ {do_print=1;} {if(do_print==1)print;}' avg_req_sub_times.log | awk -F: '{if(NR%2==0){sum+= $2}} END{print sum/(NR/2)}' avg_req_sub_times.log
+echo -n "Sub time:"; awk '/16384.\*/ {do_print=1;} {if(do_print==1)print;}' avg_req_sub_times.log | awk -F: '{if(NR%2==1){sum+= $2}} END{print sum/(NR/2)}' avg_req_sub_times.log
+
+
+# Synchronous Decompression Latency ( Linux sapphire.ittc.ku.edu 6.5.7-dirty #8 SMP PREEMPT_DYNAMIC Thu Feb 15 10:14:11 CST 2024 x86_64 x86_64 x86_64 GNU/Linux ) (RequestPopulation+Submission && Wait)
+=====
+- to get RequestPopulation && Submission Separately, checkout [TODO]
+
+Run
+=====
+git checkout sync_decomp_latency
+sudo make samples -j
+(base) n869p538@sapphire:qatlib$ ./latency_sample runTests=32 getLatency=1
+
+start cycles: https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/sample_code/performance/compression/qat_compression_main.c#L1206
+
+mark start time of a single request:
+https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/sample_code/performance/common/qat_perf_latency.c#L242
+<- https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/sample_code/performance/compression/qat_compression_main.c#L1018
+<-- https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/sample_code/performance/compression/qat_compression_main.c#L1228
+
+create the request (when called from cpaDcCompressData) :
+https://vscode.dev/github/neel-patel-1/qatlib/blob/qat_mwait/quickassist/lookaside/access_layer/src/common/compression/dc_datapath.c#L1871
+
+send the request: https://vscode.dev/github/neel-patel-1/qatlib/blob/qat_mwait/quickassist/lookaside/access_layer/src/common/compression/dc_datapath.c#L1915
+
+submit to QAT: https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/common/compression/dc_ns_datapath.c#L1622
+
+poll: https://vscode.dev/github/neel-patel-1/qatlib/blob/main/quickassist/lookaside/access_layer/src/sample_code/performance/compression/qat_compression_main.c#L1251
+
+get response time of single request: https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/sample_code/performance/compression/cpa_sample_code_dc_utils.c#L218
+
+end cycles: https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/sample_code/performance/compression/cpa_sample_code_dc_utils.c#L247
+- after all responses are gathered in the callback function
+
+latencyMode polls for one buffer's completion before starting next submission:
+https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/sample_code/performance/common/qat_perf_latency.c#L73
+
+whole file, one buff, how much?: https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/sample_code/performance/compression/qat_compression_main.c#L1208
+-> https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/sample_code/performance/compression/qat_compression_main.c#L1033
+
+setupDcCommonTest {testSetupData_g[testTypeCount_g].performance_function = (performance_func_t)dcPerformance;}:https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/sample_code/performance/compression/qat_compression_main.c#L221
+<-dcPerformance:https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/sample_code/performance/compression/qat_compression_main.c#L350 ->
+<-qatDcPerform:https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/sample_code/performance/compression/qat_compression_main.c#L617
+<-qatCompressData:https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/sample_code/performance/compression/qat_compression_main.c#L1119
+->qatSummariseLatencyMeasurements:
+https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/sample_code/performance/compression/qat_compression_main.c#L1459
+
+
+
+createStartandWaitForCompletion:https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/sample_code/performance/framework/cpa_sample_code_framework.c#L1864
+<-
+----
+createPerfomanceThreads{status = sampleCodeThreadCreate(
+                &threads_g[numCreatedThreads_g - 1],
+                threadAttr,
+                functionPtr,
+                &singleThreadData_g[numCreatedThreads_g - 1]);}https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/test/cpa_sample_code_framework.c#L1113
+waitForThreadCompletion:https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/sample_code/performance/framework/cpa_sample_code_framework.c#L2009
+----
+->printDCStats: https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/sample_code/performance/compression/cpa_sample_code_dc_utils.c#L1331
+
+
+
+
+post the semaphore purppose?: https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/sample_code/performance/compression/qat_compression_main.c#L1268
+
+QAT nanosleeps between polling intervals: https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/sample_code/performance/compression/cpa_sample_code_dc_utils.c#L1308
+- does removing nanosleep reduce avg latency? No
+- does replacing with monitor/mwait reduce avg cpu? -- will perf_data_t -> pollingcycles reveal cycles spent polling?
+coo_poll function takes cycle counter using rdtscp every time poll function is called: https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/sample_code/performance/common/qat_perf_cycles.h#L384
+https://vscode.dev/github/neel-patel-1/qatlib/blob/decomp_latency/quickassist/lookaside/access_layer/src/sample_code/performance/common/qat_perf_cycles.h#L168
+```
+__asm__ volatile(
+        "rdtscp\n\t"
+        "mov %%edx, %0\n\t"
+        "mov %%eax, %1\n\t"
+        : "=r"(cycles_high), "=r"(cycles_low)::"%rax", "%rbx", "%rcx", "%rdx");
+```
+
+
+# Comment or remove next line to disable sriov
+#SRIOV_ENABLE=1
+POLICY=1
+ServicesEnabled=dcc
+
+(base) n869p538@sapphire:interrupt_qat_dc$ ./restart_qat.sh
+Job for qat.service failed because the control process exited with error code.
+See "systemctl status qat.service" and "journalctl -xeu qat.service" for details.
+(base) n869p538@sapphire:interrupt_qat_dc$
+
+ERRORS
+====
+(base) n869p538@sapphire:interrupt_qat_dc$ sudo systemctl start qat
+Job for qat.service failed because the control process exited with error code.
+See "systemctl status qat.service" and "journalctl -xeu qat.service" for details.
+(base) n869p538@sapphire:interrupt_qat_dc$ sudo systemctl status qat.service
+× qat.service - QAT service
+     Loaded: loaded (/lib/systemd/system/qat.service; enabled; vendor preset: enabled)
+     Active: failed (Result: exit-code) since Fri 2024-03-15 15:42:16 CDT; 4s ago
+TriggeredBy: ● qat.timer
+× qat.service - QAT service
+     Loaded: loaded (/lib/systemd/system/qat.service; enabled; vendor preset: enabled)
+     Active: failed (Result: exit-code) since Fri 2024-03-15 15:42:16 CDT; 4s ago
+TriggeredBy: ● qat.timer
+    Process: 161027 ExecStartPre=/bin/sh -c test $(getent group qat) (code=exited, status=0/SUCCESS)
+    Process: 161029 ExecStartPre=/usr/local/sbin/qat_init.sh (code=exited, status=0/SUCCESS)
+    Process: 161327 ExecStart=/usr/local/sbin/qatmgr --policy=${POLICY} (code=exited, status=1/FAILURE)
+        CPU: 990ms
+
+Mar 15 15:42:15 sapphire.ittc.ku.edu systemd[1]: Starting QAT service...
+Mar 15 15:42:15 sapphire.ittc.ku.edu qat_init.sh[161029]: /usr/local/sbin/qat_init.sh, device 0000:76:00.0 configured with services: dcc
+Mar 15 15:42:15 sapphire.ittc.ku.edu qat_init.sh[161029]: /usr/local/sbin/qat_init.sh, device 0000:f3:00.0 configured with services: dcc
+Mar 15 15:42:16 sapphire.ittc.ku.edu qat_init.sh[161029]: /usr/local/sbin/qat_init.sh: 364: echo: echo: I/O error
+Mar 15 15:42:16 sapphire.ittc.ku.edu qat_init.sh[161029]: /usr/local/sbin/qat_init.sh: 364: echo: echo: I/O error
+Mar 15 15:42:16 sapphire.ittc.ku.edu qatmgr[161329]: No devices found
+lines 1-15/19 73%...skipping...
+× qat.service - QAT service
+     Loaded: loaded (/lib/systemd/system/qat.service; enabled; vendor preset: enabled)
+     Active: failed (Result: exit-code) since Fri 2024-03-15 15:42:16 CDT; 4s ago
+TriggeredBy: ● qat.timer
+    Process: 161027 ExecStartPre=/bin/sh -c test $(getent group qat) (code=exited, status=0/SUCCESS)
+    Process: 161029 ExecStartPre=/usr/local/sbin/qat_init.sh (code=exited, status=0/SUCCESS)
+    Process: 161327 ExecStart=/usr/local/sbin/qatmgr --policy=${POLICY} (code=exited, status=1/FAILURE)
+        CPU: 990ms
+
+Mar 15 15:42:15 sapphire.ittc.ku.edu systemd[1]: Starting QAT service...
+Mar 15 15:42:15 sapphire.ittc.ku.edu qat_init.sh[161029]: /usr/local/sbin/qat_init.sh, device 0000:76:00.0 configured with services: dcc
+Mar 15 15:42:15 sapphire.ittc.ku.edu qat_init.sh[161029]: /usr/local/sbin/qat_init.sh, device 0000:f3:00.0 configured with services: dcc
+Mar 15 15:42:16 sapphire.ittc.ku.edu qat_init.sh[161029]: /usr/local/sbin/qat_init.sh: 364: echo: echo: I/O error
+Mar 15 15:42:16 sapphire.ittc.ku.edu qat_init.sh[161029]: /usr/local/sbin/qat_init.sh: 364: echo: echo: I/O error
+Mar 15 15:42:16 sapphire.ittc.ku.edu qatmgr[161329]: No devices found
+Mar 15 15:42:16 sapphire.ittc.ku.edu qatmgr[161327]: No QAT device found
+Mar 15 15:42:16 sapphire.ittc.ku.edu systemd[1]: qat.service: Control process exited, code=exited, status=1/FAILURE
+Mar 15 15:42:16 sapphire.ittc.ku.edu systemd[1]: qat.service: Failed with result 'exit-code'.
+Mar 15 15:42:16 sapphire.ittc.ku.edu systemd[1]: Failed to start QAT service.
+~
+~
+~
+~
+lines 1-19/19 (END)
+
+SOLUTION:
+(base) n869p538@sapphire:interrupt_qat_dc$ wget https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/qat_4xxx.bin
+--2024-03-15 15:56:29--  https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/qat_4xxx.bin
+Resolving git.kernel.org (git.kernel.org)... 139.178.84.217, 2604:1380:4641:c500::1
+Connecting to git.kernel.org (git.kernel.org)|139.178.84.217|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 665356 (650K) [application/octet-stream]
+Saving to: ‘qat_4xxx.bin’
+
+qat_4xxx.bin                             100%[===============================================================================>] 649.76K  --.-KB/s    in 0.08s
+
+2024-03-15 15:56:29 (8.17 MB/s) - ‘qat_4xxx.bin’ saved [665356/665356]
+
+(base) n869p538@sapphire:interrupt_qat_dc$ sudo mv qat_4xxx.bin /lib/firmware
+(base) n869p538@sapphire:interrupt_qat_dc$ sudo rmmod qat_4xxx intel_qat
+(base) n869p538@sapphire:interrupt_qat_dc$ sudo modprobe qat_4xxx
+(base) n869p538@sapphire:interrupt_qat_dc$ systemctl restart qat
+==== AUTHENTICATING FOR org.freedesktop.systemd1.manage-units ===
+Authentication is required to restart 'qat.service'.
+Authenticating as: r (tmp)
+Password:
+(base) n869p538@sapphire:interrupt_qat_dc$ sudo !!
+sudo systemctl restart qat
+(base) n869p538@sapphire:interrupt_qat_dc$ sudo systemctl restart qat
+(base) n869p538@sapphire:interrupt_qat_dc$ sudo systemctl status qat.service
+● qat.service - QAT service
+     Loaded: loaded (/lib/systemd/system/qat.service; enabled; vendor preset: enabled)
+     Active: active (running) since Fri 2024-03-15 15:57:26 CDT; 39s ago
+TriggeredBy: ● qat.timer
+    Process: 167094 ExecStartPre=/bin/sh -c test $(getent group qat) (code=exited, status=0/SUCCESS)
+    Process: 167096 ExecStartPre=/usr/local/sbin/qat_init.sh (code=exited, status=0/SUCCESS)
+    Process: 167806 ExecStart=/usr/local/sbin/qatmgr --policy=${POLICY} (code=exited, status=0/SUCCESS)
+   Main PID: 167808 (qatmgr)
+      Tasks: 1 (limit: 308979)
+     Memory: 1.8M
+        CPU: 1.964s
+     CGroup: /system.slice/qat.service
+             └─167808 /usr/local/sbin/qatmgr --policy=1
+
+Mar 15 15:57:26 sapphire.ittc.ku.edu qatmgr[167808]: Detected DC configuration
+Mar 15 15:57:26 sapphire.ittc.ku.edu qatmgr[167808]: section 8, BDF 7602
+Mar 15 15:57:26 sapphire.ittc.ku.edu qatmgr[167808]: Detected DC configuration
+Mar 15 15:57:26 sapphire.ittc.ku.edu qatmgr[167808]: section 9, BDF F302
+Mar 15 15:57:26 sapphire.ittc.ku.edu qatmgr[167808]: Detected DC configuration
+Mar 15 15:57:26 sapphire.ittc.ku.edu qatmgr[167808]: section 10, BDF 760A
+Mar 15 15:57:26 sapphire.ittc.ku.edu qatmgr[167808]: Detected DC configuration
+Mar 15 15:57:26 sapphire.ittc.ku.edu qatmgr[167808]: section 11, BDF F30A
+Mar 15 15:57:26 sapphire.ittc.ku.edu systemd[1]: Started QAT service.
+Mar 15 15:57:26 sapphire.ittc.ku.edu qatmgr[167808]: Detected DC configuration
+(base) n869p538@sapphire:interrupt_qat_dc$ sudo modprobe qat_4xxx
