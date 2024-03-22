@@ -1,6 +1,224 @@
+./setup.sh
 ./build.sh
 ./run.sh
 ./parse.sh
+
+Attempting to poll for the next ax in the chain in the callback function results in higher latency
+
+Chained Hash then Compress Throughput single inst for each functino (hash_comp_pipeline_throughput)
+(base) n869p538@sapphire:qatlib$ ./.libs/chaining_sample
+LOW BANDWIDTH: Only using two CPUs, but have two poller threads and a requestor thread
+
+HASHING THROUGHPUT( pipeline_payload_throughput)
+===
+(base) n869p538@sapphire:qatlib$ ./chaining_sample
+We observe between 30-52GB/s hashing throughput using SHA256 and hashing 64 8KB buffers populated with calgary corpus data
+
+
+SYNC_BANDWIDTH_SWEEP (branch max_bandwidth_multi_inst_sync_vs_async)
+===
+./cpa_sample runTests=32
+
+
+Max Achievable Bandwidth Per Instance (branch: max_throughput_single_inst)
+===
+sudo ./cpa_sample_code runTests=1
+
+sudo ./cpa_sample_code runTests=32
+grep -e Direction -e Packet -e Throughput dec_max_band.log
+
+Host-Managed SW Chaining Performance: (branch: sw_chained_request_population_and_submission_brkdown)
+====
+./run_sw_hash_and_compress.sh
+(base) n869p538@sapphire:qatlib$ for i in `seq 10 21`; do grep -A4 "Buf_Size: $((1 << i )) " sw_hash_comp.log | grep DC-App | awk '{sum+=$2} END{prin
+t sum/NR}'; done
+(base) n869p538@sapphire:qatlib$ for i in `seq 10 21`; do grep -A4 "Buf_Size: $((1 << i )) " sw_hash_comp.log | grep DC-Poll | awk '{sum+=$2} END{pri
+nt sum/NR}'; done
+# Change second grep to 'Hash-App' and 'Hash-Poll' for Hash app-layer breakdowns
+
+./run_hw_hash_and_compress.sh
+(base) n869p538@sapphire:qatlib$ for i in `seq 10 21`; do grep -A3 "Buf_Size: $((1 << i )) " hw_hash_comp.log | grep User-Submit-Time | awk '{sum+=$2} END{print sum/NR}' ; done
+(base) n869p538@sapphire:qatlib$ for i in `seq 10 21`; do grep -A3 "Buf_Size: $((1 << i )) " hw_hash_comp.log | grep User-Poll-Time | awk '{sum+=$2} END{print sum/NR}' ; done
+
+(base) n869p538@sapphire:qatlib$ grep Ave sw_hash_comp.log # WHy are average req/sub times always a multiple of 10?
+Sym-Average time to submit request: 90.000000
+Sym-Average time to create request: 270.000000
+DC-Average time to submit request: 110.000000
+DC-Average time to create request: 160.000000
+
+
+Observations:
+Obs: Decompression throughput is extremely sensitive to system noise (e.g., contention on the DDIO ways). On a mostly idle server 
+Obs: We observe that hardware chaining of the hash and compress functions takes roughly the same amount of time as performing a single compression operation. We hypothesize that the two functions are performed in parallel or are pipelined with the input to the hash function passed to the compress function after SHA256 processing.
+Observation: Static Async Deflate Decomp gets lower 66225Gbit/s throughput than Dynamic HT Async Deflate Decomp with ~119Gbit/s throughput
+Obs: Synchronous hashing and decompression takes ~3s and ~2s while Async DC only takes ~ 70us when combined with sync Hash 300215890ns (kept hashing using sync api -- no polling). (Changing cpaDcCompressData2 to use async API with callback followed by polling drops runtime).  Using Async Hash and DC for both reduces (PerformOp + Poll) Time to 19us cumulative exe time: Hash Poll: 8606ns, DC Poll: 11198ns
+- Why does synchronocity of one operation affect polling completion time of another? when they do not share resources?
+
+Obs: Sym ops have a different control path for synchronous operations: https://vscode.dev/github/neel-patel-1/qatlib/blob/sw_chained_request_population_and_submission_brkdown/quickassist/lookaside/access_layer/src/common/crypto/sym/lac_sym_api.c#L1023
+Obs: Synchronous calls to dc and sym ops do not require polling the instance for dc stateless and hash ops chaining function
+Obs: Synchronous calls to dcc sessions/instances require polling the instance after the dcChainPerformOp call (Application submission function call)
+
+Obs: The call to perform a hash operation takes longer than polling for completion, though polling is required to ensure offload completion
+```
+# measuring offload time with dc/cpaCySymPerformOp (populate and submit) && polling
+Iteration: 168
+Hash Poll: 10455
+DC Poll: 14326
+Iteration: 169
+Hash Poll: 10508
+DC Poll: 15209
+
+# measuring w/o dc/cpaCySymPerformOp (just time to poll via icp_sal_{Cy/Dc}PollInstance
+Iteration: 165
+Hash Poll: 1190
+DC Poll: 10187
+Iteration: 166
+Hash Poll: 857
+DC Poll: 11008
+
+DC:
+Average time to submit request: 50.000000
+Average time to create request: 230.000000
+15209 - 11008  = ~ 3.5us of unaccounted latency
+- from resolving the handle?
+
+```
+Why does throughput increase with payload size?
+- Hypo: There is a fixed offload cost for starting up the accelerator/algorithm that is not amortized until sufficient payload size is reached
+Can prefetching a src and dst buffer pair increase throughput for small payload sizes?
+Obs: Library tasked with generating determining which fields and algorithm specific information to use when populating requests for a given operation/algorithm. Many conditional branches that depend on the algorithm/operation being offloaded.(AES, LAC, CCM, XTS)
+Question: What is the branch misprediction rate of such code sequences when a single core uses multiple sessions to perform different algorithms?
+
+Obs: Session CTX is smaller for hash-unchained op: 2312B
+Obs: Session CTX for stateless compression is smaller: 672B
+Observation:
+For host-managed chaining, an instance supporting each type of operation must be reserved. Tearing down and reinitializing sessions are long latency operations. Reconfiguring host-managed chains on the fly is infeasible in application critical paths.
+
+Hypotheses:
+Hypo:
+- The maximum achievable throughput is possible to obtain for some smallest payload size (min_perf_payload_size -- mpps)
+- This value depends on offload model, algorithm, and hardware implementation
+- For chained offloads, we need the maximum achievable throughput with ordered offloads. The minimal ordered min perf payload size -- ommps determines the throughput of a chained accelerator pipeline that uses on-chip hardware buffers
+
+Questions:
+
+What is the difference between Dynamic HT and Static HT?
+Is peak synchronous throughput the same as peak asynchronous throughput for dc/enc?
+Why isn't peak performance achieved at an arbitrarily small offload size?
+What is the loaded latency for ordered requests for each accelerator?
+Disabling smt, turbo boost, and setting the cpu's to use the performance scaling governor gave more consistent results for performOp function times. Why?
+What is the unloaded latency? 
+Current approach to timing phases is to insert timestamp arrays, collect, and print. Is there a way to tie function calls to perf events such that a timer starts/stops on function call/return?
+What is the difference between messages being enq'd or "sent directly" https://vscode.dev/github/neel-patel-1/qatlib/blob/sw_chained_request_population_and_submission_brkdown/quickassist/lookaside/access_layer/src/common/crypto/sym/lac_sym_queue.c#L111
+Does Stateless DC example (which uses the async method) , modified to use sync, also see the same ~2s latency?
+Does syncSwChain modified to use async with a lightweight callback get lower latency? YES
+Does the callback function eventually get called without calling icpPollInstance() ?
+
+How does a synchronous call when using dc or sym ensure that computation is complete when the function returns?
+Why does synchronous operation for dc/cy session not require polling, but incur 2-3s latency?
+Why does sync op for hash-dc chain session require polling, with lower latency 3us on user-space submit side and 12 us on poll side?
+
+Is chained session CTX size sum of both hash and compress individual ctx's?
+
+```
+Each VF enabled for sym, asym, dc
+        has 4 instances. Each VF enabled for mixed services like sym;asym,
+        sym;dc, asym;dc has 2 instances of each type,
+```
+
+
+Is API-Ref indicating that sync APIs complete operation upon returning?
+
+Why hash before compressing data?
+
+What other enc/dec cots cc ax released? Perf relative to intel?
+
+Latency/Throughput of cy;dc vs. dc only inst for dc ops?
+
+What happens on session initialization?
+
+Impact of using bufferlists instead of a single flatbuffer ? 
+Why is there metadata associated with flatbuffers? What does it store? Why has metadata been removed/added across QAT versions?
+Do any APIs expect flatbuffers instead of bufferlists ?
+Impact of cy/dc with discontiguous buffers in the buffer list vs. contiguous buffers?
+BufferList: Why isn't BufferList 8B aligned? pointer to array of flat buffers
+FlatBuffer: 16B (Len, PhysAddr) pair
+How many levels of indirection are traversed to pass the physical address of payload data to QAT? (1) APIs take a pointer to a BufferList, (2) A pointer dereference resolves the start of the FlatBuffer array, (3) each FlatBuffer entry must be dereferenced to resolve the physical address of the data
+
+Does hash operation write to the passed in buffer list or the Cpa8U* digest buffer specified as a parameter in the opData's pDigestResultField?
+
+Purpose of CpaDcRqResults Structure -- passed to cpaDcCompressData2
+
+Does inplace processing affect latency? Does it reduce cache pollution? Which applications/operations can support in-place processing?
+```
+cpaCySymPerformOp: dstBufferList Param blurb
+This is because, for out-of-place processing, the data outside the regions in the source buffer on which cryptographic operations are performed are copied into the destination buffer. To perform "in-place" processing set the pDstBuffer parameter in cpaCySymPerformOp function to point at the same location as pSrcBuffer. For optimum performance, the data pointed to SHOULD be 8-byte aligned.
+```
+
+why would static huffman give better compressibility?
+https://vscode.dev/github/neel-patel-1/qatlib/blob/sw_chained_dcc/quickassist/lookaside/access_layer/src/sample_code/functional/dc/stateless_sample/cpa_dc_stateless_sample.c#L918
+
+Is the dataplane API faster? No-intel
+```
+From a throughput and latency perspective, there is no difference in performance between the
+Data Plane API and the traditional API.
+```
+
+What is the latency of offload when using interrupt?
+```
+When operating in interrupt mode, the accelerator will generate an MSI-X interrupt when a
+response is placed on a response ring. Each ring bank has a separate MSI-X interrupt which
+may be steered to a particular CPU core via the CoreAffinity settings in the configuration file.
+```
+
+What does the dcInstance use the intermediate buffers for? 
+- we see that number of intermediate buffers for stateless compression is 0
+
+What is the symmetric session context (https://vscode.dev/github/neel-patel-1/qatlib/blob/sw_chained_dcc/quickassist/include/lac/cpa_cy_sym.h#L106) used for?
+What is a context buffer used for, where is it stored, and why isn't it needed for stateless compression?
+When is the context buffer allocated? Who allocates it? Is it associated with a session or instance? When is the association made?
+Hypo: stateful compression stores some state in host memory
+
+Can chained ops append the digest to the destination buffer?
+
+How is output length communicated?
+
+Can the format of the output buffer list be decided by software ? (e.g., use flatbuffers of 4kb size)
+YES. The summation of the sizes of the flatbuffers in the flatbufferlist must be larger than or equal in size to the src buf when the cpaCySymPerformOp function is called
+
+Why does the CySym session need to store context for hashing?
+* What is the context used for in other Cy Operations ?
+* Why have hashing and enc/dec been grouped under the same instance type?
+* Hypo: non-static information that may be needed on subsequent operations
+```
+instanceHandle – Instance handle.
+pSymCb – Pointer to callback function to be registered. Set to NULL if the cpaCySymPerformOp function is required to work in a synchronous manner.
+pSessionSetupData – Pointer to session setup data which contains parameters which are static for a given cryptographic session such as operation type, mechanisms, and keys for cipher and/or hash operations.
+sessionCtx – Pointer to the memory allocated by the client to store the session context. This will be initialized with this function. This value needs to be passed to subsequent processing calls.
+```
+
+
+
+
+
+Impact of session priority?
+Is sampleVirtToPhys the best address translation function?
+
+Each individual op in hw managed chain must be checked for valid status -- add this to hwChainedOpPerf
+
+
+Can hash digest and compression be performed in parallel from software using two sessions?
+* digest may or may not be appended to the compressed buffer. does this impact whether the two operations can operate in parallel/pipelined?
+Does the hardware do the two ops in parallel or pipeline them?
+
+How does the software distinguish when hardware support for chained operation vs. when software must manage multiple operations?
+Hypo: Hardware recognizes descriptor with supported chained op and pipelines.
+Test: Chained Compress Then AEAD, followed by chained
+Does this mean only Hash_then_compress chained sessions are valid operations?:https://vscode.dev/github/neel-patel-1/qatlib/blob/sw_chained_dcc/quickassist/lookaside/access_layer/src/common/compression/dc_chain.c#L453
+Capabilities register indicates what operations a logical instance supports
+- 
+
+How are multiple operations performed for host-managed?
 
 Monolithic HW Chaining Performance:
 ====
@@ -52,21 +270,12 @@ What takes place in the kernel bottom half? What is a kernel bottom half?
 
 does sync op require app to poll the ring to determine completion? Yes, icp_sal_DcPollInstance is required -- passing NULL just prevents a callback from being registered / called once polling completes
 
-Can we invoke another accelerator in the callback function of the prior accelerator?
+Can we invoke another instance in a callback function ?
 - in the callback function we: update a single field pass a pre-prepped descriptor and 
 (1) update a field in a preallocated descriptor
 (2) call CpaPerformOp
 
 
-User registers an interrupt handler
-
-App-polling with Low-complexity callback:
-7776ns
-5638ns
-
-App-polling with no callback:
-
-Latency seen at callback:
 
 
 # SYNC Chained Operation Latency
@@ -284,3 +493,8 @@ Mar 15 15:57:26 sapphire.ittc.ku.edu qatmgr[167808]: section 11, BDF F30A
 Mar 15 15:57:26 sapphire.ittc.ku.edu systemd[1]: Started QAT service.
 Mar 15 15:57:26 sapphire.ittc.ku.edu qatmgr[167808]: Detected DC configuration
 (base) n869p538@sapphire:interrupt_qat_dc$ sudo modprobe qat_4xxx
+
+TODO:
+====
+Could have driven up userspace op submit time:
+https://vscode.dev/github/neel-patel-1/qatlib/blob/sw_chained_dcc/quickassist/lookaside/access_layer/src/common/compression/dc_chain.c#L1381
