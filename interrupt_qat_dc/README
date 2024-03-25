@@ -3,30 +3,120 @@
 ./run.sh
 ./parse.sh
 
-Attempting to poll for the next ax in the chain in the callback function results in higher latency
+---
+Implicit batching performed by response ring poller (batch-devolve)
+(base) n869p538@sapphire:qatlib$ ./chaining_sample | tee respts.log.2
+(base) n869p538@sapphire:qatlib$ grep IDX respts.log.1 | awk '/IDX/{ if( $4 > sync_p ){ good+=1  } else { bad+=1 } ; sync_p=$7 } END{printf("%s\n", (bad)/(bad + good))}'
+0.90625
 
+---
+
+---
+Enc Throughput on Calgary For Different Synchronous Batch Sizes 256KB Payload Fragmented and Submitted Asynchronously w/ packets fwded in callback (origin/callback-enc)
+```
+(base) n869p538@sapphire:qatlib$ ./chaining_sample | tee enc-bw.log
+(base) n869p538@sapphire:qatlib$ grep -E -e '[0-9]+ [0-9]+' -e 'BW' enc-bw.log | awk '/[0-9]+ [0-9]+/{if(ctr > 0 ){printf("%f\n", sum/ctr);}; printf("%s,%s,",$1,$2); sum=0; avg=0;c
+tr=0} /BW/{sum+=$2;ctr+=1;} END{printf("%f\n", sum/ctr);}'
+```
+
+---
+Comp Throughput on Calgary For Different Synchronous Batch Sizes 256KB Payload Fragmented and Submitted Asynchronously w/ packets fwded in callback (origin/callback-comp)
+```
+./chaining_sample  | tee comp-bw.1
+grep -E -e '[0-9]+,[0-9]+' -e 'BW' comp-bw.1 | awk '/[0-9]+,[0-9]+/{if(ctr > 0 ){printf("%f\n", sum/ctr);}; printf("%s,",$1); sum=0; avg=0;ctr=0} /BW/{sum+=$2;ctr+=1;} END{printf("%f\n", sum/ctr);}'
+```
+---
+
+
+Chained Throughput on Calgary For Different Synchronous Batch Sizes 256KB Payload Fragmented and Submitted Asynchronously w/ packets fwded in callback (origin/call-back-batch-synchronization)
+```
+./chaining_sample  >& chained-comp-enc-bw.1
+grep -E -e '[0-9]+ [0-9]+' -e 'BW' chained-bw.log | awk '/[0-9]+ [0-9]+/{if(ctr > 0 ){printf("%f\n", sum/ctr);}; printf("%s,%s,",$1,$2); sum=0; avg=0;ctr=0} /BW/{sum+=$2;ctr+=1;} END{printf("%f\n", sum/ctr);}'
+```
+
+Encryption Throughput On Calgary For Different Synchronous Batch Sizes 256KB Payload Fragmented and Submitted Asynchronously (origin/enc-serialized-individual)
+ ```
+./chaining_sample | tee enc_serial.log
+ grep -E -e '[0-9]+,[0-9]+' -e 'DC-BW' enc_serial.log | awk '/[0-9]+,[0-9]+/{if(ctr > 0 ){printf("%f\n", sum/ctr);}; printf("%s,",$1); sum=0; avg=0;ctr=0} /DC/{sum+=$2;ctr+=1;} END{printf("%f\n", sum/ctr);}' > enc_serialized.txt
+./chaining_sample  | tee sync_enc_serial.log
+```
+
+---
+Compression Throughput On Calgary For Different Synchronous Batch Sizes 256KB Payload Fragmented and Submitted Asynchronously (origin/comp-only)
+```
+./chaining_sample | tee serialized-bw.log
+# FragmentSize, numFragments, BW(MB/s)
+grep -E -e '[0-9]+,[0-9]+' -e 'DC-BW' serialized-bw.log | awk '/[0-9]+,[0-9]+/{if(ctr > 0 ){printf("%f\n", sum/ctr);}; printf("%s,",$1); sum=0; avg=0;ctr=0} /DC/{sum+=$2;ctr+=1;} END{printf("%f\n", sum/ctr);}' > serialized.txt
+```
+---
+
+---
+Just Compression Throughput(comp-only)
+```
+(base) n869p538@sapphire:qatlib$ git branch comp-only
+(base) n869p538@sapphire:qatlib$ sudo make samples -j
+(base) n869p538@sapphire:qatlib$ ./.libs/chaining_sample
+DC-BW(MB/s): 1087
+DC-BW(MB/s): 1089
+DC-BW(MB/s): 1084
+```
+
+----
+AES+SHA Penalty Factor(hash-pen-factor)
+
+```sh
+(base) n869p538@sapphire:qatlib$ cat /etc/sysconfig/qat
+# Comment or remove next line to disable sriov
+#SRIOV_ENABLE=1
+POLICY=1
+ServicesEnabled=sym;dc
+(base) n869p538@sapphire:qatlib$ sudo systemctl restart qat
+
+./cpa_sample_code runTests=1 | tee aes_sha_async_sync_enc.log
+grep -e 'Throughput' aes_sha_async_sync_enc.log  | awk '{print $2}' | tee txt
+# prints sync bandwidths, then async bandwidths for sizes 1KB-256KB
+```
+
+----
+
+----
+Penalty Factor Using Comp BW Comparison Using Async Comp Throughput: (comp_pen_factor)
+./cpa_sample_code runTests=32 | tee async_comp.log
+grep -e 'Throughput' async_comp.log  | awk '{print $2}'
+----
+
+----
 Chained Hash then Compress Throughput single inst for each functino (hash_comp_pipeline_throughput)
 (base) n869p538@sapphire:qatlib$ ./.libs/chaining_sample
-LOW BANDWIDTH: Only using two CPUs, but have two poller threads and a requestor thread
+----
 
-HASHING THROUGHPUT( pipeline_payload_throughput)
-===
-(base) n869p538@sapphire:qatlib$ ./chaining_sample
-We observe between 30-52GB/s hashing throughput using SHA256 and hashing 64 8KB buffers populated with calgary corpus data
+---
+Polling thread Hashing throughput: hash_only_throughput 
+When polling for responses on a separate thread, we observe ~1GB/s bandwidth, though this is much lower than the throughput reported in `pipeline_payload_throughput`
+What is the difference in these setups? (Hypo is that pipeline_payload_throughput is buggy, we expect ~8000Mbit/s bw)
+```
+BW(MB/s): 1165
+BW(MB/s): 1166
+```
+---
 
-
+---
 SYNC_BANDWIDTH_SWEEP (branch max_bandwidth_multi_inst_sync_vs_async)
 ===
 ./cpa_sample runTests=32
+---
 
 
+---
 Max Achievable Bandwidth Per Instance (branch: max_throughput_single_inst)
 ===
 sudo ./cpa_sample_code runTests=1
 
 sudo ./cpa_sample_code runTests=32
 grep -e Direction -e Packet -e Throughput dec_max_band.log
+---
 
+---
 Host-Managed SW Chaining Performance: (branch: sw_chained_request_population_and_submission_brkdown)
 ====
 ./run_sw_hash_and_compress.sh
@@ -45,6 +135,7 @@ Sym-Average time to submit request: 90.000000
 Sym-Average time to create request: 270.000000
 DC-Average time to submit request: 110.000000
 DC-Average time to create request: 160.000000
+---
 
 
 Observations:
